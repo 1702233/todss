@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class Picture {
+	
+	private int ID;
 	private String url;
 
 	private Teacher teacher;
@@ -13,6 +15,25 @@ public class Picture {
 		this.url = url;
 		this.teacher = teacher;
 		this.cardside = cardside;
+	}
+	
+	
+
+	public Picture(int iD, String url, Teacher teacher) {
+		super();
+		ID = iD;
+		this.url = url;
+		this.teacher = teacher;
+	}
+
+
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public String getUrl() {

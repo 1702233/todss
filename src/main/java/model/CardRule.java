@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CardRule {
 
+	private int ID;
 	private String type;
 	private boolean isDraggable;
 	private String group;
@@ -11,14 +12,23 @@ public class CardRule {
 	private Minigame minigame;
 	private ArrayList<CardAssignment> allCardAssignments;
 
-	public CardRule(String type, boolean isDraggable, String group, Minigame minigame,
+	public CardRule(int iD, String type, boolean isDraggable, String group, Minigame minigame,
 			ArrayList<CardAssignment> allCardAssignments) {
 		super();
+		ID = iD;
 		this.type = type;
 		this.isDraggable = isDraggable;
 		this.group = group;
 		this.minigame = minigame;
 		this.allCardAssignments = allCardAssignments;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public String getType() {

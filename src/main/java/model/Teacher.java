@@ -21,6 +21,20 @@ public class Teacher {
 		this.allCardsets = allCardsets;
 		this.allArrangementen = allArrangementen;
 	}
+	
+	
+
+	public Teacher(String username, String password, ArrayList<Picture> allPictures, ArrayList<Minigame> allMinigames,
+			ArrayList<Cardset> allCardsets) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.allPictures = allPictures;
+		this.allMinigames = allMinigames;
+		this.allCardsets = allCardsets;
+	}
+
+
 
 	public String getUsername() {
 		return username;

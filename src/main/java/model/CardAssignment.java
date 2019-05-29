@@ -1,16 +1,27 @@
 package model;
 
 public class CardAssignment {
+
+	private int ID;
 	private int rank;
 
 	private Card card;
 	private CardRule cardRule;
 
-	public CardAssignment(int rank, Card card, CardRule cardRule) {
+	public CardAssignment(int iD, int rank, Card card, CardRule cardRule) {
 		super();
+		ID = iD;
 		this.rank = rank;
 		this.card = card;
 		this.cardRule = cardRule;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public int getRank() {
