@@ -8,7 +8,7 @@ public class Minigame {
 	private boolean cardsOpened;
 	private String omschrijving;
 
-	private ArrayList<Beoordeling> allBeoordelingen;
+	private ArrayList<Grade> allBeoordelingen;
 	private Teacher teacher;
 	private Cardset cardset;
 	private ArrayList<CardRule> cardRules;
@@ -16,7 +16,7 @@ public class Minigame {
 	private ArrayList<Result> allResults;
 
 	public Minigame(int id, String name, boolean cardsOpened, String omschrijving,
-			ArrayList<Beoordeling> allBeoordelingen, Teacher teacher, Cardset cardset, ArrayList<CardRule> cardRules,
+			ArrayList<Grade> allBeoordelingen, Teacher teacher, Cardset cardset, ArrayList<CardRule> cardRules,
 			ArrayList<Tag> allTags, ArrayList<Result> allResults) {
 		super();
 		this.id = id;
@@ -77,11 +77,11 @@ public class Minigame {
 		this.omschrijving = omschrijving;
 	}
 
-	public ArrayList<Beoordeling> getAllBeoordelingen() {
+	public ArrayList<Grade> getAllBeoordelingen() {
 		return allBeoordelingen;
 	}
 
-	public void setAllBeoordelingen(ArrayList<Beoordeling> allBeoordelingen) {
+	public void setAllBeoordelingen(ArrayList<Grade> allBeoordelingen) {
 		this.allBeoordelingen = allBeoordelingen;
 	}
 

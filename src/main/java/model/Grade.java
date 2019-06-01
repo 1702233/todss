@@ -1,11 +1,11 @@
 package model;
 
-public class Beoordeling {
+public class Grade {
 
 	private int cijfer;
 	private Minigame minigame;
 
-	public Beoordeling(int cijfer, Minigame minigame) {
+	public Grade(int cijfer, Minigame minigame) {
 		super();
 		this.cijfer = cijfer;
 		this.minigame = minigame;

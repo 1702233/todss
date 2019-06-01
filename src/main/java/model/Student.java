@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 public class Student {
 
+	private int ID;
 	private String name;
 	private ArrayList<Result> allResults;
 	private Session session;
 	
-	public Student(String name, ArrayList<Result> allResults, Session session) {
+
+	
+	public Student(int iD, String name, ArrayList<Result> allResults, Session session) {
 		super();
+		ID = iD;
 		this.name = name;
 		this.allResults = allResults;
 		this.session = session;
@@ -34,6 +38,14 @@ public class Student {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
 	

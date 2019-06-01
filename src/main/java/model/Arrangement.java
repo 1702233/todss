@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Arrangement {
 
+	private int ID;
 	private String name;
 	private String omschrijving;
 
@@ -12,15 +13,26 @@ public class Arrangement {
 	private ArrayList<Session> allSessions;
 	private ArrayList<Tag> allTags;
 
-	public Arrangement(String name, String omschrijving, ArrayList<Minigame> allMinigames, Teacher teacher,
+
+
+	public Arrangement(int iD, String name, String omschrijving, ArrayList<Minigame> allMinigames, Teacher teacher,
 			ArrayList<Session> allSessions, ArrayList<Tag> allTags) {
 		super();
+		ID = iD;
 		this.name = name;
 		this.omschrijving = omschrijving;
 		this.allMinigames = allMinigames;
 		this.teacher = teacher;
 		this.allSessions = allSessions;
 		this.allTags = allTags;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public String getName() {

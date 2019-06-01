@@ -2,12 +2,11 @@ package persistance;
 
 import java.util.ArrayList;
 
-import model.Minigame;
+import model.Result;
 
 public interface ResultDao {
 
-	public ArrayList<Minigame> findByMinigame(int ID);
-	public boolean saveMinigame(Minigame minigame);
-	public boolean updateMinigame(Minigame minigame);
-	public boolean deleteMinigame(int ID);
+	public ArrayList<Result> findByMinigame(int ID);
+	public ArrayList<Result> findByStudent (int ID);
+	public boolean saveResult(Result result);
 }
