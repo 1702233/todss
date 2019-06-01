@@ -13,6 +13,7 @@ import model.Student;
 
 public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDao {
 
+	anus
 	StudentPostgresDaoImpl sDao = new StudentPostgresDaoImpl();
 	ArrangementPostgresDaoImpl aDao = new ArrangementPostgresDaoImpl();
 	
