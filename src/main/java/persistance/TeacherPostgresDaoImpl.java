@@ -118,7 +118,4 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 			return false;
 		}
 	}
-
-
-
 }

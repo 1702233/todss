@@ -57,7 +57,7 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 	public boolean savePicture(Picture picture) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO PICTURE (ID, ULR, TEACHERUSERNAME) VALUES (?, ?, ?);";
+			String query = "INSERT INTO PICTURE (ID, URL, TEACHERUSERNAME) VALUES (?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, picture.getID());
 			pstmt.setString(2, picture.getUrl());
