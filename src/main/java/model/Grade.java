@@ -2,21 +2,31 @@ package model;
 
 public class Grade {
 
-	private int cijfer;
+	private int ID;
+	private int grade;
 	private Minigame minigame;
 
-	public Grade(int cijfer, Minigame minigame) {
+	public Grade(int iD, int grade, Minigame minigame) {
 		super();
-		this.cijfer = cijfer;
+		ID = iD;
+		this.grade = grade;
 		this.minigame = minigame;
 	}
 
-	public int getCijfer() {
-		return cijfer;
+	public int getID() {
+		return ID;
 	}
 
-	public void setCijfer(int cijfer) {
-		this.cijfer = cijfer;
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public Minigame getMinigame() {
