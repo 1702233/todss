@@ -23,7 +23,7 @@ public class MinigameResource {
 	}
 	
 	@GET
-	@Path("id")
+	@Path("{id}")
 	@Produces("application/json")
 	public Minigame getMinigameByID(@PathParam("id") int ID) {
 		MinigameService service = MinigameServiceProvider.getMinigameService();
