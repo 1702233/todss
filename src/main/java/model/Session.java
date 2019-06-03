@@ -8,7 +8,6 @@ public class Session {
 	private String code;
 	private Date startDate;
 	private Date endDate;
-	private ArrayList<Student> allStudents;
 	private Arrangement arrangement;
 	
 	public Session(String code, Date startDate, Date endDate, ArrayList<Student> allStudents, Arrangement arrangement) {
@@ -16,7 +15,6 @@ public class Session {
 		this.code = code;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.allStudents = allStudents;
 		this.arrangement = arrangement;
 	}
 	
@@ -38,14 +36,6 @@ public class Session {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public ArrayList<Student> getAllStudents() {
-		return allStudents;
-	}
-
-	public void setAllStudents(ArrayList<Student> allStudents) {
-		this.allStudents = allStudents;
 	}
 
 	public Arrangement getArrangement() {

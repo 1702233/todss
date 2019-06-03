@@ -3,14 +3,11 @@ package model;
 public class Tag {
 
 	private String tag;
-	private Minigame minigame;
 
 
-	public Tag(String tag, Minigame minigame) {
+	public Tag(String tag) {
 		super();
 		this.tag = tag;
-		this.minigame = minigame;
-
 	}
 
 	public String getTag() {
@@ -20,14 +17,5 @@ public class Tag {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-
-	public Minigame getMinigame() {
-		return minigame;
-	}
-
-	public void setMinigame(Minigame minigame) {
-		this.minigame = minigame;
-	}
-
 
 }

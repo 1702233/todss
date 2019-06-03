@@ -3,29 +3,21 @@ package model;
 public class Card {
 
 	private int ID;
-	private Cardside voorkant;
-	private Cardside achterkant;
-	private Cardset cardset;
-	private CardAssignment cardAssignment;
+	private Cardside frontside;
+	private Cardside backside;
 
-	public Card(Cardside voorkant, Cardside achterkant, Cardset cardset, CardAssignment cardAssignment, int iD) {
+	public Card(Cardside voorkant, Cardside achterkant, int iD) {
 		super();
-		this.voorkant = voorkant;
-		this.achterkant = achterkant;
-		this.cardset = cardset;
-		this.cardAssignment = cardAssignment;
+		this.frontside = voorkant;
+		this.backside = achterkant;
 		ID = iD;
 	}
 
-	public Card(Cardside voorkant, Cardside achterkant, Cardset cardset, CardAssignment cardAssignment) {
+	public Card(Cardside voorkant, Cardside achterkant) {
 		super();
-		this.voorkant = voorkant;
-		this.achterkant = achterkant;
-		this.cardset = cardset;
-		this.cardAssignment = cardAssignment;
+		this.frontside = voorkant;
+		this.backside = achterkant;
 	}
-
-	
 
 	public int getID() {
 		return ID;
@@ -35,36 +27,20 @@ public class Card {
 		ID = iD;
 	}
 
-	public Cardside getVoorkant() {
-		return voorkant;
+	public Cardside getFrontside() {
+		return frontside;
 	}
 
-	public void setVoorkant(Cardside voorkant) {
-		this.voorkant = voorkant;
+	public void setFrontside(Cardside voorkant) {
+		this.frontside = voorkant;
 	}
 
-	public Cardside getAchterkant() {
-		return achterkant;
+	public Cardside getBackside() {
+		return backside;
 	}
 
-	public void setAchterkant(Cardside achterkant) {
-		this.achterkant = achterkant;
-	}
-
-	public Cardset getCardset() {
-		return cardset;
-	}
-
-	public void setCardset(Cardset cardset) {
-		this.cardset = cardset;
-	}
-
-	public CardAssignment getCardAssignment() {
-		return cardAssignment;
-	}
-
-	public void setCardAssignment(CardAssignment cardAssignment) {
-		this.cardAssignment = cardAssignment;
+	public void setBackside(Cardside achterkant) {
+		this.backside = achterkant;
 	}
 
 }

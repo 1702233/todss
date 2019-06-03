@@ -4,13 +4,11 @@ public class Grade {
 
 	private int ID;
 	private int grade;
-	private Minigame minigame;
 
-	public Grade(int iD, int grade, Minigame minigame) {
+	public Grade(int iD, int grade) {
 		super();
 		ID = iD;
 		this.grade = grade;
-		this.minigame = minigame;
 	}
 
 	public int getID() {
@@ -28,13 +26,4 @@ public class Grade {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-
-	public Minigame getMinigame() {
-		return minigame;
-	}
-
-	public void setMinigame(Minigame minigame) {
-		this.minigame = minigame;
-	}
-
 }
