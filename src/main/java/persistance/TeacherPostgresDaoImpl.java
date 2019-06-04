@@ -12,35 +12,23 @@ import model.Picture;
 import model.Teacher;
 
 public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDao{
-
-	MinigamePostgresDaoImpl mDao = new MinigamePostgresDaoImpl();
-	CardsetPostgresDaoImpl cDao = new CardsetPostgresDaoImpl();
-	PicturePostgresDaoImpl pDao = new PicturePostgresDaoImpl();
 	
 	public ArrayList<Teacher> queryExecutor(String query){
 		ArrayList<Teacher> results = new ArrayList<Teacher>();
-
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { 
-				
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 
-				ArrayList<Minigame> allMinigames = mDao.findByTeacher(username);
-				ArrayList<Cardset> allCardsets = cDao.findByTeacher(username);
-				ArrayList<Picture> allPictures = pDao.findByTeacher(username);
-
-				Teacher newTeacher = new Teacher(username, password, allPictures, allMinigames, allCardsets);
-
+				Teacher newTeacher = new Teacher(username, password);
 				results.add(newTeacher);
 
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
-
 		return results; // return de lijst
 	}
 	@Override
@@ -50,7 +38,8 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 	
 	@Override
 	public Teacher findByUsername(String username) {
-		return queryExecutor("SELECT * FROM TEACHER WHERE USERNAME = " + username + ";").get(0);
+		//return queryExecutor("SELECT * FROM TEACHER WHERE \"username\" = " + username + ";").get(0);
+		return queryExecutor("SELECT * FROM public.teacher where username = '" + username + "';").get(0);
 	}
 
 	@Override

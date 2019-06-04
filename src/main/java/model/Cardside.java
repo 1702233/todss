@@ -5,15 +5,6 @@ public class Cardside {
 	private int ID;
 	private String tekst;
 	private Picture picture;
-	private Card card;
-
-	public Cardside(int iD, String tekst, Picture picture, Card card) {
-		super();
-		ID = iD;
-		this.tekst = tekst;
-		this.picture = picture;
-		this.card = card;
-	}
 
 	public Cardside(int iD, String tekst, Picture picture) {
 		super();
@@ -44,14 +35,6 @@ public class Cardside {
 
 	public void setPicture(Picture picture) {
 		this.picture = picture;
-	}
-
-	public Card getCard() {
-		return card;
-	}
-
-	public void setCard(Card card) {
-		this.card = card;
 	}
 
 }

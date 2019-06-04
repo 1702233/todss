@@ -11,7 +11,7 @@ public interface CardRuleDao {
 	public ArrayList<CardRule> findByMinigame(int minigameID);
 	public CardRule findByID(int ID);
 	
-	public boolean saveCardRules(CardRule cardRule);
-	public boolean updateCardRule(CardRule cardRule);
+	public boolean saveCardRules(CardRule cardRule, int minigameID);
+	public boolean updateCardRule(CardRule cardRule, int minigameID);
 	public boolean deleteCardRule(int ID);
 }

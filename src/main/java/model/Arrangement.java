@@ -4,83 +4,59 @@ import java.util.ArrayList;
 
 public class Arrangement {
 
-	private int ID;
-	private String name;
-	private String omschrijving;
+    private int ID;
+    private String name;
+    private String description;
+    private ArrayList<Minigame> allMinigames;
+    private Teacher teacher;
 
-	private ArrayList<Minigame> allMinigames;
-	private Teacher teacher;
-	private ArrayList<Session> allSessions;
-	private ArrayList<Tag> allTags;
+    public Arrangement(int iD, String name, String description, ArrayList<Minigame> allMinigames, Teacher teacher) {
+        super();
+        ID = iD;
+        this.name = name;
+        this.description = description;
+        this.allMinigames = allMinigames;
+        this.teacher = teacher;
+    }
 
+    public int getID() {
+        return ID;
+    }
 
+    public void setID(int iD) {
+        ID = iD;
+    }
 
-	public Arrangement(int iD, String name, String omschrijving, ArrayList<Minigame> allMinigames, Teacher teacher,
-			ArrayList<Session> allSessions, ArrayList<Tag> allTags) {
-		super();
-		ID = iD;
-		this.name = name;
-		this.omschrijving = omschrijving;
-		this.allMinigames = allMinigames;
-		this.teacher = teacher;
-		this.allSessions = allSessions;
-		this.allTags = allTags;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getID() {
-		return ID;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setID(int iD) {
-		ID = iD;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public ArrayList<Minigame> getAllMinigames() {
+        return allMinigames;
+    }
 
-	public String getOmschrijving() {
-		return omschrijving;
-	}
+    public void setAllMinigames(ArrayList<Minigame> allMinigames) {
+        this.allMinigames = allMinigames;
+    }
 
-	public void setOmschrijving(String omschrijving) {
-		this.omschrijving = omschrijving;
-	}
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
-	public ArrayList<Minigame> getAllMinigames() {
-		return allMinigames;
-	}
-
-	public void setAllMinigames(ArrayList<Minigame> allMinigames) {
-		this.allMinigames = allMinigames;
-	}
-
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
-	public ArrayList<Session> getAllSessions() {
-		return allSessions;
-	}
-
-	public void setAllSessions(ArrayList<Session> allSessions) {
-		this.allSessions = allSessions;
-	}
-
-	public ArrayList<Tag> getAllTags() {
-		return allTags;
-	}
-
-	public void setAllTags(ArrayList<Tag> allTags) {
-		this.allTags = allTags;
-	}
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
 }

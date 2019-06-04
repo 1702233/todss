@@ -7,6 +7,6 @@ import model.Grade;
 public interface GradeDao {
 
 	public ArrayList<Grade> findByMinigame(int ID);
-	public boolean saveGrade(Grade grade);
+	public boolean saveGrade(Grade grade, int minigameID);
 	public boolean deleteGrade(int ID); 
 }

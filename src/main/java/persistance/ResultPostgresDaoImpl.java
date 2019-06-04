@@ -33,7 +33,7 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 				Minigame minigame = mDao.findByID(minigameID);
 				Student student = sDao.findByID(studentID);
 
-				Result newResult = new Result(startTime, endTime, student, minigame);
+				Result newResult = new Result(startTime, endTime, student);
 
 				results.add(newResult);
 
@@ -56,13 +56,13 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 	}
 
 	@Override
-	public boolean saveResult(Result result) {
+	public boolean saveResult(Result result, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO RESULT (STUDENTID, MINIGAME, STARTTIME, ENDTIME) VALUES (?, ?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, result.getStudent().getID());
-			pstmt.setInt(2, result.getMinigame().getId());
+			pstmt.setInt(2, minigameID);
 			pstmt.setDate(3, result.getStart());
 			pstmt.setDate(3, result.getEnd());
 

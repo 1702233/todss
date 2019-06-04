@@ -1,3 +1,17 @@
+(function init(){
+	console.log("starting");
+	var fetchoptionsGet = { 
+	        method : 'GET'
+	    }
+	
+	fetch("gamechane/minigames")
+    .then(response => response.json())
+    .then(function(myJson) {
+    	console.log(myJson);
+    })
+	
+})();
+
 const cards = document.querySelectorAll('.memory-card');
 
 let hasFlippedCard = false;

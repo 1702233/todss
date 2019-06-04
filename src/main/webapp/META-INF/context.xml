@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
  <Resource name="jdbc/PostgresDS"
- url="jdbc:postgresql://localhost:5432/todss"
+ url="jdbc:postgresql://localhost:5433/gamechane"
  driverClassName="org.postgresql.Driver"
  auth="Container"
  type="javax.sql.DataSource"
- username="postgres2"
- password="secret" />
+ username="postgres"
+ password="postgres" />
 </Context>
