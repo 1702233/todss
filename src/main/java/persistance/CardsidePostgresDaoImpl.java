@@ -14,7 +14,6 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	
 	public ArrayList<Cardside> queryExecutor(String query){
 		ArrayList<Cardside> results = new ArrayList<Cardside>();
-
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -23,11 +22,8 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 				int cardsideID = rs.getInt("ID");
 				String tekst = rs.getString("tekst");
 				int pictureID = rs.getInt("pictureid");
-				
 				Picture picture = pDao.findById(pictureID);
-				
 				Cardside newCardside = new Cardside(cardsideID, tekst, picture);
-
 				results.add(newCardside);
 
 			}
@@ -45,7 +41,7 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	
 	@Override
 	public Cardside findByID(int ID) {
-		return queryExecutor("SELECT * FROM CARDSIDE WHERE ID = " + ID +";").get(0);
+		return queryExecutor("SELECT * FROM CARDSIDE WHERE \"ID\" = '" + ID +"';").get(0);
 	}
 
 	@Override

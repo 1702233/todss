@@ -13,7 +13,6 @@ import model.CardRule;
 public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements CardAssignmentDao {
 
     CardPostgresDaoImpl cDao = new CardPostgresDaoImpl();
-    CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
 
     public ArrayList<CardAssignment> queryExecutor(String query){
         ArrayList<CardAssignment> results = new ArrayList<CardAssignment>();
@@ -27,9 +26,8 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
                 int cardID = rs.getInt("cardid");
 
                 Card card = cDao.findById(cardID);
-                CardRule cardRule = crDao.findByID(cardRuleID);
 
-                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card, cardRule);
+                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card);
 
                 results.add(newCardAssignment);
 
@@ -54,7 +52,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
-        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE CARDRULEID = " + ID + ";");
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"CARDRULEID\" = '" + ID + "';");
     }
 
 

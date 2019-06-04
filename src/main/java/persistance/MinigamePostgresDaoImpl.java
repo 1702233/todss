@@ -25,17 +25,28 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
+				String omschrijving;
 				int minigameID = rs.getInt("ID");
 				String name = rs.getString("name");
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
-				String omschrijving = rs.getString("omschrijving");
+				
+				try {
+					omschrijving = rs.getString("omschrijving");
+				} catch(Exception e){
+					omschrijving = "";
+					
+				}
 				String teacherName = rs.getString("teachername");
-				int cardsetID = rs.getInt("cardset");
-
+				System.out.println(1);
+				
+				int cardsetID = rs.getInt("cardsetID");
+				System.out.println(2);
 				Teacher teacher = tDao.findByUsername(teacherName);
+				System.out.println(3);
 				Cardset cardset = csDao.findByID(cardsetID);
+				System.out.println(4);
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
-
+				System.out.println(5);
 				Minigame newMinigame = new Minigame(minigameID, name, cardsOpened, omschrijving, teacher, cardset,
 						cardrules);
 
