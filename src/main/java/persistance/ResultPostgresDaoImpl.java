@@ -33,7 +33,7 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 				Minigame minigame = mDao.findByID(minigameID);
 				Student student = sDao.findByID(studentID);
 
-				Result newResult = new Result(startTime, endTime, student, minigame);
+				Result newResult = new Result(startTime, endTime, student);
 
 				results.add(newResult);
 
