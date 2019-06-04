@@ -13,7 +13,7 @@ import model.Cardside;
 
 
 public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
-	
+
 	private CardAssignmentPostgresDaoImpl caDao = new CardAssignmentPostgresDaoImpl();
 	private CardsetPostgresDaoImpl csetDao = new CardsetPostgresDaoImpl();
 	private CardsidePostgresDaoImpl csDao = new CardsidePostgresDaoImpl();
@@ -73,8 +73,7 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 			pstmt.setInt(2, card.getFrontside().getID());
 			pstmt.setInt(3, card.getBackside().getID());
 			pstmt.setInt(4, cardsetID);
-			
-			
+				
 			queryResult = pstmt.executeUpdate();
 		}
 		catch(SQLException sqe) {
@@ -93,13 +92,13 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	public boolean updateCard(Card card, int cardsetID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "UPDATE CARD SET \"VOORKANT\"= ?, \"ACHTERKANT\"= ?, \"CARDSETID\"= ? WHERE \"ID\"= ?;"; //bewerk een afgeronde taak
+			String query = "UPDATE CARD SET 'VOORKANT'= ?, 'ACHTERKANT'= ?, 'CARDSETID'= ? WHERE 'ID'= ?;"; //bewerk een afgeronde taak
 			PreparedStatement pstmt = con.prepareStatement(query);
+			
 			pstmt.setInt(1, card.getID());
 			pstmt.setInt(2, card.getFrontside().getID());
 			pstmt.setInt(3, card.getBackside().getID());
 			pstmt.setInt(4, cardsetID);
-			
 
 			queryResult = pstmt.executeUpdate();
 		}
@@ -119,7 +118,7 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	public boolean deleteCard(int ID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "DELETE FROM CARD WHERE \"ID\" = ?;"; 
+			String query = "DELETE FROM CARD WHERE 'ID' = ?;"; 
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, ID);
 
