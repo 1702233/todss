@@ -6,14 +6,13 @@ public class CardAssignment {
     private int rank;
 
     private Card card;
-    private CardRule cardRule;
+
 
     public CardAssignment(int iD, int rank, Card card, CardRule cardRule) {
         super();
         ID = iD;
         this.rank = rank;
         this.card = card;
-        this.cardRule = cardRule;
     }
 
     public int getID() {
@@ -40,12 +39,5 @@ public class CardAssignment {
         this.card = card;
     }
 
-    public CardRule getCardRule() {
-        return cardRule;
-    }
-
-    public void setCardRule(CardRule cardRule) {
-        this.cardRule = cardRule;
-    }
 
 }

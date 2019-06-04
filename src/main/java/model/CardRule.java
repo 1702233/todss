@@ -8,15 +8,15 @@ public class CardRule {
     private String type;
     private boolean isDraggable;
     private String group;
-    private ArrayList<Card> cards;
+    private ArrayList<CardAssignment> cardAssignments;
 
-    public CardRule(int iD, String type, boolean isDraggable, String group, ArrayList<Card> cards) {
+    public CardRule(int iD, String type, boolean isDraggable, String group, ArrayList<CardAssignment> cardAssignments) {
         super();
         ID = iD;
         this.type = type;
         this.isDraggable = isDraggable;
         this.group = group;
-        this.cards = cards;
+        this.cardAssignments = cardAssignments;
     }
 
     public int getID() {
@@ -51,11 +51,13 @@ public class CardRule {
         this.group = group;
     }
 
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
+	public ArrayList<CardAssignment> getCardAssignments() {
+		return cardAssignments;
+	}
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
+	public void setCardAssignments(ArrayList<CardAssignment> cardAssignments) {
+		this.cardAssignments = cardAssignments;
+	}
+
+
 }

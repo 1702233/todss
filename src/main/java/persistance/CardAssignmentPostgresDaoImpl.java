@@ -60,12 +60,12 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
 
 
     @Override
-    public boolean saveCardAssignment(CardAssignment cardAssignment) {
+    public boolean saveCardAssignment(CardAssignment cardAssignment, int cardruleID) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
             String query = "INSERT INTO CARDASSIGNMENT (CARDRULEID, RANK, CARDID) VALUES (?, ?, ?);";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cardAssignment.getCardRule().getID());
+            pstmt.setInt(1, cardruleID);
             pstmt.setInt(2, cardAssignment.getRank());
             pstmt.setInt(3, cardAssignment.getCard().getID());
 
@@ -83,12 +83,12 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     }
 
     @Override
-    public boolean updateCardAssignment(CardAssignment cardAssignment) {
+    public boolean updateCardAssignment(CardAssignment cardAssignment, int cardruleID) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
             String query = "UPDATE CARDASSIGNMENT SET \"CARDRULEID\" = ?, \"RANK\" = ?, \"CARDID\" = ? WHERE \"ID\" = ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cardAssignment.getCardRule().getID());
+            pstmt.setInt(1, cardruleID);
             pstmt.setInt(2, cardAssignment.getRank());
             pstmt.setInt(3, cardAssignment.getCard().getID());
             pstmt.setInt(4, cardAssignment.getID());

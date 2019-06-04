@@ -32,7 +32,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 				Minigame minigame = mDao.findByID(minigameID);
 				ArrayList<CardAssignment> CardAssignments = cDao.findByCardRuleID(ID);
 
-				CardRule newCardRule = new CardRule(ID, type, isDraggable, group, minigame, CardAssignments);
+				CardRule newCardRule = new CardRule(ID, type, isDraggable, group, CardAssignments);
 
 				results.add(newCardRule);
 
@@ -60,7 +60,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 	}
 
 	@Override
-	public boolean saveCardRules(CardRule cardRule) {
+	public boolean saveCardRules(CardRule cardRule, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO CARDRULE (ID, TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?, ?);";
@@ -69,7 +69,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 			pstmt.setString(2, cardRule.getType());
 			pstmt.setBoolean(3, cardRule.isDraggable());
 			pstmt.setString(4, cardRule.getGroup());
-			pstmt.setInt(5, cardRule.getMinigame().getId());
+			pstmt.setInt(5, minigameID);
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
@@ -85,7 +85,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 	}
 
 	@Override
-	public boolean updateCardRule(CardRule cardRule) {
+	public boolean updateCardRule(CardRule cardRule, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "UPDATE CARDRULE SET \"TYPE\"= ?, \"ISDRAGGABLE\"= ?, \"GROUP\" = ?, \"MINIGAMEID\"= ? WHERE \"ID\"= ?;";
@@ -94,7 +94,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 			pstmt.setString(1, cardRule.getType());
 			pstmt.setBoolean(2, cardRule.isDraggable());
 			pstmt.setString(3, cardRule.getGroup());
-			pstmt.setInt(4, cardRule.getMinigame().getId());
+			pstmt.setInt(4, minigameID);
 			pstmt.setInt(5, cardRule.getID());
 
 			queryResult = pstmt.executeUpdate();
