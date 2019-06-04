@@ -13,14 +13,7 @@ import model.Cardside;
 
 
 public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
-<<<<<<< HEAD
-	
-	
-=======
 
-	private CardAssignmentPostgresDaoImpl caDao = new CardAssignmentPostgresDaoImpl();
-	private CardsetPostgresDaoImpl csetDao = new CardsetPostgresDaoImpl();
->>>>>>> branch 'master' of https://github.com/1702233/todss.git
 	private CardsidePostgresDaoImpl csDao = new CardsidePostgresDaoImpl();
 
 	public ArrayList<Card> queryExecutor(String query){
