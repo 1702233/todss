@@ -23,7 +23,7 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 			while (rs.next()) { 
 				int cardsetID = rs.getInt("ID");
 				String name = rs.getString("name");
-				String teacherName = rs.getString("teachername");
+				String teacherName = rs.getString("teacherName");
 				Teacher teacher = tDao.findByUsername(teacherName);
 				ArrayList<Card> cardsOfCardset = cDao.findCardsOfCardset(cardsetID);
 				
@@ -52,14 +52,15 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	
 	@Override
 	public ArrayList<Cardset> findByTeacher(String teacher) {
-		return queryExecutor("SELECT * FROM CARDSET WHERE \"TEACHERNAME\" = '" + teacher + "';");
+		System.out.println("teacher");
+		return queryExecutor("SELECT * FROM CARDSET WHERE \"teacherName\" = '" + teacher + "';");
 	}
 
 	@Override
 	public boolean saveCardset(Cardset cardset) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSET (NAME, TEACHERNAME) VALUES (?, ?);";
+			String query = "INSERT INTO CARDSET (NAME, teacherName) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 
 			pstmt.setString(1, cardset.getName());

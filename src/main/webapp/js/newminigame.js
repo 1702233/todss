@@ -1,7 +1,7 @@
 (function init(){
 	console.log("starting");
 	
-	fetch("gamechane/cardset")
+	fetch("gamechane/cardset/leraar1")
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);
