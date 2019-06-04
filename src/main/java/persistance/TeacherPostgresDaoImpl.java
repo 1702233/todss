@@ -28,11 +28,8 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 
-				ArrayList<Minigame> allMinigames = mDao.findByTeacher(username);
-				ArrayList<Cardset> allCardsets = cDao.findByTeacher(username);
-				ArrayList<Picture> allPictures = pDao.findByTeacher(username);
 
-				Teacher newTeacher = new Teacher(username, password, allPictures, allMinigames, allCardsets);
+				Teacher newTeacher = new Teacher(username, password);
 
 				results.add(newTeacher);
 

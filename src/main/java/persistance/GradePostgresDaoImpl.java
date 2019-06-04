@@ -26,7 +26,7 @@ public class GradePostgresDaoImpl extends PostgresBaseDao implements GradeDao {
 				
 				Minigame minigame = mDao.findByID(minigameID);
 
-				Grade newGrade = new Grade(ID, grade, minigame);
+				Grade newGrade = new Grade(ID, grade);
 
 				results.add(newGrade);
 
@@ -44,14 +44,14 @@ public class GradePostgresDaoImpl extends PostgresBaseDao implements GradeDao {
 	}
 
 	@Override
-	public boolean saveGrade(Grade grade) {
+	public boolean saveGrade(Grade grade, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO GRADE (ID, GRADE, MINIGAMEID) VALUES (?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, grade.getID());
 			pstmt.setInt(2, grade.getGrade());
-			pstmt.setInt(3, grade.getMinigame().getId());
+			pstmt.setInt(3, minigameID);
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

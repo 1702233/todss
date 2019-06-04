@@ -36,7 +36,7 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 				Cardside achterkant = csDao.findByID(achterkantID);
 				CardAssignment cardAssignment = caDao.findByCardID(cardID);
 				
-				Card newCard = new Card(voorkant, achterkant, cardset, cardAssignment);
+				Card newCard = new Card(voorkant, achterkant, cardID);
 
 				results.add(newCard);
 
@@ -64,15 +64,15 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 
 
 	@Override
-	public boolean saveCard(Card card) {
+	public boolean saveCard(Card card, int cardsetID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO CARD (ID, VOORKANT, ACHTERKANT, CARDSETID) VALUES (?, ?, ?, ?);"; //zet een nieuwe afgeronde taak in de database
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, card.getID());
-			pstmt.setInt(2, card.getVoorkant().getID());
-			pstmt.setInt(3, card.getAchterkant().getID());
-			pstmt.setInt(4, card.getCardset().getId());
+			pstmt.setInt(2, card.getFrontside().getID());
+			pstmt.setInt(3, card.getBackside().getID());
+			pstmt.setInt(4, cardsetID);
 			
 			
 			queryResult = pstmt.executeUpdate();
@@ -90,15 +90,15 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	}
 
 	@Override
-	public boolean updateCard(Card card) {
+	public boolean updateCard(Card card, int cardsetID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "UPDATE CARD SET \"VOORKANT\"= ?, \"ACHTERKANT\"= ?, \"CARDSETID\"= ? WHERE \"ID\"= ?;"; //bewerk een afgeronde taak
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, card.getVoorkant().getID());
-			pstmt.setInt(2, card.getAchterkant().getID());
-			pstmt.setInt(3, card.getCardset().getId());
-			pstmt.setInt(4, card.getID());
+			pstmt.setInt(1, card.getID());
+			pstmt.setInt(2, card.getFrontside().getID());
+			pstmt.setInt(3, card.getBackside().getID());
+			pstmt.setInt(4, cardsetID);
 			
 
 			queryResult = pstmt.executeUpdate();
