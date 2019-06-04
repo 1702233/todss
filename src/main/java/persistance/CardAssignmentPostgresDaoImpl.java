@@ -10,129 +10,120 @@ import model.Card;
 import model.CardAssignment;
 import model.CardRule;
 
-
 public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements CardAssignmentDao {
 
-	CardPostgresDaoImpl cDao = new CardPostgresDaoImpl();
-	CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
-	
-	public ArrayList<CardAssignment> queryExecutor(String query){
-		ArrayList<CardAssignment> results = new ArrayList<CardAssignment>();
+    CardPostgresDaoImpl cDao = new CardPostgresDaoImpl();
+    CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
 
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				int cardRuleID = rs.getInt("cardruleid");
-				int rank = rs.getInt("rank");
-				int cardID = rs.getInt("cardid");
+    public ArrayList<CardAssignment> queryExecutor(String query){
+        ArrayList<CardAssignment> results = new ArrayList<CardAssignment>();
 
-				Card card = cDao.findById(cardID);
-				CardRule cardRule = crDao.findByID(cardRuleID);
+        try (Connection con = super.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int cardRuleID = rs.getInt("cardruleid");
+                int rank = rs.getInt("rank");
+                int cardID = rs.getInt("cardid");
 
-				CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card, cardRule);
+                Card card = cDao.findById(cardID);
+                CardRule cardRule = crDao.findByID(cardRuleID);
 
-				results.add(newCardAssignment);
+                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card, cardRule);
 
-			}
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
+                results.add(newCardAssignment);
 
-		return results; // return de lijst
-	}
-	
-	@Override
-	public ArrayList<CardAssignment> findAllCardAssignments() {
-		return queryExecutor("SELECT * FROM CARDASSIGNMENT;");
-	}
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
 
-	@Override
-	public CardAssignment findByCardID(int ID) {
-		return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE ID = " + ID + ";").get(0);
-	}
-	
-	@Override
-	public ArrayList<CardAssignment> findByCardRuleID(int ID) {
-		// TODO Auto-generated method stub
-		return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE CARDRULEID = " + ID + ";");
-	}
-	
-	
-	
-	@Override
-	public boolean saveCardAssignment(CardAssignment cardAssignment) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDASSIGNMENT (CARDRULEID, RANK, CARDID) VALUES (?, ?, ?);";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardAssignment.getCardRule().getID());
-			pstmt.setInt(2, cardAssignment.getRank());
-			pstmt.setInt(3, cardAssignment.getCard().getID());
+        return results; // return de lijst
+    }
 
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
+    @Override
+    public ArrayList<CardAssignment> findAllCardAssignments() {
+        return queryExecutor("SELECT * FROM CARDASSIGNMENT;");
+    }
 
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public CardAssignment findByCardID(int ID) {
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE ID = " + ID + ";").get(0);
+    }
 
-	@Override
-	public boolean updateCardAssignment(CardAssignment cardAssignment) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "UPDATE CARDASSIGNMENT SET \"CARDRULEID\" = ?, \"RANK\" = ?, \"CARDID\" = ? WHERE \"ID\" = ?;";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardAssignment.getCardRule().getID());
-			pstmt.setInt(2, cardAssignment.getRank());
-			pstmt.setInt(3, cardAssignment.getCard().getID());
-			pstmt.setInt(4, cardAssignment.getID());
-
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
-
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean deleteCardAssignment(int ID) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "DELETE FROM CARDASSIGNMENT WHERE \"ID\" = ?;";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, ID);
-
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
-
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het verwijderen gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public ArrayList<CardAssignment> findByCardRuleID(int ID) {
+        // TODO Auto-generated method stub
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE CARDRULEID = " + ID + ";");
+    }
 
 
 
+    @Override
+    public boolean saveCardAssignment(CardAssignment cardAssignment) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "INSERT INTO CARDASSIGNMENT (CARDRULEID, RANK, CARDID) VALUES (?, ?, ?);";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, cardAssignment.getCardRule().getID());
+            pstmt.setInt(2, cardAssignment.getRank());
+            pstmt.setInt(3, cardAssignment.getCard().getID());
 
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
 
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    @Override
+    public boolean updateCardAssignment(CardAssignment cardAssignment) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "UPDATE CARDASSIGNMENT SET \"CARDRULEID\" = ?, \"RANK\" = ?, \"CARDID\" = ? WHERE \"ID\" = ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, cardAssignment.getCardRule().getID());
+            pstmt.setInt(2, cardAssignment.getRank());
+            pstmt.setInt(3, cardAssignment.getCard().getID());
+            pstmt.setInt(4, cardAssignment.getID());
 
-	
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
+
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteCardAssignment(int ID) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "DELETE FROM CARDASSIGNMENT WHERE \"ID\" = ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, ID);
+
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
+
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het verwijderen gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
