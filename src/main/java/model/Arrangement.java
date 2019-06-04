@@ -6,19 +6,17 @@ public class Arrangement {
 
     private int ID;
     private String name;
-    private String omschrijving;
+    private String description;
     private ArrayList<Minigame> allMinigames;
     private Teacher teacher;
-    private ArrayList<Tag> allTags;
 
-    public Arrangement(int iD, String name, String omschrijving, ArrayList<Minigame> allMinigames, Teacher teacher, ArrayList<Tag> allTags) {
+    public Arrangement(int iD, String name, String description, ArrayList<Minigame> allMinigames, Teacher teacher) {
         super();
         ID = iD;
         this.name = name;
-        this.omschrijving = omschrijving;
+        this.description = description;
         this.allMinigames = allMinigames;
         this.teacher = teacher;
-        this.allTags = allTags;
     }
 
     public int getID() {
@@ -37,12 +35,12 @@ public class Arrangement {
         this.name = name;
     }
 
-    public String getOmschrijving() {
-        return omschrijving;
+    public String getDescription() {
+        return description;
     }
 
-    public void setOmschrijving(String omschrijving) {
-        this.omschrijving = omschrijving;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public ArrayList<Minigame> getAllMinigames() {
@@ -59,14 +57,6 @@ public class Arrangement {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
-    }
-
-    public ArrayList<Tag> getAllTags() {
-        return allTags;
-    }
-
-    public void setAllTags(ArrayList<Tag> allTags) {
-        this.allTags = allTags;
     }
 
 }

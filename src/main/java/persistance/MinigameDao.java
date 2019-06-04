@@ -9,6 +9,7 @@ public interface MinigameDao {
 	public ArrayList<Minigame> findByName(String name);
 	public ArrayList<Minigame> findByTeacher(String teacher);
 	public Minigame findByID(int ID);
+	public ArrayList<Minigame> findByArrangementID(int ID);
 	public boolean saveMinigame(Minigame minigame);
 	public boolean updateMinigame(Minigame minigame);
 	public boolean deleteMinigame(int ID);

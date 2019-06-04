@@ -32,8 +32,8 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 				Cardset newCardset = new Cardset(cardsetID, name, teacher, cardsOfCardset);
 
 				results.add(newCardset);
-
 			}
+
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -43,7 +43,6 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 
 	@Override
 	public ArrayList<Cardset> findAllCardsets() {
-
 		return queryExecutor("SELECT * FROM CARDSET;");
 	}
 
@@ -57,7 +56,6 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	public ArrayList<Cardset> findByTeacher(String teacher) {
 		return queryExecutor("SELECT * FROM CARDSET WHERE TEACHERUSERNAME = " + teacher + ";");
 	}
-
 
 	@Override
 	public boolean saveCardset(Cardset cardset) {
