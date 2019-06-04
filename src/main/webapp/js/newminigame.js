@@ -1,3 +1,15 @@
+(function init(){
+	console.log("starting");
+	
+	fetch("gamechane/cardset")
+    .then(response => response.json())
+    .then(function(myJson) {
+    	console.log(myJson);
+    })
+	
+})();
+
+
 function soortselectie(soort) {
 	console.log("geselecteerde minigame soort = " + soort);
 	if (soort == "memory") {
