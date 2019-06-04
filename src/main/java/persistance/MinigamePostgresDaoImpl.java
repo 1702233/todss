@@ -73,7 +73,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public boolean saveMinigame(Minigame minigame) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO MINIGAME (ID, NAME, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?, ?);";
+			String query = "INSERT INTO MINIGAME (NAME, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?);";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, minigame.getId());

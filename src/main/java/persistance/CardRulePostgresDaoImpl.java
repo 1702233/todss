@@ -63,13 +63,13 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 	public boolean saveCardRules(CardRule cardRule, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDRULE (ID, TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?, ?);";
+			String query = "INSERT INTO CARDRULE (TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardRule.getID());
-			pstmt.setString(2, cardRule.getType());
-			pstmt.setBoolean(3, cardRule.isDraggable());
-			pstmt.setString(4, cardRule.getGroup());
-			pstmt.setInt(5, minigameID);
+
+			pstmt.setString(1, cardRule.getType());
+			pstmt.setBoolean(2, cardRule.isDraggable());
+			pstmt.setString(3, cardRule.getGroup());
+			pstmt.setInt(4, minigameID);
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

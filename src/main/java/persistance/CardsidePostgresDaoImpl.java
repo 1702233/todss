@@ -52,11 +52,11 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	public boolean saveCardside(Cardside cardside) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSIDE (ID, TEKST, PICTUREID) VALUES (?, ?, ?);";
+			String query = "INSERT INTO CARDSIDE (TEKST, PICTUREID) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardside.getID());
-			pstmt.setString(2, cardside.getTekst());
-			pstmt.setInt(3, cardside.getPicture().getID());
+			
+			pstmt.setString(1, cardside.getTekst());
+			pstmt.setInt(2, cardside.getPicture().getID());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

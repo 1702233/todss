@@ -63,11 +63,11 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     public boolean saveCardAssignment(CardAssignment cardAssignment, int cardruleID) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
-            String query = "INSERT INTO CARDASSIGNMENT (CARDRULEID, RANK, CARDID) VALUES (?, ?, ?);";
+            String query = "INSERT INTO CARDASSIGNMENT ( RANK, CARDID) VALUES ( ?, ?);";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cardruleID);
-            pstmt.setInt(2, cardAssignment.getRank());
-            pstmt.setInt(3, cardAssignment.getCard().getID());
+            
+            pstmt.setInt(1, cardAssignment.getRank());
+            pstmt.setInt(2, cardAssignment.getCard().getID());
 
             queryResult = pstmt.executeUpdate();
         } catch (SQLException sqe) {

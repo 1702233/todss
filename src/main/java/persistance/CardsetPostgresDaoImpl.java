@@ -63,11 +63,11 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	public boolean saveCardset(Cardset cardset) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSET (ID, NAME, TEACHERNAME) VALUES (?, ?, ?);";
+			String query = "INSERT INTO CARDSET (NAME, TEACHERNAME) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardset.getId());
-			pstmt.setString(2, cardset.getName());
-			pstmt.setString(3, cardset.getTeacher().getUsername());
+			
+			pstmt.setString(1, cardset.getName());
+			pstmt.setString(2, cardset.getTeacher().getUsername());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

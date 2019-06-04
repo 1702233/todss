@@ -67,12 +67,12 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	public boolean saveCard(Card card, int cardsetID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARD (ID, VOORKANT, ACHTERKANT, CARDSETID) VALUES (?, ?, ?, ?);"; //zet een nieuwe afgeronde taak in de database
+			String query = "INSERT INTO CARD (VOORKANT, ACHTERKANT, CARDSETID) VALUES (?, ?, ?);"; //zet een nieuwe afgeronde taak in de database
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, card.getID());
-			pstmt.setInt(2, card.getFrontside().getID());
-			pstmt.setInt(3, card.getBackside().getID());
-			pstmt.setInt(4, cardsetID);
+			
+			pstmt.setInt(1, card.getFrontside().getID());
+			pstmt.setInt(2, card.getBackside().getID());
+			pstmt.setInt(3, cardsetID);
 				
 			queryResult = pstmt.executeUpdate();
 		}

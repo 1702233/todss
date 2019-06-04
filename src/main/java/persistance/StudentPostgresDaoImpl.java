@@ -58,7 +58,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 	public boolean saveStudent(Student student) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO STUDENT (ID, NAME, SESSIONCODE) VALUES (?, ?, ?);";
+			String query = "INSERT INTO STUDENT (NAME, SESSIONCODE) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, student.getID());
 			pstmt.setString(2, student.getName());
