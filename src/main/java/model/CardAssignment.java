@@ -8,7 +8,7 @@ public class CardAssignment {
     private Card card;
 
 
-    public CardAssignment(int iD, int rank, Card card, CardRule cardRule) {
+    public CardAssignment(int iD, int rank, Card card) {
         super();
         ID = iD;
         this.rank = rank;

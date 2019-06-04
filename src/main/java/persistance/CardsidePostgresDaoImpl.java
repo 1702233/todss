@@ -14,7 +14,6 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	
 	public ArrayList<Cardside> queryExecutor(String query){
 		ArrayList<Cardside> results = new ArrayList<Cardside>();
-
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -23,11 +22,8 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 				int cardsideID = rs.getInt("ID");
 				String tekst = rs.getString("tekst");
 				int pictureID = rs.getInt("pictureid");
-				
 				Picture picture = pDao.findById(pictureID);
-				
 				Cardside newCardside = new Cardside(cardsideID, tekst, picture);
-
 				results.add(newCardside);
 
 			}
@@ -45,7 +41,7 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	
 	@Override
 	public Cardside findByID(int ID) {
-		return queryExecutor("SELECT * FROM CARDSIDE WHERE ID = " + ID +";").get(0);
+		return queryExecutor("SELECT * FROM CARDSIDE WHERE \"ID\" = '" + ID +"';").get(0);
 	}
 
 	@Override
@@ -54,9 +50,9 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO CARDSIDE (TEKST, PICTUREID) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, cardside.getTekst());
-			pstmt.setInt(2, cardside.getPicture().getID());
+			pstmt.setInt(1, cardside.getID());
+			pstmt.setString(2, cardside.getTekst());
+			pstmt.setInt(3, cardside.getPicture().getID());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
@@ -116,6 +112,5 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 		}
 	}
 
-
-
 }
+

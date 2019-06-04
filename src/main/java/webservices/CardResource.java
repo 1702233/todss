@@ -15,6 +15,13 @@ import model.CardServiceProvider;
 public class CardResource {
 	
 	@GET
+	@Produces("application/json")
+	public Card getCardByID(@PathParam("ID") int ID) {
+		CardService service = CardServiceProvider.getCardService();
+		return service.getCardByID(ID);
+	}
+	
+	@GET
 	@Path("/cardset")
 	@Produces("application/json")
 	public List<Card> getCardsByCardset(@PathParam("cardset") int cardset){

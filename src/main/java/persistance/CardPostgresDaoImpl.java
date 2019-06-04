@@ -14,8 +14,6 @@ import model.Cardside;
 
 public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 
-	private CardAssignmentPostgresDaoImpl caDao = new CardAssignmentPostgresDaoImpl();
-	private CardsetPostgresDaoImpl csetDao = new CardsetPostgresDaoImpl();
 	private CardsidePostgresDaoImpl csDao = new CardsidePostgresDaoImpl();
 
 	public ArrayList<Card> queryExecutor(String query){
@@ -27,17 +25,13 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 			while (rs.next()) { 
 				
 				int cardID = rs.getInt("ID");
-				int voorkantID = rs.getInt("voorkant");
-				int achterkantID = rs.getInt("achterkant");
+				int voorkantID = rs.getInt("voorkantID");
+				int achterkantID = rs.getInt("achterkantID");
 				int cardsetID = rs.getInt("cardsetid");
 				
-				Cardset cardset = csetDao.findByID(cardsetID);
 				Cardside voorkant = csDao.findByID(voorkantID);
 				Cardside achterkant = csDao.findByID(achterkantID);
-				CardAssignment cardAssignment = caDao.findByCardID(cardID);
-				
 				Card newCard = new Card(voorkant, achterkant, cardID);
-
 				results.add(newCard);
 
 			}
@@ -54,12 +48,12 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	
 	@Override
 	public Card findById(int ID) {
-		return queryExecutor("SELECT * FROM CARD WHERE ID = " + ID +";").get(0);
+		return queryExecutor("SELECT * FROM CARD WHERE \"ID\" = '" + ID +"';").get(0);
 	}
 	
 	@Override
 	public ArrayList<Card> findCardsOfCardset(int cardsetID) {
-		return queryExecutor("SELECT * FROM CARD WHERE CARDSETID = " + cardsetID + ";");
+		return queryExecutor("SELECT * FROM CARD WHERE \"cardsetID\" = " + cardsetID + ";");
 	}
 
 
