@@ -41,5 +41,4 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
