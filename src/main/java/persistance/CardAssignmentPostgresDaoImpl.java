@@ -13,7 +13,6 @@ import model.CardRule;
 public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements CardAssignmentDao {
 
     CardPostgresDaoImpl cDao = new CardPostgresDaoImpl();
-    CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
 
     public ArrayList<CardAssignment> queryExecutor(String query){
         ArrayList<CardAssignment> results = new ArrayList<CardAssignment>();
@@ -27,9 +26,8 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
                 int cardID = rs.getInt("cardid");
 
                 Card card = cDao.findById(cardID);
-                CardRule cardRule = crDao.findByID(cardRuleID);
 
-                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card, cardRule);
+                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card);
 
                 results.add(newCardAssignment);
 
@@ -54,7 +52,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
-        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE CARDRULEID = " + ID + ";");
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"CARDRULEID\" = '" + ID + "';");
     }
 
 
@@ -63,11 +61,11 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     public boolean saveCardAssignment(CardAssignment cardAssignment, int cardruleID) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
-            String query = "INSERT INTO CARDASSIGNMENT (CARDRULEID, RANK, CARDID) VALUES (?, ?, ?);";
+            String query = "INSERT INTO CARDASSIGNMENT ( RANK, CARDID) VALUES ( ?, ?);";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cardruleID);
-            pstmt.setInt(2, cardAssignment.getRank());
-            pstmt.setInt(3, cardAssignment.getCard().getID());
+            
+            pstmt.setInt(1, cardAssignment.getRank());
+            pstmt.setInt(2, cardAssignment.getCard().getID());
 
             queryResult = pstmt.executeUpdate();
         } catch (SQLException sqe) {

@@ -1,4 +1,4 @@
-package model;
+package model.services;
 
 public class MinigameServiceProvider {
 	private static MinigameService service = new MinigameService();

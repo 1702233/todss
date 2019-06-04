@@ -12,7 +12,6 @@ import model.Teacher;
 public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDao {
 
 	TeacherPostgresDaoImpl tDao = new TeacherPostgresDaoImpl();
-	CardsidePostgresDaoImpl cDao = new CardsidePostgresDaoImpl();
 
 	public ArrayList<Picture> queryExecutor(String query) {
 		ArrayList<Picture> results = new ArrayList<Picture>();
@@ -23,7 +22,7 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 			while (rs.next()) { 
 				int ID = rs.getInt("ID");
 				String url = rs.getString("url");
-				String teacherName = rs.getString("teacherusername");
+				String teacherName = rs.getString("teacherName");
 
 				Teacher teacher = tDao.findByUsername(teacherName);
 
@@ -46,7 +45,7 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 
 	@Override
 	public Picture findById(int id) {
-		return queryExecutor("SELECT * FROM PICTURE WHERE ID = " + id + ";").get(0);
+		return queryExecutor("SELECT * FROM PICTURE WHERE \"ID\" = '" + id + "';").get(0);
 	}
 	
 	public ArrayList<Picture> findByTeacher(String teacher) {
@@ -57,7 +56,7 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 	public boolean savePicture(Picture picture) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO PICTURE (ID, URL, TEACHERUSERNAME) VALUES (?, ?, ?);";
+			String query = "INSERT INTO PICTURE (URL, TEACHERUSERNAME) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, picture.getID());
 			pstmt.setString(2, picture.getUrl());

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
  <Resource name="jdbc/PostgresDS"
- url="postgres://rxuxpfhklobwhy:175483f54935db965798123880432ba437781deaa7e8d272932e52ffa9a89ae1@ec2-54-247-72-30.eu-west-1.compute.amazonaws.com:5432/dbjcgbqvsllaug"
+ url="jdbc:postgresql://localhost:5433/gamechane"
  driverClassName="org.postgresql.Driver"
  auth="Container"
  type="javax.sql.DataSource"
- username="rxuxpfhklobwhy"
- password="175483f54935db965798123880432ba437781deaa7e8d272932e52ffa9a89ae1" />
+ username="postgres"
+ password="postgres" />
 </Context>

@@ -8,8 +8,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import model.Minigame;
-import model.MinigameService;
-import model.MinigameServiceProvider;
+import model.services.MinigameService;
+import model.services.MinigameServiceProvider;
 
 @Path("/minigames")
 public class MinigameResource {

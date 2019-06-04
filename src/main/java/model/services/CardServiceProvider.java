@@ -1,4 +1,4 @@
-package model;
+package model.services;
 
 public class CardServiceProvider {
 	private static CardService service = new CardService();

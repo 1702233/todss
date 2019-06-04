@@ -21,14 +21,12 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { 
-
 				int cardsetID = rs.getInt("ID");
 				String name = rs.getString("name");
 				String teacherName = rs.getString("teachername");
-
 				Teacher teacher = tDao.findByUsername(teacherName);
 				ArrayList<Card> cardsOfCardset = cDao.findCardsOfCardset(cardsetID);
-
+				
 				Cardset newCardset = new Cardset(cardsetID, name, teacher, cardsOfCardset);
 
 				results.add(newCardset);
@@ -48,7 +46,7 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 
 	@Override
 	public Cardset findByID(int ID) {
-		ArrayList<Cardset> results = queryExecutor("SELECT * FROM CARDSET;");
+		ArrayList<Cardset> results = queryExecutor("SELECT * FROM CARDSET WHERE \"ID\" = '" + ID + "';");
 		return results.get(0);
 	}
 	
@@ -61,11 +59,11 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	public boolean saveCardset(Cardset cardset) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSET (ID, NAME, TEACHERNAME) VALUES (?, ?, ?);";
+			String query = "INSERT INTO CARDSET (NAME, TEACHERNAME) VALUES (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardset.getId());
-			pstmt.setString(2, cardset.getName());
-			pstmt.setString(3, cardset.getTeacher().getUsername());
+
+			pstmt.setString(1, cardset.getName());
+			pstmt.setString(2, cardset.getTeacher().getUsername());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

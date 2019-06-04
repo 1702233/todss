@@ -12,15 +12,16 @@ import model.Minigame;
 
 public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRuleDao {
 
-	MinigamePostgresDaoImpl mDao = new MinigamePostgresDaoImpl();
 	CardAssignmentPostgresDaoImpl cDao = new CardAssignmentPostgresDaoImpl();
 
 	public ArrayList<CardRule> queryExecutor(String query) {
 		ArrayList<CardRule> results = new ArrayList<CardRule>();
 
 		try (Connection con = super.getConnection()) {
+			System.out.println(4.2);
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
+			System.out.println(4.3);
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
 				int ID = rs.getInt("ID");
@@ -28,10 +29,11 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 				boolean isDraggable = rs.getBoolean("isdraggable");
 				String group = rs.getString("group");
 				int minigameID = rs.getInt("minigameid");
-
-				Minigame minigame = mDao.findByID(minigameID);
+				
+				System.out.println(4.4);
 				ArrayList<CardAssignment> CardAssignments = cDao.findByCardRuleID(ID);
-
+				
+				System.out.println(4.5);
 				CardRule newCardRule = new CardRule(ID, type, isDraggable, group, CardAssignments);
 
 				results.add(newCardRule);
@@ -51,25 +53,26 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 
 	@Override
 	public CardRule findByID(int ID) {
-		return queryExecutor("SELECT * FROM CARDRULE WHERE ID = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM CARDRULE WHERE \"ID\" = '" + ID + "';").get(0);
 	}
 
 	@Override
 	public ArrayList<CardRule> findByMinigame(int minigameID) {
-		return queryExecutor("SELECT * FROM CARDRULE WHERE MINIGAMEID = " + minigameID + ";");
+		System.out.println(4.1);
+		return queryExecutor("SELECT * FROM CARDRULE WHERE \"minigameID\" = '" + minigameID + "';");
 	}
 
 	@Override
 	public boolean saveCardRules(CardRule cardRule, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDRULE (ID, TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?, ?);";
+			String query = "INSERT INTO CARDRULE (TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardRule.getID());
-			pstmt.setString(2, cardRule.getType());
-			pstmt.setBoolean(3, cardRule.isDraggable());
-			pstmt.setString(4, cardRule.getGroup());
-			pstmt.setInt(5, minigameID);
+
+			pstmt.setString(1, cardRule.getType());
+			pstmt.setBoolean(2, cardRule.isDraggable());
+			pstmt.setString(3, cardRule.getGroup());
+			pstmt.setInt(4, minigameID);
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
