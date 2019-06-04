@@ -1,7 +1,8 @@
-package model;
+package model.services;
 
 import java.util.List;
 
+import model.Minigame;
 import persistance.MinigameDao;
 import persistance.MinigamePostgresDaoImpl;
 

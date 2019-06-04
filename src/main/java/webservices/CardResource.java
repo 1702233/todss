@@ -8,8 +8,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import model.Card;
-import model.CardService;
-import model.CardServiceProvider;
+import model.services.CardService;
+import model.services.CardServiceProvider;
 
 @Path("/card")
 public class CardResource {

@@ -1,7 +1,8 @@
-package model;
+package model.services;
 
 import java.util.List;
 
+import model.Card;
 import persistance.CardDao;
 import persistance.CardPostgresDaoImpl;
 
@@ -15,4 +16,5 @@ public class CardService {
 	public List<Card> getCardsByCardset(int cardSet){
 		return dao.findCardsOfCardset(cardSet);
 	}
+	
 }
