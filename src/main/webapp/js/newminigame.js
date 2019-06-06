@@ -3,7 +3,7 @@ var cardsetfetch;
 (function init(){
 	console.log("fetching all cardsets");
 	
-	fetch("gamechane/cardset")
+	fetch("gamechane/cardset/leraar1")
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);

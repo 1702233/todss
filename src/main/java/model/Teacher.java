@@ -11,6 +11,11 @@ public class Teacher {
 		this.password = password;
 	}
 
+	public Teacher(String username) {
+		this.username = username;
+		this.password = null;
+	}
+
 	public String getUsername() {
 		return username;
 	}

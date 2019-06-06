@@ -21,4 +21,11 @@ public class CardResource {
 		CardService service = CardServiceProvider.getCardService();
 		return service.getCardByID(ID);
 	}
+	
+	@GET
+	@Produces("application/json")
+	public List<Card> getAllCards(){
+		CardService service = CardServiceProvider.getCardService();
+		return service.getAllCards();
+	}
 }
