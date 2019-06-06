@@ -1,7 +1,7 @@
 (function init(){
 	console.log("starting");
 	
-	fetch("gamechane/minigames/2")
+	fetch("gamechane/minigames/1")
     .then(response => response.json())
     .then(function(myJson) {
     	var cardrule=0;
@@ -21,14 +21,11 @@
     	shuffle(cards);
     	
     	cards.forEach(card => card.addEventListener('click', flipCard));
-    	console.log(cards);
     })
 	
 })();
 
 function createCard(card, cardruleID){
-	console.log(card);
-	console.log(cardruleID);
 	var div = document.createElement("div");
 	div.setAttribute("class","memory-card");
 	
@@ -115,7 +112,6 @@ function resetBoard() {
 }
 
 function shuffle(cards) {
-	console.log("shuffle")
   cards.forEach(card => {
     let randomPos = Math.floor(Math.random() * cards.length);
     card.style.order = randomPos;
