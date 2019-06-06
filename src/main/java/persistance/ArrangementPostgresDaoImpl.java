@@ -24,16 +24,18 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 			TeacherPostgresDaoImpl teacherDao = new TeacherPostgresDaoImpl();
 
 			while (rs.next()) {
-				int arrangementID = rs.getInt("arrangementID");
-				String arrangementName = rs.getString("arrangementName");
-				String arrangementDescription = rs.getString("arrangementDescription");
-				String arrangementTeacherName = rs.getString("arrangementTeacherName");
+				int id = rs.getInt("ID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String teacherName = rs.getString("teacherName");
 
-				ArrayList<Minigame> allArrangementMinigames = minigameDao.findByArrangementID(arrangementID);
+				ArrayList<Minigame> allMinigames = minigameDao.findByArrangementID(id);
 
-				Teacher teacher = teacherDao.findByUsername(arrangementTeacherName);
+				System.out.println("minigames: " + allMinigames.toString());
 
-				Arrangement arrangement = new Arrangement(arrangementID, arrangementName, arrangementDescription, allArrangementMinigames, teacher);
+				Teacher teacher = teacherDao.findByUsername(teacherName);
+
+				Arrangement arrangement = new Arrangement(id, name, description, allMinigames, teacher);
 
 				results.add(arrangement);
 			}
@@ -46,47 +48,17 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
 	@Override
 	public ArrayList<Arrangement> findAllArrangements() {
-		return queryExecutor(
-				"select " +
-				"a.'ID' as arrangementID, " +
-				"a.name as arrangementName, " +
-				"a.description as arrangementDescription, " +
-				"a.'teacherName' as arrangementTeachername, " +
-				"m.'ID' as minigameID, " +
-				"m.name as minigameName," +
-				"m.description as minigameDescription," +
-				"m.'cardsOpened', " +
-				"c.'ID' as cardsetID, " +
-				"c.name as cardsetName, " +
-				"tm.username as minigameTeacherUsername," +
-				"ta.username as arrangementTeacherUsername," +
-				"tc.username as cardsetTeacherUsername," +
-				"from arrangement a " +
-				"left join arrangementminigame am " +
-				"on a.'ID' = am.'arrangementID' " +
-				"left join minigame m " +
-				"on am.'minigameID' = m.'ID'" +
-				"left join cardset c " +
-				"on m.'cardsetID' = c.'ID'" +
-				"left join teacher ta" +
-				"on a.'teacherName' = ta.username" +
-				"left join teacher tm" +
-				"on a.'teacherName' = tm.username" +
-				"left join teacher tc" +
-				"on a.'teacherName' = tc.username"
-		);
+		return queryExecutor("select * from arrangement a");
 	}
 
 	@Override
-	public ArrayList<Arrangement> findByTeacher(int teacherUsername) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Arrangement> findByTeacher(String teacherName) {
+		return queryExecutor("select * from arrangement a where a.\"teacherName\" = '" + teacherName + "'");
 	}
 
 	@Override
 	public Arrangement findById(int ID) {
-		// TODO Auto-generated method stub
-		return null;
+		return queryExecutor("select * from arrangement a where a.\"ID\" = '" + ID + "'").get(0);
 	}
 
 	@Override
