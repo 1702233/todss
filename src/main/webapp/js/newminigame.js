@@ -1,23 +1,49 @@
+var cardsetfetch;
+
 (function init(){
-	console.log("starting");
+	console.log("fetching all cardsets");
 	
 	fetch("gamechane/cardset")
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);
+    	cardsetfetch = myJson;
+    	fillcardsetdropdown(myJson);
     })
 	
 })();
+
+function fillcardsetdropdown(myJson) {
+	var select = document.getElementById("cardsetdropdown"); 
+	for(var i = 0;  i < myJson.length;  i++) {
+		var opt = myJson[i];
+	    var el = document.createElement("option");
+	    el.textContent = opt.name + " by " + opt.teacher.username;
+	    el.value = i;
+	    select.appendChild(el);
+	}
+}	
+
+function cardsetselectie(cardset) {
+	var cardsetimages = document.getElementById("cardsetimages");
+	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
+		//cardsetimages.innerHTML += '<div class="col-sm">' + cardsetfetch[cardset].allCards[i].frontside.picture.url + "</div>";
+		//cardsetimages.innerHTML += '<img id="drag' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="100" height="150">';
+		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+	}
+	console.log(cardsetfetch[cardset].allCards)
+}
 
 
 function soortselectie(soort) {
 	console.log("geselecteerde minigame soort = " + soort);
 	if (soort == "memory") {
 		memoryselected();
+		console.log("memoryselected")
 	} else if (soort == "3rij") {
-		console.log("3rij")
+		console.log("3rijselected")
 	} else if (soort =="4rij") {
-		console.log("4rij")
+		console.log("4rijselected")
 	}
 	
 }
@@ -60,11 +86,8 @@ function memorydefined() {
 		};
 	};
 	
-	var statischeplaatjes = '<img id="drag1" src="img/apple.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150"> <img id="drag2" src="img/bmw.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150">  <img id="drag3" src="img/mcdonalds.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150">'
-	var statischeplaatjes2 = '<img id="drag4" src="img/apple.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150">  <img id="drag5" src="img/bmw.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150">  <img id="drag6" src="img/mcdonalds.jpg" draggable="true" ondragstart="drag(event)" width="100" height="150">'
-	
 	var submitbutton = '<div><input type="submit" value="Submit" onclick="maakminigameaan()"></div>'
-	document.getElementById('minigamespecifics').innerHTML = statischeplaatjes + statischeplaatjes2 + sethtml + submitbutton;
+	document.getElementById('minigamespecifics').innerHTML = sethtml + submitbutton;
 }
 
 function maakminigameaan(sets, kaartsidestart) {

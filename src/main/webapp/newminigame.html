@@ -141,18 +141,7 @@
                 <input type="text" name="title">
             </div>
 			
-            <h2>Selecteer een kaartset</h2>
-            <hr>
-            <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon">kaartset</span>
-                </div>
-                <select>
-					<option>Hier de kaartset ophalen</option>
-				</select>
-            </div>
+            
 			
 			<h2>Voeg tags toe aan de minigame</h2>
             <hr>
@@ -181,7 +170,7 @@
 						<span class="input-group-text" id="basic-addon">soort</span>
 						
 							<select id="soortselection" onchange="soortselectie(this.value);">
-								<option disabled selected value> -- selecteer een gamesoort -- </option>
+								<option disabled selected> -- selecteer een gamesoort -- </option>
 								<option value="memory">Memory</option>
 								<option value="4rij">4 op een rij</option>
 								<option value="3rij">3 op een rij</option>
@@ -208,6 +197,23 @@
 			
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-9">
+					    
+					    <h2>Selecteer een kaartset</h2>
+			            <hr>
+			            <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
+			
+			            <div class="input-group mb-3">
+			                <div class="input-group-prepend">
+			                    <span class="input-group-text" id="basic-addon">kaartset</span>
+			                </div>
+			                <form>
+			                    <select id="cardsetdropdown" onchange="cardsetselectie(this.value);">
+			                        <option disabled selected> -- selecteer een kaartset -- </option>
+			                    </select>
+			                </form>
+			            </div>
+			            <div id="cardsetimages" class="row">
+			            </div>
 
                         <div class="input-group mb-3">
 							<div id="minigamespecifics">
