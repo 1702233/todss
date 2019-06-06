@@ -21,6 +21,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 		ArrayList<Minigame> results = new ArrayList<Minigame>();
 
 		try (Connection con = super.getConnection()) {
+			System.out.println(con);
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
