@@ -22,7 +22,7 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 
-				Teacher newTeacher = new Teacher(username, password);
+				Teacher newTeacher = new Teacher(username);
 				results.add(newTeacher);
 
 			}
