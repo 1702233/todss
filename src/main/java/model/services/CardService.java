@@ -16,5 +16,9 @@ public class CardService {
 	public List<Card> getCardsByCardset(int cardSet){
 		return dao.findCardsOfCardset(cardSet);
 	}
+
+	public List<Card> getAllCards() {
+		return dao.findAllCards();
+	}
 	
 }

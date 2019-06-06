@@ -21,6 +21,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 		ArrayList<Minigame> results = new ArrayList<Minigame>();
 
 		try (Connection con = super.getConnection()) {
+			System.out.println(con);
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
@@ -71,6 +72,20 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	}
 
 	@Override
+	public ArrayList<Minigame> findByArrangementID(int ID) {
+		return queryExecutor(
+				"select " +
+				"m.'ID' as minigameID, " +
+				"m.name as minigameName," +
+				"m.description as minigameDescription," +
+				"m.'cardsOpened'" +
+				"from minigame m " +
+				"left join arrangementminigame am on m.'ID' = am.'minigameID'" +
+				"where am.'arrangementID' = 1"
+		);
+	}
+
+	@Override
 	public ArrayList<Minigame> findByName(String name) {
 		return queryExecutor("SELECT * FROM MINIGAME WHERE NAME = " + name + ";");
 	}
@@ -111,7 +126,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public boolean updateMinigame(Minigame minigame) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "UPDATE MINIGAME SET \"NAME\"= ?, \"CARDSOPENED\"= ?, \"OMSCHRIJVING\"= ?, \"TEACHERNAME\"= ?, \"CARDSET\"= ? WHERE \"ID\"= ?;"; // bewerk
+			String query = "UPDATE MINIGAME SET 'NAME'= ?, 'CARDSOPENED'= ?, 'OMSCHRIJVING'= ?, 'TEACHERNAME'= ?, 'CARDSET'= ? WHERE 'ID'= ?;"; // bewerk
 																																							// een
 																																							// afgeronde
 																																							// taak
@@ -140,7 +155,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public boolean deleteMinigame(int ID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "DELETE FROM MINIGAME WHERE \"ID\" = ?;"; // verwijder een afgeronde taak
+			String query = "DELETE FROM MINIGAME WHERE 'ID' = ?;"; // verwijder een afgeronde taak
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, ID);
 
