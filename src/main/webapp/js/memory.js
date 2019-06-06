@@ -1,18 +1,65 @@
 (function init(){
 	console.log("starting");
-	var fetchoptionsGet = { 
-	        method : 'GET'
-	    }
 	
-	fetch("gamechane/minigames")
+	fetch("gamechane/minigames/2")
     .then(response => response.json())
     .then(function(myJson) {
+    	var cardrule=0;
     	console.log(myJson);
+    	for(var i=0;i<myJson.cardset.allCards.length; i++){
+    		for(var cr=0;cr<myJson.cardRules.length; cr++){
+    			for(var ca=0;ca<myJson.cardRules[cr].cardAssignments.length; ca++){
+    				if(myJson.cardRules[cr].cardAssignments[ca].card.id == myJson.cardset.allCards[i].id){
+    					var cardrule = myJson.cardRules[cr].id;
+    				}
+    			}
+    		}
+    		
+    		createCard(myJson.cardset.allCards[i], cardrule);
+    	}
+    	const cards = document.querySelectorAll('.memory-card');
+    	shuffle(cards);
+    	
+    	cards.forEach(card => card.addEventListener('click', flipCard));
+    	console.log(cards);
     })
 	
 })();
 
-const cards = document.querySelectorAll('.memory-card');
+function createCard(card, cardruleID){
+	console.log(card);
+	console.log(cardruleID);
+	var div = document.createElement("div");
+	div.setAttribute("class","memory-card");
+	
+	div.setAttribute("data-framework", cardruleID);
+	
+	if(card.frontside.tekst == null){
+		var frontside = document.createElement("img");
+		frontside.setAttribute("class","front-face");
+		frontside.setAttribute("src", card.frontside.picture.url);
+	}
+	else{
+		var frontside = document.createElement("div");
+		frontside.setAttribute("class","front-face");
+		frontside.innerHTML = card.frontside.tekst;
+	}
+	
+	if(card.backside.tekst == null){
+		var backside = document.createElement("img");
+		backside.setAttribute("class","back-face");
+		backside.setAttribute("src", card.backside.picture.url);
+	}
+	else{
+		var backside = document.createElement("div");
+		backside.setAttribute("class","back-face");
+		backside.innerHTML = card.backside.tekst;
+	}
+	
+	div.appendChild(frontside);
+	div.appendChild(backside);
+	document.getElementById("memory-game").appendChild(div);
+}
 
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -67,11 +114,12 @@ function resetBoard() {
   [firstCard, secondCard] = [null, null];
 }
 
-(function shuffle() {
+function shuffle(cards) {
+	console.log("shuffle")
   cards.forEach(card => {
-    let randomPos = Math.floor(Math.random() * 12);
+    let randomPos = Math.floor(Math.random() * cards.length);
     card.style.order = randomPos;
   });
-})();
+}
 
-cards.forEach(card => card.addEventListener('click', flipCard));
+

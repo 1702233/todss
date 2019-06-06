@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.postgresql.util.PSQLException;
+
 import model.CardRule;
 import model.Cardset;
 import model.Minigame;
@@ -29,24 +31,19 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				int minigameID = rs.getInt("ID");
 				String name = rs.getString("name");
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
-				
 				try {
 					omschrijving = rs.getString("omschrijving");
-				} catch(Exception e){
+				} catch(PSQLException e){
 					omschrijving = "";
-					
 				}
 				String teacherName = rs.getString("teachername");
-				System.out.println(1);
-				
-				int cardsetID = rs.getInt("cardsetID");
-				System.out.println(2);
 				Teacher teacher = tDao.findByUsername(teacherName);
-				System.out.println(3);
+				
+				int cardsetID = rs.getInt("cardsetID");				
 				Cardset cardset = csDao.findByID(cardsetID);
-				System.out.println(4);
+				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
-				System.out.println(5);
+				
 				Minigame newMinigame = new Minigame(minigameID, name, cardsOpened, omschrijving, teacher, cardset,
 						cardrules);
 
@@ -67,7 +64,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
 	@Override
 	public Minigame findByID(int ID) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE ID = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM MINIGAME WHERE \"ID\" = " + ID + ";").get(0);
 	}
 
 	@Override

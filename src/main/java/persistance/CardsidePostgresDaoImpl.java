@@ -20,11 +20,18 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 			while (rs.next()) { 
 				
 				int cardsideID = rs.getInt("ID");
-				String tekst = rs.getString("tekst");
-				int pictureID = rs.getInt("pictureid");
-				Picture picture = pDao.findById(pictureID);
-				Cardside newCardside = new Cardside(cardsideID, tekst, picture);
-				results.add(newCardside);
+				try {
+					int pictureID = rs.getInt("pictureid");
+					Picture picture = pDao.findById(pictureID);
+					Cardside newCardside = new Cardside(cardsideID, picture);
+					results.add(newCardside);
+					
+				}
+				catch(IndexOutOfBoundsException e){
+					String tekst = rs.getString("tekst");
+					Cardside newCardside = new Cardside(cardsideID, tekst);
+					results.add(newCardside);
+				}
 
 			}
 		} catch (SQLException sqle) {

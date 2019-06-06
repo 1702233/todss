@@ -18,22 +18,18 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 		ArrayList<CardRule> results = new ArrayList<CardRule>();
 
 		try (Connection con = super.getConnection()) {
-			System.out.println(4.2);
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println(4.3);
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
 				int ID = rs.getInt("ID");
 				String type = rs.getString("type");
-				boolean isDraggable = rs.getBoolean("isdraggable");
+				boolean isDraggable = rs.getBoolean("isDragable");
 				String group = rs.getString("group");
 				int minigameID = rs.getInt("minigameid");
 				
-				System.out.println(4.4);
 				ArrayList<CardAssignment> CardAssignments = cDao.findByCardRuleID(ID);
 				
-				System.out.println(4.5);
 				CardRule newCardRule = new CardRule(ID, type, isDraggable, group, CardAssignments);
 
 				results.add(newCardRule);
@@ -58,7 +54,6 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 
 	@Override
 	public ArrayList<CardRule> findByMinigame(int minigameID) {
-		System.out.println(4.1);
 		return queryExecutor("SELECT * FROM CARDRULE WHERE \"minigameID\" = '" + minigameID + "';");
 	}
 
