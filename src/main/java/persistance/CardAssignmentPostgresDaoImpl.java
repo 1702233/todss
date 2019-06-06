@@ -21,7 +21,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
             PreparedStatement pstmt = con.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int cardRuleID = rs.getInt("cardruleid");
+                int cardRuleID = rs.getInt("cardRuleID");
                 int rank = rs.getInt("rank");
                 int cardID = rs.getInt("cardid");
 
@@ -52,7 +52,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
-        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"CARDRULEID\" = '" + ID + "';");
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardRuleID\" = '" + ID + "';");
     }
 
 

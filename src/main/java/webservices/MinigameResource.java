@@ -17,7 +17,6 @@ public class MinigameResource {
 	@GET
 	@Produces("application/json")
 	public List<Minigame> getAllMinigames(){
-		System.out.println("test");
 		MinigameService service = MinigameServiceProvider.getMinigameService();
 		return service.getAllMinigames();
 	}
