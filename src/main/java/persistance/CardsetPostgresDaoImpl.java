@@ -24,7 +24,7 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 				int cardsetID = rs.getInt("ID");
 				String name = rs.getString("name");
 				
-				String teacherName = rs.getString("teachername");
+				String teacherName = rs.getString("teacherName");
 				Teacher teacher = tDao.findByUsername(teacherName);
 				
 				ArrayList<Card> cardsOfCardset = cDao.findCardsOfCardset(cardsetID);

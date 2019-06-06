@@ -9,7 +9,7 @@ import model.Arrangement;
 public interface ArrangementDao {
 
 	public ArrayList<Arrangement> findAllArrangements();
-	public ArrayList<Arrangement> findByTeacher(int teacherUsername);
+	public ArrayList<Arrangement> findByTeacher(String teacherName);
 	public Arrangement findById(int ID);
 	public boolean saveArrangement(Arrangement arrangement);
 	public boolean updateArrangement(Arrangement arrangement);

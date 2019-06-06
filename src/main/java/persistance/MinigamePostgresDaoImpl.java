@@ -23,6 +23,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 		ArrayList<Minigame> results = new ArrayList<Minigame>();
 
 		try (Connection con = super.getConnection()) {
+			System.out.println(con);
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
@@ -37,7 +38,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 					omschrijving = "";
 				}
 				String teacherName = rs.getString("teachername");
-				Teacher teacher = tDao.findByUsername(teacherName);
+				System.out.println(1);
 				
 				int cardsetID = rs.getInt("cardsetID");				
 				Cardset cardset = csDao.findByID(cardsetID);

@@ -18,11 +18,12 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) { 
 				String username = rs.getString("username");
-				String password = rs.getString("password");
+//				String password = rs.getString("password");
 
-				Teacher newTeacher = new Teacher(username, password);
+				Teacher newTeacher = new Teacher(username);
 				results.add(newTeacher);
 
 			}
