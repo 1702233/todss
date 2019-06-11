@@ -6,10 +6,15 @@ public class Cardside {
 	private String tekst;
 	private Picture picture;
 
-	public Cardside(int iD, String tekst, Picture picture) {
+	public Cardside(int iD, String tekst) {
 		super();
 		ID = iD;
 		this.tekst = tekst;
+	}
+
+	public Cardside(int iD, Picture picture) {
+		super();
+		ID = iD;
 		this.picture = picture;
 	}
 
