@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="css/styles.css">
-    <title>Welkom bij GameChange</title>
+    <title>Welkom bij GameChane</title>
 </head>
+
 <body>
-<div>
-    <div class="center">
-        <img src="img/pic-gamechane.png">
-    </div>
+    <div>
+        <div class="center">
+            <img src="img/pic-gamechane.png">
+        </div>
 
-    <div class="container">
-        <h3>U kunt nu inloggen als docent: </h3>
+        <div class="container">
+            <form id="loginForm">
+                <h3>Kies een gebruikersnaam en wachtwoord: </h3>
 
-        <input type="text" placeholder="Gebruikersnaam" name="uname" class="inputRuimte" required><br>
+                <input type="text" placeholder="Gebruikersnaam" name="uname" class="inputRuimte" required><br>
 
 
-        <input type="password" placeholder="Wachtwoord" name="psw" required><br><br>
+                <input type="password" placeholder="Wachtwoord" name="psw" required><br><br>
+            </form>
 
-    </div>
+            <div class="buttonBox">
+                <a href="dashboard.html" class="myButtonKlein">Log in</a> &nbsp;
+                <a href="index.html" class="myButtonKlein">Cancel</a>
+            </div>
 
-    <div class="buttonBox">
-        <a href="dashboard.html" class="myButtonKlein">Log in</a> &nbsp;
-        <a href="index.html" class="myButtonKlein">Cancel</a>
-    </div>
-</div>
+            <br>
+            <a href="newaccount.html">Cre&#235;er account</a>
+
+        </div>
 </body>
+
 </html>

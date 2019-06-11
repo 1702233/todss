@@ -13,7 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-@Path("/arrangements")
+@Path("/arrangement")
 public class ArrangementResource {
 	@GET
 	@Produces("application/json")
