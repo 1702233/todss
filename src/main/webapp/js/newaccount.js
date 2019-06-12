@@ -12,7 +12,7 @@ function createAccount(){
             body: encData
         };
 
-        fetch("gamechane/account", fetchoptionsPost) //post de afgeronde taak naar de database
+        fetch("gamechane/account/create", fetchoptionsPost) //post de afgeronde taak naar de database
             .then(function (response) {
                 if (response.ok) {
                     window.location.href = 'docent.html'; // als het goed is gegaan keer terug naar de homepage

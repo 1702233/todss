@@ -112,14 +112,6 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-<<<<<<< HEAD
-(function shuffle() {
-    cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * 12);
-        card.style.order = randomPos;
-    });
-})();
-=======
 function shuffle(cards) {
   cards.forEach(card => {
     let randomPos = Math.floor(Math.random() * cards.length);
@@ -127,5 +119,4 @@ function shuffle(cards) {
   });
 }
 
->>>>>>> 105aaa8151753ac74612a0790a26a1dbc4e0734e
 

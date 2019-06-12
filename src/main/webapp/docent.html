@@ -15,15 +15,12 @@
         <div class="container">
             <form id="loginForm">
                 <h3>Kies een gebruikersnaam en wachtwoord: </h3>
-
-                <input type="text" placeholder="Gebruikersnaam" name="uname" class="inputRuimte" required><br>
-
-
-                <input type="password" placeholder="Wachtwoord" name="psw" required><br><br>
+                <input type="text" placeholder="Gebruikersnaam" name="username" class="inputRuimte" required><br>
+                <input type="password" placeholder="Wachtwoord" name="password" required><br><br>
             </form>
 
             <div class="buttonBox">
-                <a href="dashboard.html" class="myButtonKlein">Log in</a> &nbsp;
+                <a class="myButtonKlein" id="login">Log in</a> &nbsp;
                 <a href="index.html" class="myButtonKlein">Cancel</a>
             </div>
 
@@ -33,6 +30,34 @@
             <a href="newaccount.html">Cre&#235;er account</a>
 
         </div>
+<script>
+function login(event) {
+	var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
+    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+
+    var fetchoptionsPost = {
+        method: 'POST',
+        body: encData
+    };
+    
+    fetch("gamechane/account", { method: 'POST', body: encData })
+        .then(function(response) {
+        if (response.ok) 
+        	{
+        	window.location.href = "dashboard.html";
+        	return response.json();
+        	}
+        else {
+        	alert("Wrong username/password");
+        	throw "Wrong username/password";
+        }
+        })
+        .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
+        .catch(error => console.log(error));
+    }
+    document.querySelector("#login").addEventListener("click", login);
+    
+</script>
 </body>
 
 </html>
