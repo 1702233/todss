@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Minigame {
 	private int id;
 	private String name;
+	private String type;
 	private boolean cardsOpened;
 	private String omschrijving;
 
@@ -15,13 +16,13 @@ public class Minigame {
 	private ArrayList<Tag> allTags;
 	private ArrayList<Result> allResults;
 
-	public Minigame(int id, String name, boolean cardsOpened, String omschrijving,
+	public Minigame(int id, String name, String type, boolean cardsOpened, String omschrijving,
 			ArrayList<Grade> allBeoordelingen, Teacher teacher, Cardset cardset, ArrayList<CardRule> cardRules,
 			ArrayList<Tag> allTags, ArrayList<Result> allResults) {
 		super();
 		this.id = id;
 		this.name = name;
-		
+		this.type = type;
 		this.cardsOpened = cardsOpened;
 		this.omschrijving = omschrijving;
 		this.allBeoordelingen = allBeoordelingen;
@@ -32,12 +33,12 @@ public class Minigame {
 		this.allResults = allResults;
 	}
 
-	public Minigame(int id, String name, boolean cardsOpened, String omschrijving, Teacher teacher, Cardset cardset,
+	public Minigame(int id, String name, String type, boolean cardsOpened, String omschrijving, Teacher teacher, Cardset cardset,
 			ArrayList<CardRule> cardRules) {
 		super();
 		this.id = id;
 		this.name = name;
-		
+
 		this.cardsOpened = cardsOpened;
 		this.omschrijving = omschrijving;
 		this.teacher = teacher;
@@ -123,6 +124,14 @@ public class Minigame {
 
 	public void setAllResults(ArrayList<Result> allResults) {
 		this.allResults = allResults;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

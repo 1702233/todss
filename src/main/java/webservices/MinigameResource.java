@@ -14,10 +14,11 @@ import model.services.MinigameServiceProvider;
 @Path("/minigames")
 public class MinigameResource {
 	
+	MinigameService service = MinigameServiceProvider.getMinigameService();
+	
 	@GET
 	@Produces("application/json")
-	public List<Minigame> getAllMinigames(){
-		MinigameService service = MinigameServiceProvider.getMinigameService();
+	public List<Minigame> getAllMinigames(){	
 		return service.getAllMinigames();
 	}
 	
@@ -25,7 +26,13 @@ public class MinigameResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public Minigame getMinigameByID(@PathParam("id") int ID) {
-		MinigameService service = MinigameServiceProvider.getMinigameService();
 		return service.getMinigameByID(ID);
+	}
+	
+	@GET
+	@Path("/teacher/{id}")
+	@Produces("application/json")
+	public List<Minigame> getMinigameByTeacher(@PathParam("id") String username) {
+		return service.getMinigameByTeacher(username);
 	}
 }

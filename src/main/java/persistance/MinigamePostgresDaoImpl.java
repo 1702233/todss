@@ -30,6 +30,8 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				String omschrijving;
 				int minigameID = rs.getInt("ID");
 				String name = rs.getString("name");
+				//String type = rs.getString("type");
+				String type = "strippoker";
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
 				try {
 					omschrijving = rs.getString("omschrijving");
@@ -45,7 +47,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 				
-				Minigame newMinigame = new Minigame(minigameID, name, cardsOpened, omschrijving, teacher, cardset,
+				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
 						cardrules);
 
 				results.add(newMinigame);
@@ -89,18 +91,20 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	
 	@Override
 	public ArrayList<Minigame> findByTeacher(String teacher) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE TEACHERNAME = " + teacher + ";");
+		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
 	}
 
 	@Override
 	public boolean saveMinigame(Minigame minigame) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO MINIGAME (NAME, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?);";
+			String query = "INSERT INTO MINIGAME (NAME, TYPE, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?, ?);";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, minigame.getId());
-			pstmt.setString(2, minigame.getName());
+
+			
+			pstmt.setString(1, minigame.getName());
+			pstmt.setString(2, minigame.getType());
 			pstmt.setBoolean(3, minigame.isCardsOpened());
 			pstmt.setString(4, minigame.getOmschrijving());
 			pstmt.setString(5, minigame.getTeacher().getUsername());
