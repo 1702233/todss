@@ -35,7 +35,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 					omschrijving = rs.getString("omschrijving");
 				} catch(Exception e){
 					omschrijving = "";
-					
 				}
 				String teacherName = rs.getString("teachername");
 				System.out.println(1);
@@ -48,7 +47,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				System.out.println(4);
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 				System.out.println(5);
-				Minigame newMinigame = new Minigame(minigameID, name, cardsOpened, omschrijving, teacher, cardset,
+				Minigame newMinigame = new Minigame(minigameID, name, cardsOpened, omschrijving, type, teacher, cardset,
 						cardrules);
 
 				results.add(newMinigame);
@@ -99,15 +98,17 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public boolean saveMinigame(Minigame minigame) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO MINIGAME (NAME, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?);";
+			String query = "INSERT INTO public.minigame(\n" + 
+					"	name, \"cardsOpened\", description, \"teacherName\", \"cardsetID\", type)\n" + 
+					"	VALUES (?, ?, ?, ?, ?, ?);";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, minigame.getId());
-			pstmt.setString(2, minigame.getName());
-			pstmt.setBoolean(3, minigame.isCardsOpened());
-			pstmt.setString(4, minigame.getOmschrijving());
-			pstmt.setString(5, minigame.getTeacher().getUsername());
-			pstmt.setInt(6, minigame.getCardset().getId());
+			pstmt.setString(1, minigame.getName());
+			pstmt.setBoolean(2, minigame.isCardsOpened());
+			pstmt.setString(3, minigame.getOmschrijving());
+			pstmt.setString(4, minigame.getTeacher().getUsername());
+			pstmt.setInt(5, minigame.getCardset().getId());
+			pstmt.setString(6, minigame.getType());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

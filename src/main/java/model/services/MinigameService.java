@@ -16,4 +16,8 @@ public class MinigameService {
 	public List<Minigame> getAllMinigames(){
 		return dao.findAllMinigames();
 	}
+	
+	public boolean saveMinigame(Minigame m) {
+		return dao.saveMinigame(m);
+	}
 }

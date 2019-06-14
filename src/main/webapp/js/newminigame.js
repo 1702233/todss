@@ -37,6 +37,7 @@ function cardsetselectie(cardset) {
 
 function soortselectie(soort) {
 	console.log("geselecteerde minigame soort = " + soort);
+	// functie die een specifieke minigame selected aanroept op basis van de gebruiker's keuze
 	if (soort == "memory") {
 		memoryselected();
 		console.log("memoryselected")
@@ -50,6 +51,7 @@ function soortselectie(soort) {
 
 function memoryselected() {
 	console.log("memoryselected functie");
+	// functie die wordt uitgevoerd als er een memory type game word geselecteerd.
 	document.getElementById('minigamedefine').innerHTML = '' +
 	'<div class="input-group mb-3">' +
 		'<form> \n' +
