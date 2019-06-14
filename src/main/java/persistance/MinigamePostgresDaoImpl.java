@@ -30,8 +30,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				String omschrijving;
 				int minigameID = rs.getInt("ID");
 				String name = rs.getString("name");
-				//String type = rs.getString("type");
-				String type = "strippoker";
+				String type = rs.getString("type");
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
 				try {
 					omschrijving = rs.getString("omschrijving");
@@ -47,6 +46,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset, cardrules);
+
 
 				results.add(newMinigame);
 
@@ -89,6 +89,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	
 	@Override
 	public ArrayList<Minigame> findByTeacher(String teacher) {
+		System.out.println(queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';"));
 		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
 	}
 
