@@ -1,3 +1,4 @@
+
 (function init(){
 	console.log("starting");
 	
@@ -63,52 +64,52 @@ let lockBoard = false;
 let firstCard, secondCard;
 
 function flipCard() {
-  if (lockBoard) return;
-  if (this === firstCard) return;
+    if (lockBoard) return;
+    if (this === firstCard) return;
 
-  this.classList.add('flip');
+    this.classList.add('flip');
 
-  if (!hasFlippedCard) {
-    // first click
-    hasFlippedCard = true;
-    firstCard = this;
+    if (!hasFlippedCard) {
+        // first click
+        hasFlippedCard = true;
+        firstCard = this;
 
-    return;
-  }
+        return;
+    }
 
-  // second click
-  secondCard = this;
+    // second click
+    secondCard = this;
 
-  checkForMatch();
+    checkForMatch();
 }
 
 function checkForMatch() {
-  let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+    let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-  isMatch ? disableCards() : unflipCards();
+    isMatch ? disableCards() : unflipCards();
 }
 
 function disableCards() {
-  firstCard.removeEventListener('click', flipCard);
-  secondCard.removeEventListener('click', flipCard);
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
 
-  resetBoard();
+    resetBoard();
 }
 
 function unflipCards() {
-  lockBoard = true;
+    lockBoard = true;
 
-  setTimeout(() => {
-    firstCard.classList.remove('flip');
-    secondCard.classList.remove('flip');
+    setTimeout(() => {
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
 
-    resetBoard();
-  }, 1500);
+        resetBoard();
+    }, 1500);
 }
 
 function resetBoard() {
-  [hasFlippedCard, lockBoard] = [false, false];
-  [firstCard, secondCard] = [null, null];
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
 }
 
 function shuffle(cards) {
