@@ -22,12 +22,12 @@ function getMinigames() {
             } else {
 
                 for (const minigame of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
-                    console.log(minigame.name);
+                    console.log(minigame.id);
 
                     var option = document.createElement("option");
                     var dropdownMinigames = document.getElementById("dropdownMinigames");
-                    option.value = minigame.name + " - " + minigame.type;
-                    option.innerHTML = minigame.name;
+                    option.value = minigame.id;
+                    option.innerHTML = minigame.name + " - " + minigame.type;
                     dropdownMinigames.appendChild(option);
 
                 }
