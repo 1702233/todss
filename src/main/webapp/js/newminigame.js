@@ -2,7 +2,6 @@ var cardsetfetch;
 
 (function init(){
 	console.log("fetching all cardsets");
-	
 	fetch("gamechane/cardset/leraar1")
     .then(response => response.json())
     .then(function(myJson) {
@@ -88,12 +87,25 @@ function memorydefined() {
 		};
 	};
 	
-	var submitbutton = '<div><input type="submit" value="Submit" onclick="maakminigameaan()"></div>'
+	var form = '<form>';
+	var submitbutton = '<div><input type="submit" value="Submit" onclick="finalformminigame()"></div>'
 	document.getElementById('minigamespecifics').innerHTML = sethtml + submitbutton;
+}
+
+function finalformminigame() {
+	console.log("hier de functie voor de form aanmaken.")
 }
 
 function maakminigameaan(sets, kaartsidestart) {
 	console.log("minigame aangemaakt met : ");
+	var formData = new FormData(document.querySelector("#minigamedata"));
+	var encData = new URLSearchParams(formData.entries());
+
+	  fetch("gamechane/minigames", { method: 'POST', body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
+	    .then(response => response.json())
+	    .then(function(myJson) { 
+	    	console.log(myJson); 
+	    	})
 }
 
 function allowDrop(ev) {

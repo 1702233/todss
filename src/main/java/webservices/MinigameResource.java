@@ -28,11 +28,11 @@ import persistance.TeacherPostgresDaoImpl;
 @Path("/minigames")
 public class MinigameResource {
 	
+	MinigameService service = MinigameServiceProvider.getMinigameService();
+	
 	@GET
 	@Produces("application/json")
-	public List<Minigame> getAllMinigames(){
-		System.out.println("test");
-		MinigameService service = MinigameServiceProvider.getMinigameService();
+	public List<Minigame> getAllMinigames(){	
 		return service.getAllMinigames();
 	}
 	
@@ -40,7 +40,6 @@ public class MinigameResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public Minigame getMinigameByID(@PathParam("id") int ID) {
-		MinigameService service = MinigameServiceProvider.getMinigameService();
 		return service.getMinigameByID(ID);
 	}
 	
@@ -48,11 +47,11 @@ public class MinigameResource {
 	//@RolesAllowed("user")
 	@Produces("application/json")
 	public Response postMinigame(@FormParam("titel") String titel,
+				@FormParam("speltype") String type,
 				@FormParam("cardopened") boolean cardsopened,
 				@FormParam("omschrijving") String omschrijving,
 				@FormParam("teachernaam") String teachernaam,
-			  	@FormParam("cardsetid") int cardsetid,
-			  	@FormParam("speltype") String type){
+			  	@FormParam("cardsetid") int cardsetid){
 
 		MinigameService service = MinigameServiceProvider.getMinigameService();
 		TeacherDao tDao = new TeacherPostgresDaoImpl();
@@ -63,11 +62,19 @@ public class MinigameResource {
 		Cardset c1 = cDao.findByID(cardsetid);
 		ArrayList<CardRule> cr1 = new ArrayList<CardRule>();
 		
-		Minigame newMinigame = new Minigame(1, titel, cardsopened, omschrijving, type, t1, c1, cr1);
+		Minigame newMinigame = new Minigame(1, titel, type, cardsopened, omschrijving, t1, c1, cr1);
 	
 
 		service.saveMinigame(newMinigame);
 
 		return Response.ok(newMinigame).build();
+	}
+
+	@GET
+	@Path("/teacher/{id}")
+	@Produces("application/json")
+	public List<Minigame> getMinigameByTeacher(@PathParam("id") String username) {
+		return service.getMinigameByTeacher(username);
+
 	}
 }

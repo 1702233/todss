@@ -11,4 +11,5 @@ public interface TeacherDao {
 	public boolean saveTeacher(Teacher teacher);
 	public boolean updateTeacher(Teacher teacher);
 	public boolean deleteTeacher(int ID);
+	public boolean checkTeacher(String username, String password);
 }
