@@ -1,28 +1,32 @@
 function initPage() {
     getMinigames();
-    addMinigameToArrangement()
+    addMinigameToArrangement();
+    saveArrangement();
+
 }
 
 function getMinigames() {
     var fetchoptionsGet = { method: 'GET' }
+    var ingelogdeDocent = sessionStorage.getItem('docent');
 
     //HARDCODED WORD DE MINIGAMES VAN LERAAR1 OPGEHAALD, DIT MOET NOG AANGEPAST WORDEN NAAR INGELOGDE USERsdfgsddfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg
-    fetch("gamechane/minigames/teacher/leraar1", fetchoptionsGet) // haal alle minigames op
+    fetch("gamechane/minigames/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle minigames op
         .then(response => response.json())
         .then(function (myJson) {
 
-            console.log(myJson);
+
             if (myJson.length == 0) { //als de myJson geen objecten bevat, zet dan een waarschuwing in de dropdown
 
                 var option = document.createElement("option");
                 var dropdownMinigames = document.getElementById("dropdownMinigames");
                 option.innerHTML = "Er zijn nog geen minigames gemaakt";
+                option.value = "";
                 dropdownMinigames.appendChild(option);
 
             } else {
 
                 for (const minigame of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
-                    console.log(minigame.id);
+
 
                     var option = document.createElement("option");
                     var dropdownMinigames = document.getElementById("dropdownMinigames");
@@ -37,37 +41,66 @@ function getMinigames() {
 }
 
 function addMinigameToArrangement() {
-    var addButton = document.getElementById("addButton");
     var dropdownMinigames = document.getElementById("dropdownMinigames");
     var arrangementTable = document.getElementById("arrangementTable");
 
     addButton.addEventListener("click", function () {
 
-        var tr = document.createElement("tr");
-        var td = document.createElement("td");
-        var td2 = document.createElement("td");
-        var td3 = document.createElement("td");
-        var verwijderButton = document.createElement("button");
+        if (dropdownMinigames.value != "") {
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var td4 = document.createElement("td");
+            var verwijderButton = document.createElement("button");
 
-        verwijderButton.innerHTML = "verwijder";
-        verwijderButton.addEventListener("click", function(){
-            var row = verwijderButton.parentNode.parentNode
-            row.parentNode.removeChild(row);
-        });
+            verwijderButton.innerHTML = "verwijder";
+            verwijderButton.addEventListener("click", function () {
+                var row = verwijderButton.parentNode.parentNode
+                row.parentNode.removeChild(row);
+            });
 
-        td.innerHTML = dropdownMinigames.innerHTML;
-        td2.innerHTML = "";
-        td3.appendChild(verwijderButton);
-        tr.appendChild(td);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
+            td.innerHTML = dropdownMinigames.value;
+            td2.innerHTML = dropdownMinigames.innerHTML;
+            td3.innerHTML = "";
+            td4.appendChild(verwijderButton);
+            tr.appendChild(td);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
 
-        
-        arrangementTable.appendChild(tr);
+
+            arrangementTable.appendChild(tr);
+        }
+
     });
 }
 
 function saveArrangement() {
+   
+
+    var saveButton = document.getElementById("saveButton");
+    saveButton.addEventListener("click", function () {
+        var minigameList = [];
+        var table = document.getElementById("arrangementTable")
+        var rows = table.getElementsByTagName('tr').length;
+
+
+
+
+        
+        for(var i = 1; i < rows; i++)
+        {
+            minigameList.push(table.rows[i].cells[0].innerHTML);
+        }
+
+        minigameList.forEach(function(element) {
+            console.log("item");
+            console.log(element);
+          });
+    });
+
+
 
 }
 

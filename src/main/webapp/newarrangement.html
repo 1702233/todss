@@ -151,13 +151,22 @@
         <h1>Nieuwe arrangement maken</h1>
         <hr>
 
+        <form id="newArrangementForm">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon">Naam: </span>
+            </div>
+            <input type="text" name="name">
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon">Naam: </span>
           </div>
-          <input type="text" name="title">
-        </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon">Omschrijving: </span>
+            </div>
+            <input type="text" name="omschrijving">
+
+          </div>
+        </form>
 
         <h2>Selecteer de minigames</h2>
         <hr>
@@ -168,7 +177,7 @@
             <span class="input-group-text" id="basic-addon">Minigame</span>
           </div>
           <select id="dropdownMinigames">
-            
+
           </select>
 
 
@@ -183,17 +192,18 @@
 
           </div>
 
-          <table id="arrangementTable" class="minimalistBlack"> 
+          <table id="arrangementTable" class="minimalistBlack">
+            <th>MinigameID</th>
             <th>Naam</th>
             <th>Gametype</th>
             <th>Verwijder</th>
-            
+
           </table>
 
 
         </div>
 
-        <Button>Arrangement opslaan</Button>
+        <Button id="saveButton">Arrangement opslaan</Button>
 
 
 
