@@ -47,6 +47,7 @@ function addMinigameToArrangement() {
     addButton.addEventListener("click", function () {
 
         if (dropdownMinigames.value != "") {
+            var minigameData = dropdownMinigames.innerHTML.split(" - ")
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             var td2 = document.createElement("td");
@@ -59,10 +60,11 @@ function addMinigameToArrangement() {
                 var row = verwijderButton.parentNode.parentNode
                 row.parentNode.removeChild(row);
             });
-
+            
+            
             td.innerHTML = dropdownMinigames.value;
-            td2.innerHTML = dropdownMinigames.innerHTML;
-            td3.innerHTML = "";
+            td2.innerHTML = minigameData[0];
+            td3.innerHTML = minigameData[1];
             td4.appendChild(verwijderButton);
             tr.appendChild(td);
             tr.appendChild(td2);
@@ -77,27 +79,50 @@ function addMinigameToArrangement() {
 }
 
 function saveArrangement() {
-   
+
 
     var saveButton = document.getElementById("saveButton");
     saveButton.addEventListener("click", function () {
+        
         var minigameList = [];
-        var table = document.getElementById("arrangementTable")
+        var table = document.getElementById("arrangementTable");
         var rows = table.getElementsByTagName('tr').length;
 
+        for (var i = 1; i < rows; i++) {
+        minigameList.push(table.rows[i].cells[0].innerHTML);
+        }
+
+        var name = document.getElementById("name").value;
+        var omschrijving = document.getElementById("omschrijving").value;
+        var ingelogdeDocent = sessionStorage.getItem('docent');
+        var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList};
+        jsonString = JSON.stringify(obj);
+
+        
+        
+
+        var fetchoptionsPost = {
+            method: 'POST',
+            body: jsonString
+        };
+
+        fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database
+            .then(function (response) {
+                if (response.ok) {
+                    //window.location.href = 'docent.html'; // als het goed is gegaan keer terug naar de homepage
+                } else {
+                    alert("Er is iets mis gegaan");
+                }
+            });
 
 
 
         
-        for(var i = 1; i < rows; i++)
-        {
-            minigameList.push(table.rows[i].cells[0].innerHTML);
-        }
 
-        minigameList.forEach(function(element) {
+        minigameList.forEach(function (element) {
             console.log("item");
             console.log(element);
-          });
+        });
     });
 
 
