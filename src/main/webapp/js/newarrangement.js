@@ -9,7 +9,6 @@ function getMinigames() {
     var fetchoptionsGet = { method: 'GET' }
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
-    //HARDCODED WORD DE MINIGAMES VAN LERAAR1 OPGEHAALD, DIT MOET NOG AANGEPAST WORDEN NAAR INGELOGDE USERsdfgsddfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg
     fetch("gamechane/minigames/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle minigames op
         .then(response => response.json())
         .then(function (myJson) {
