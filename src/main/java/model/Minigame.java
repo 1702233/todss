@@ -38,7 +38,7 @@ public class Minigame {
 		super();
 		this.id = id;
 		this.name = name;
-
+		this.type = type;
 		this.cardsOpened = cardsOpened;
 		this.omschrijving = omschrijving;
 		this.teacher = teacher;
