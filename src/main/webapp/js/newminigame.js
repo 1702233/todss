@@ -12,6 +12,19 @@ var cardsetfetch;
 	
 })();
 
+function minigameinformatie() {
+	var titel = document.getElementById("titelinput");
+	var omschrijving = document.getElementById("omschrijvinginput");
+	var speltype = document.getElementById("speltypeinput");
+	var kaartsidestart = document.getElementById("kaartsidestart");
+	var leraar;
+	
+	document.getElementById("titel").value = titel.value;
+	document.getElementById("omschrijving").value = omschrijving.value;
+	
+	
+}
+
 function fillcardsetdropdown(myJson) {
 	var select = document.getElementById("cardsetdropdown"); 
 	for(var i = 0;  i < myJson.length;  i++) {
@@ -28,7 +41,7 @@ function cardsetselectie(cardset) {
 	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
 		//cardsetimages.innerHTML += '<div class="col-sm">' + cardsetfetch[cardset].allCards[i].frontside.picture.url + "</div>";
 		//cardsetimages.innerHTML += '<img id="drag' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="100" height="150">';
-		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag' + i + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
 	}
 	console.log(cardsetfetch[cardset].allCards)
 }
@@ -74,6 +87,7 @@ function memoryselected() {
 }
 
 function memorydefined() {
+	
 	var setamountobject = document.getElementById("setaantal");
 	var kaartsidestart = document.getElementById("kaartsidestart").value;
 	var sethtml;
@@ -81,9 +95,9 @@ function memorydefined() {
 	
 	for(var i = 0;  i < setamountobject.value;  i++) {
 		if (sethtml == null) {
-			sethtml = 'Set 1 :<div class ="row"><div class="col" id="kaartsetslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col" id="kaartsetslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+			sethtml = 'Set 1 :<div class ="row"><div class="col kaartsetslot" id="kaartset01" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv02" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 		} else {
-		sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row"><div class="col" id="kaartsetslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col" id="kaartsetslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+		sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row"><div class="col kaartsetslot" id="kaartset' + i +'1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartset' + i +'2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 		};
 	};
 	

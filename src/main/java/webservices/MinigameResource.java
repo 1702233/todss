@@ -48,7 +48,7 @@ public class MinigameResource {
 	@Produces("application/json")
 	public Response postMinigame(@FormParam("titel") String titel,
 				@FormParam("speltype") String type,
-				@FormParam("cardopened") boolean cardsopened,
+				@FormParam("cardopened") String cardsopened,
 				@FormParam("omschrijving") String omschrijving,
 				@FormParam("teachernaam") String teachernaam,
 			  	@FormParam("cardsetid") int cardsetid){
@@ -62,7 +62,14 @@ public class MinigameResource {
 		Cardset c1 = cDao.findByID(cardsetid);
 		ArrayList<CardRule> cr1 = new ArrayList<CardRule>();
 		
-		Minigame newMinigame = new Minigame(1, titel, type, cardsopened, omschrijving, t1, c1, cr1);
+		boolean cardstart;
+		if (cardsopened == "dicht") {
+			cardstart = false;
+		} else{
+			cardstart = true;
+		} 
+		
+		Minigame newMinigame = new Minigame(1, titel, type, cardstart, omschrijving, t1, c1, cr1);
 	
 
 		service.saveMinigame(newMinigame);

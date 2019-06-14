@@ -97,7 +97,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
 			String query = "INSERT INTO public.minigame(\n" + 
-					"	name, \"cardsOpened\", description, \"teacherName\", \"cardsetID\", type)\n" + 
+					"	name, \"cardsOpened\", description, \"teacherName\", \"cardsetID\", \"type\")\n" + 
 					"	VALUES (?, ?, ?, ?, ?, ?);";
 
 
@@ -110,7 +110,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			pstmt.setInt(5, minigame.getCardset().getId());
 			pstmt.setString(6, minigame.getType());
 
-			System.out.println(query);
+			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());
