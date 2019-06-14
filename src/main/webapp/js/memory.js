@@ -2,7 +2,7 @@
 (function init(){
 	console.log("starting");
 	
-	fetch("gamechane/minigames/2")
+	fetch("gamechane/minigames/5")
     .then(response => response.json())
     .then(function(myJson) {
     	var cardrule=0;
@@ -30,6 +30,7 @@ function createCard(card, cardruleID){
 	var div = document.createElement("div");
 	div.setAttribute("class","memory-card");
 	
+	console.log(cardruleID);
 	div.setAttribute("data-framework", cardruleID);
 	
 	if(card.frontside.tekst == null){

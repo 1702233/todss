@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Ordering Game</title>
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/ordering2.css">
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+<div class="end-square" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div class="end-square" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+
+<div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+<img id="drag1" data-div="div1" src="http://images.stockfreeimages.com/866/sfi/free_8660001.jpg">
+</div>
+
+<div class="game-card" data-framework="aurelia">
+<img id="drag2" data-div="div2" src="http://images.stockfreeimages.com/866/sfi/free_8660001.jpg" draggable="true" ondragstart="drag(event)">
+</div>
+<div id="drag3" data-div="div3" draggable="true" ondragstart="drag(event)">test</div>
+
+
+  	<div class="end-square" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  	<div class="end-square" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  	<div class="end-square" id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  	<div class="end-square" id="end-square" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="end-wrapper">Stap 4</div></div>
+
+</div>
+  <script src="js/ordergame.js"></script>
+</body>
+</html>
