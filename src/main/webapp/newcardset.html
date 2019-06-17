@@ -138,22 +138,21 @@
             <hr>
             <p>Selecteer hieronder een afbeelding en tekst voor de nieuwe kaartenset.</p>
 
+            <!-- Input for text back side entire cardset -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon">Tekst</span>
+                    <span class="input-group-text" id="backside-text">Tekst</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                       aria-describedby="basic-addon">
+                <input type="text" class="form-control" placeholder="Tekst" aria-label="Tekst-backside-cardset"
+                       aria-describedby="backside-text">
             </div>
+            <!-- Input for image back side entire cardset -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon">Afbeelding</span>
+                    <span class="input-group-text" id="backside-image">Tekst</span>
                 </div>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile"
-                           aria-describedby="inputGroupFileAddon">
-                    <label class="custom-file-label" for="inputGroupFile">Choose file</label>
-                </div>
+                <input type="text" class="form-control" placeholder="Tekst" aria-label="Image-backside-cardset"
+                       aria-describedby="backside-image">
             </div>
 
             <div class="row">
@@ -173,25 +172,21 @@
             <div class="card-master">
                 <div class="card-wrapper">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-9">
+                        <div class="col-xs-12 col-sm-8 col-md-9 front-side">
+                            <!-- Input for text front side card -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Tekst</span>
+                                    <span class="input-group-text">Tekst</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Tekst" aria-label="Tekst"
-                                       aria-describedby="basic-addon1">
+                                <input type="text" class="form-control front-side-text" placeholder="Tekst" aria-label="Tekst">
                             </div>
+                            <!-- Input for image front side card -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Afbeelding</span>
+                                    <span class="input-group-text">Afbeelding-URL</span>
                                 </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile1"
-                                           aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile1">Choose file</label>
-                                </div>
+                                <input type="text" class="form-control front-side-image" placeholder="Tekst" aria-label="Image">
                             </div>
-
                         </div>
 
                         <div class="btn-group-vertical col-xs-12 col-sm-4 col-md-3" role="group"
@@ -202,6 +197,8 @@
                     <hr>
                 </div>
             </div>
+
+            <button class="btn btn-outline-secondary" id="saveCardset">Opslaan</button>
 
         </div>
         <!-- /.container-fluid -->

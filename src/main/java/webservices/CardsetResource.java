@@ -2,14 +2,14 @@ package webservices;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 import model.Cardset;
 import model.services.CardSetService;
 import model.services.CardSetServiceProvider;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 @Path("/cardset")
@@ -30,5 +30,23 @@ public class CardsetResource {
 		CardSetService service = CardSetServiceProvider.getCardSetService();
 		return service.findByTeacher(teacher);
 	}
-	
+
+	@POST
+	@Produces("application/json")
+	public Boolean saveCardset(String json) {
+		System.out.println("Json: " + json);
+		try {
+			System.out.println("joehoe");
+			JSONObject obj = new JSONObject(json);
+			System.out.println(obj);
+			String backsideText = obj.getJSONObject("backside").getString("text");
+			System.out.println(backsideText);
+			System.out.println("hoi");
+		} catch (Exception e) {
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		System.out.println("end");
+		return true;
+	}
 }

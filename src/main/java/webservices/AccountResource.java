@@ -25,53 +25,55 @@ import model.services.AccountServiceProvider;
 @Path("/account")
 public class AccountResource {
 
-	final static public Key key = MacProvider.generateKey();
-	private AccountService service = AccountServiceProvider.getAccountService();
-	
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Teacher> getAllTeachers() {
-		return service.getAllTeachers();
-	}
-	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password){
-		try {
-			System.out.println(username+ password);
-			boolean userBestaat = service.findUser(username, password);
-			
-			if(userBestaat == false) {throw new IllegalArgumentException("No user found!");}
-			
-			String token = createToken(username, "docent");
-			
-			SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
-			return Response.ok(JWT).build();
-		}catch (JwtException | IllegalArgumentException e) {
-			return Response.status(Response.Status.UNAUTHORIZED).build();
-		}
-	}
-	
-	private String createToken(String username, String role) throws JwtException{
-		Calendar expiration = Calendar.getInstance();
-		expiration.add(Calendar.MINUTE, 30);
-		
-		return Jwts.builder().setSubject(username).setExpiration(expiration.getTime()).claim("role", role).signWith(SignatureAlgorithm.HS512, key).compact();
-	}
-	
-	@POST
-	@Path("/create")
-	public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password) {
+    final static public Key key = MacProvider.generateKey();
+    private AccountService service = AccountServiceProvider.getAccountService();
 
-		Teacher teacher = new Teacher(username, password);
-		
-		if (service.saveAccount(teacher)) {
 
-			return Response.ok().build();
-		} else {
-			return Response.status(404).build();
-		}
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Teacher> getAllTeachers() {
+        return service.getAllTeachers();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
+        try {
+            System.out.println(username + password);
+            boolean userBestaat = service.findUser(username, password);
+
+            if (userBestaat == false) {
+                throw new IllegalArgumentException("No user found!");
+            }
+
+            String token = createToken(username, "docent");
+
+            SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
+            return Response.ok(JWT).build();
+        } catch (JwtException | IllegalArgumentException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+
+    private String createToken(String username, String role) throws JwtException {
+        Calendar expiration = Calendar.getInstance();
+        expiration.add(Calendar.MINUTE, 30);
+
+        return Jwts.builder().setSubject(username).setExpiration(expiration.getTime()).claim("role", role).signWith(SignatureAlgorithm.HS512, key).compact();
+    }
+
+    @POST
+    @Path("/create")
+    public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password) {
+
+        Teacher teacher = new Teacher(username, password);
+
+        if (service.saveAccount(teacher)) {
+
+            return Response.ok().build();
+        } else {
+            return Response.status(404).build();
+        }
+    }
 }
