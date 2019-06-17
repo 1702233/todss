@@ -29,7 +29,6 @@ public class ArrangementResource {
 	@GET
 	@Produces("application/json")
 	public List<Arrangement> getAllArrangements() {
-		System.out.println("test");
 		ArrangementService service = ArrangementServiceProvider.getArrangementService();
 		return service.getAllArrangements();
 	}
@@ -53,6 +52,7 @@ public class ArrangementResource {
 	@POST
 	public Response addArrangement(String json) {
 
+		System.out.println(json);
 		ArrangementService arrangementService = ArrangementServiceProvider.getArrangementService();
 		MinigameService minigameService = MinigameServiceProvider.getMinigameService();
 		ArrayList<Minigame> allMinigames = new ArrayList<Minigame>();
@@ -64,7 +64,7 @@ public class ArrangementResource {
 		String teacher = jsonObject.get("teacher").getAsString();
 
 		JsonArray jsonArray = jsonObject.getAsJsonArray("minigames");
-
+		
 		for (JsonElement minigameID : jsonArray) {
 			int ID = minigameID.getAsInt();
 			Minigame newMinigame = minigameService.getMinigameByID(ID);
@@ -81,7 +81,7 @@ public class ArrangementResource {
 			
 		} else {
 			
-			return Response.status(405).build();
+			return Response.status(666).build();
 		}
 
 	}

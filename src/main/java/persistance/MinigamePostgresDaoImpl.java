@@ -46,7 +46,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 				
-				System.out.println(type);
+
 				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
 						cardrules);
 
@@ -67,20 +67,16 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
 	@Override
 	public Minigame findByID(int ID) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE ID = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM MINIGAME WHERE \"ID\" = " + ID + ";").get(0);
 	}
 
 	@Override
 	public ArrayList<Minigame> findByArrangementID(int ID) {
 		return queryExecutor(
-				"select " +
-				"m.'ID' as minigameID, " +
-				"m.name as minigameName," +
-				"m.description as minigameDescription," +
-				"m.'cardsOpened'" +
+				"select *" +
 				"from minigame m " +
-				"left join arrangementminigame am on m.'ID' = am.'minigameID'" +
-				"where am.'arrangementID' = 1"
+				"left join arrangementminigame am on m.\"ID\" = am.\"minigameID\"" +
+				"where am.\"arrangementID\" = " + ID + ";"
 		);
 	}
 
@@ -91,7 +87,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	
 	@Override
 	public ArrayList<Minigame> findByTeacher(String teacher) {
-		System.out.println(queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';"));
 		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
 	}
 

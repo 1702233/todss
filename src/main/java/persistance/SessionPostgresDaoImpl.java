@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Arrangement;
 import model.Session;
 import model.Student;
+import model.Teacher;
 
 public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDao {
 
@@ -45,7 +47,7 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 	
 	@Override
 	public Session findByID(int ID) {
-		return queryExecutor("SELECT * FROM SESSION WHERE \"ID\" = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM SESSION WHERE \"\" = " + ID + ";").get(0);
 	}
 	
 	@Override
@@ -67,7 +69,7 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 	public boolean saveSession(Session session) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO SESSION (CODE, opmerking, ARRANGEMENTID) VALUES (?, ?, ?);";
+			String query = "INSERT INTO SESSION (CODE, opmerking, \"arrangementID\") VALUES (?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, session.getCode());
 			pstmt.setString(2, session.getOpmerking());
@@ -130,6 +132,18 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 			return false;
 		}
 	}
+
+	@Override
+	public boolean checkSessionExists(String code) {
+		List<Session> sessions  = queryExecutor("SELECT * FROM session WHERE code = '" + code + "';");
+		if (sessions.isEmpty()) { 
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
 
 
 
