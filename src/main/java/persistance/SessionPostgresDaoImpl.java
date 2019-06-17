@@ -1,7 +1,6 @@
 package persistance;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,14 +25,13 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 			while (rs.next()) { 
 				
 				String code = rs.getString("code");
-				Date startDate = rs.getDate("startdate");
-				Date endDate = rs.getDate("enddate");
+				String opmerking = rs.getString("opmerking");
 				int arrangementID = rs.getInt("arrangementID");
 				
 				ArrayList<Student> allStudents = sDao.findStudentsBySession(code);
 				Arrangement arrangement = aDao.findById(arrangementID);
 
-				Session newSession = new Session(code, startDate, endDate, allStudents, arrangement);
+				Session newSession = new Session(code, opmerking, arrangement, allStudents);
 
 				results.add(newSession);
 
@@ -47,24 +45,33 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 	
 	@Override
 	public Session findByID(int ID) {
-		return queryExecutor("SELECT * FROM SESSION WHERE ID = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM SESSION WHERE \"ID\" = " + ID + ";").get(0);
 	}
 	
 	@Override
 	public ArrayList<Session> findAllSessionsForArrangement(int arrangementID) {
-		return queryExecutor("SELECT * FROM SESSION WHERE ARRANGEMENTID = " + arrangementID + ";");
+		return queryExecutor("SELECT * FROM SESSION WHERE \"arrangementID\" = " + arrangementID + ";");
+	}
+	
+	public ArrayList<Session> findByTeacher(String username){
+		ArrangementPostgresDaoImpl aDao = new ArrangementPostgresDaoImpl();
+		ArrayList<Arrangement> allArrangements = aDao.findByTeacher(username);
+		ArrayList<Session> results = new ArrayList<Session>();
+		for (Arrangement arrangement : allArrangements) {
+			results.addAll(findAllSessionsForArrangement(arrangement.getID()));
+		}
+		return results;
 	}
 
 	@Override
 	public boolean saveSession(Session session) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO SESSION (CODE, STARTDATE, ENDDATE, ARRANGEMENTID) VALUES (?, ?, ?, ?);";
+			String query = "INSERT INTO SESSION (CODE, opmerking, ARRANGEMENTID) VALUES (?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, session.getCode());
-			pstmt.setDate(2, session.getStartDate());
-			pstmt.setDate(3, session.getEndDate());
-			pstmt.setInt(4, session.getArrangement().getID());
+			pstmt.setString(2, session.getOpmerking());
+			pstmt.setInt(3, session.getArrangement().getID());
 			
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
@@ -83,13 +90,12 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 	public boolean updateSession(Session session) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "UPDATE SESSION SET \"STARTDATE\" = ?, \"ENDDATE\" = ?, \"ARRANGEMENTID\" = ? WHERE CODE = ?;";
+			String query = "UPDATE SESSION SET \"opmerking\" = ?, \"ARRANGEMENTID\" = ? WHERE CODE = ?;";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			
-			pstmt.setDate(1, session.getStartDate());
-			pstmt.setDate(2, session.getEndDate());
-			pstmt.setInt(3, session.getArrangement().getID());
-			pstmt.setString(4, session.getCode());
+			pstmt.setString(1, session.getOpmerking());
+			pstmt.setInt(2, session.getArrangement().getID());
+			pstmt.setString(3, session.getCode());
 			
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

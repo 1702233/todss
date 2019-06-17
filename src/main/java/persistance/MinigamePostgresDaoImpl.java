@@ -67,7 +67,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
 	@Override
 	public Minigame findByID(int ID) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE \"ID\" = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM MINIGAME WHERE ID = " + ID + ";").get(0);
 	}
 
 	@Override

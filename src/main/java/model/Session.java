@@ -1,23 +1,23 @@
 package model;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
 
 public class Session {
-	
+
 	private String code;
-	private Date startDate;
-	private Date endDate;
+	private String opmerking;
 	private Arrangement arrangement;
-	
-	public Session(String code, Date startDate, Date endDate, ArrayList<Student> allStudents, Arrangement arrangement) {
+	private ArrayList<Student> allStudents;
+
+	public Session(String code, String opmerking, Arrangement arrangement, ArrayList<Student> allStudents) {
 		super();
 		this.code = code;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.opmerking = opmerking;
 		this.arrangement = arrangement;
+		this.allStudents = allStudents;
 	}
-	
+
 	public String getCode() {
 		return code;
 	}
@@ -25,17 +25,13 @@ public class Session {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Date getStartDate() {
-		return startDate;
+
+	public String getOpmerking() {
+		return opmerking;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+
+	public void setOpmerking(String opmerking) {
+		this.opmerking = opmerking;
 	}
 
 	public Arrangement getArrangement() {
@@ -46,5 +42,12 @@ public class Session {
 		this.arrangement = arrangement;
 	}
 
-	
+	public ArrayList<Student> getAllStudents() {
+		return allStudents;
+	}
+
+	public void setAllStudents(ArrayList<Student> allStudents) {
+		this.allStudents = allStudents;
+	}
+
 }

@@ -12,10 +12,12 @@ import model.Student;
 
 public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDao {
 
-	SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
-	ResultPostgresDaoImpl rDao = new ResultPostgresDaoImpl();
 	
 	public ArrayList<Student> queryExecutor(String query){
+		
+		SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
+		ResultPostgresDaoImpl rDao = new ResultPostgresDaoImpl();
+		
 		ArrayList<Student> results = new ArrayList<Student>();
 
 		try (Connection con = super.getConnection()) {
