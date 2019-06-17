@@ -3764,6 +3764,16 @@ input[type="button"].btn-block {
   margin-left: -1px;
 }
 
+
+.input-group-prepend{
+  width: 10%;
+}
+
+.input-group-text{
+  width: 100%;
+}
+
+
 .input-group-prepend {
   margin-right: -1px;
 }
