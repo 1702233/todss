@@ -15,162 +15,156 @@ import model.Teacher;
 
 public class MinigamePostgresDaoImpl extends PostgresBaseDao implements MinigameDao {
 
-	private TeacherPostgresDaoImpl tDao = new TeacherPostgresDaoImpl();
-	private CardsetPostgresDaoImpl csDao = new CardsetPostgresDaoImpl();
-	private CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
+    private TeacherPostgresDaoImpl tDao = new TeacherPostgresDaoImpl();
+    private CardsetPostgresDaoImpl csDao = new CardsetPostgresDaoImpl();
+    private CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
 
-	private ArrayList<Minigame> queryExecutor(String query) {
-		ArrayList<Minigame> results = new ArrayList<Minigame>();
+    private ArrayList<Minigame> queryExecutor(String query) {
+        ArrayList<Minigame> results = new ArrayList<Minigame>();
 
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
-								// aan de lijst results toe
-				String omschrijving;
-				int minigameID = rs.getInt("ID");
-				String name = rs.getString("name");
-				//String type = rs.getString("type");
-				String type = "strippoker";
-				boolean cardsOpened = rs.getBoolean("cardsOpened");
-				try {
-					omschrijving = rs.getString("omschrijving");
-				} catch(PSQLException e){
-					omschrijving = "";
-				}
-				
-				String teacherName = rs.getString("teachername");
-				Teacher teacher = tDao.findByUsername(teacherName);
-				
-				int cardsetID = rs.getInt("cardsetID");				
-				Cardset cardset = csDao.findByID(cardsetID);
-				
-				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
-				
-				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
-						cardrules);
+        try (Connection con = super.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
+                // aan de lijst results toe
+                String omschrijving;
+                int minigameID = rs.getInt("ID");
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                boolean cardsOpened = rs.getBoolean("cardsOpened");
+                try {
+                    omschrijving = rs.getString("omschrijving");
+                } catch (PSQLException e) {
+                    omschrijving = "";
+                }
 
-				results.add(newMinigame);
+                String teacherName = rs.getString("teachername");
+                Teacher teacher = tDao.findByUsername(teacherName);
 
-			}
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
+                int cardsetID = rs.getInt("cardsetID");
+                Cardset cardset = csDao.findByID(cardsetID);
 
-		return results; // return de lijst
-	}
+                ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 
-	@Override
-	public ArrayList<Minigame> findAllMinigames() {
-		return queryExecutor("SELECT * FROM MINIGAME");
-	}
+                System.out.println(type);
+                Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
+                        cardrules);
 
-	@Override
-	public Minigame findByID(int ID) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE \"ID\" = " + ID + ";").get(0);
-	}
+                results.add(newMinigame);
 
-	@Override
-	public ArrayList<Minigame> findByArrangementID(int ID) {
-		return queryExecutor(
-				"select " +
-				"m.'ID' as minigameID, " +
-				"m.name as minigameName," +
-				"m.description as minigameDescription," +
-				"m.'cardsOpened'" +
-				"from minigame m " +
-				"left join arrangementminigame am on m.'ID' = am.'minigameID'" +
-				"where am.'arrangementID' = 1"
-		);
-	}
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
 
-	@Override
-	public ArrayList<Minigame> findByName(String name) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE NAME = " + name + ";");
-	}
-	
-	@Override
-	public ArrayList<Minigame> findByTeacher(String teacher) {
-		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
-	}
+        return results; // return de lijst
+    }
 
-	@Override
-	public boolean saveMinigame(Minigame minigame) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO MINIGAME (NAME, TYPE, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?, ?);";
+    @Override
+    public ArrayList<Minigame> findAllMinigames() {
+        return queryExecutor("select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\";");
+    }
 
-			PreparedStatement pstmt = con.prepareStatement(query);
+    @Override
+    public Minigame findByID(int ID) {
+        return queryExecutor("select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" WHERE \"ID\" = " + ID + ";").get(0);
+    }
 
-			
-			pstmt.setString(1, minigame.getName());
-			pstmt.setString(2, minigame.getType());
-			pstmt.setBoolean(3, minigame.isCardsOpened());
-			pstmt.setString(4, minigame.getOmschrijving());
-			pstmt.setString(5, minigame.getTeacher().getUsername());
-			pstmt.setInt(6, minigame.getCardset().getId());
+    @Override
+    public ArrayList<Minigame> findByArrangementID(int ID) {
+        return queryExecutor(
+                "select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" where am.'arrangementID' = 1"
+        );
+    }
 
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
+    @Override
+    public ArrayList<Minigame> findByName(String name) {
+        return queryExecutor("SELECT * FROM MINIGAME WHERE NAME = " + name + ";");
+    }
 
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public ArrayList<Minigame> findByTeacher(String teacher) {
+        System.out.println(queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';"));
+        return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
+    }
 
-	@Override
-	public boolean updateMinigame(Minigame minigame) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "UPDATE MINIGAME SET 'NAME'= ?, 'CARDSOPENED'= ?, 'OMSCHRIJVING'= ?, 'TEACHERNAME'= ?, 'CARDSET'= ? WHERE 'ID'= ?;"; // bewerk
-																																							// een
-																																							// afgeronde
-																																							// taak
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setString(1, minigame.getName());
-			pstmt.setBoolean(2, minigame.isCardsOpened());
-			pstmt.setString(3, minigame.getOmschrijving());
-			pstmt.setString(4, minigame.getTeacher().getUsername());
-			pstmt.setInt(5, minigame.getCardset().getId());
-			pstmt.setInt(6, minigame.getId());
+    @Override
+    public boolean saveMinigame(Minigame minigame) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "INSERT INTO MINIGAME (NAME, TYPE, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?, ?);";
 
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
+            PreparedStatement pstmt = con.prepareStatement(query);
 
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het bewerken gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
 
-	@Override
-	public boolean deleteMinigame(int ID) {
-		int queryResult = 0;
-		try (Connection con = super.getConnection()) {
-			String query = "DELETE FROM MINIGAME WHERE 'ID' = ?;"; // verwijder een afgeronde taak
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, ID);
+            pstmt.setString(1, minigame.getName());
+            pstmt.setString(2, minigame.getType());
+            pstmt.setBoolean(3, minigame.isCardsOpened());
+            pstmt.setString(4, minigame.getOmschrijving());
+            pstmt.setString(5, minigame.getTeacher().getUsername());
+            pstmt.setInt(6, minigame.getCardset().getId());
 
-			queryResult = pstmt.executeUpdate();
-		} catch (SQLException sqe) {
-			System.out.println(sqe.getMessage());
-		}
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
 
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het verwijderen gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
-	}
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateMinigame(Minigame minigame) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "UPDATE MINIGAME SET 'NAME'= ?, 'CARDSOPENED'= ?, 'OMSCHRIJVING'= ?, 'TEACHERNAME'= ?, 'CARDSET'= ? WHERE 'ID'= ?;"; // bewerk
+            // een
+            // afgeronde
+            // taak
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, minigame.getName());
+            pstmt.setBoolean(2, minigame.isCardsOpened());
+            pstmt.setString(3, minigame.getOmschrijving());
+            pstmt.setString(4, minigame.getTeacher().getUsername());
+            pstmt.setInt(5, minigame.getCardset().getId());
+            pstmt.setInt(6, minigame.getId());
+
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
+
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het bewerken gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteMinigame(int ID) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "DELETE FROM MINIGAME WHERE 'ID' = ?;"; // verwijder een afgeronde taak
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, ID);
+
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
+
+        if (queryResult > 0) { // als queryResult hoger dan 0 is is het verwijderen gelukt (true), anders niet
+            // (false)
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
