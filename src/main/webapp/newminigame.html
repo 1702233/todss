@@ -130,36 +130,40 @@
             </ol>
 
             <!-- Page Content -->
-            <h1>Nieuwe Minigame maken</h1>
-            <hr>
-            <h2>Minigame titel</h2>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon">titel</span>
-                </div>
-                <input type="text" name="title">
+            <div class="minigamebasics" id="minigamebasics">
+	            <h1>Nieuwe Minigame maken</h1>
+	            <hr>
+	
+	            <div class="input-group mb-3">
+	                <div class="input-group-prepend">
+	                    <span class="input-group-text" id="basic-addon">titel</span>
+	                </div>
+	                <input type="text" name="title" id="titelinput">
+	            </div>
+	            
+	            <div class="input-group mb-3">
+	                <div class="input-group-prepend">
+	                    <span class="input-group-text" id="basic-addon">omschrijving</span>
+	                </div>
+	                <input type="text" name="omschrijving" id="omschrijvinginput">
+	            </div>
+	            
+	            <div class="input-group mb-3">
+	                <div class="input-group-prepend">
+	                    <span class="input-group-text" id="basic-addon">tags</span>
+	                </div>
+	                <input type="text" name="tags" id="taginput">
+	            </div>
+	            
+	            <div><input type="submit" value="Submit" onclick="minigamebasisinformatie()"></div>
             </div>
 			
-            
-			
-			<h2>Voeg tags toe aan de minigame</h2>
-            <hr>
-            <p>Voer de tags in met een spatie tussen elke tag.</p>
-			
-			<div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon">tags</span>
-                </div>
-				<input type="text" name="tags">
-            </div>
-            
+            <div class="minigameselection" id="minigameselection">
+	            <h2>Minigame basics</h2>
+				<hr>
+	            <p>selecteer hier de basis van je minigame</p>
 
-            <h2>Minigame basics</h2>
-			<hr>
-            <p>selecteer hier de basis van je minigame</p>
 
-            <div class="minigameselection">
 
                 <div class="row">
 
@@ -176,12 +180,10 @@
 								<option value="3rij">3 op een rij</option>
 							</select>
 						</div>
+						<div id="minigamedefine"></div>
 
                     </div>
-					
-					<div id="minigamedefine">
-					hier komen de regels als je een gamesoort selecteert
-					</div>
+                    </div>
 					
 
                 </div>
@@ -189,17 +191,15 @@
                 <hr>
 
             </div>
-			
-			<h2>Minigame Specificeren</h2>
-			<hr>
-            <p>maak hier je specifieke regels voor je minigame</p>
-			<div class="minigamespecifics">
+           
+            
+            <div class="minigamespecifics" id="minigamespecifics">
+				<h2>Minigame Specificeren</h2>
+				<hr>
 			
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-9">
 					    
-					    <h2>Selecteer een kaartset</h2>
-			            <hr>
 			            <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
 			
 			            <div class="input-group mb-3">
@@ -216,17 +216,30 @@
 			            </div>
 
                         <div class="input-group mb-3">
-							<div id="minigamespecifics">
-							hier komen de memory sets.
+							<div id="minigamesets">
+
 							</div>
 						</div>
+						
 					</div>
-					
+                 
 
                 </div>
 
-
             </div>
+            <div class="summaryform" id="summaryform">
+                <h2>Overzicht van gemaakte minigame</h2>
+                <hr>
+	            <form id="minigamedata">
+	                <span class="input-group-text">titel:</span><input type="text" id="titel" name="titel" value="" readonly/><br>
+	                <span class="input-group-text">speltype:</span><input type="text" id="speltype" name="speltype" value="" readonly/><br>
+	                <span class="input-group-text">cardopen:</span><input type="text" id="cardopened" name="cardopened" value="" readonly/><br>
+	                <span class="input-group-text">omschrijving:</span><input type="text" id="omschrijving" name="omschrijving" value="" readonly/><br>
+	                <span class="input-group-text">leraarnaam:</span><input type="text" id="teachernaam" name="teachernaam" value="" readonly/><br>
+	                <span class="input-group-text">cardset:</span><input type="text" id="cardsetid" name="" value="" readonly/><br>
+	                <input type="button" id="post" value="maak minigame aan/sla op in db" onclick="maakminigameaan()">
+	            </form>
+               </div>
 			<hr>
 
         </div>

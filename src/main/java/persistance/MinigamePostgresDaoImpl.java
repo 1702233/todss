@@ -45,8 +45,9 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 
-				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
-						cardrules);
+				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset, cardrules);
+
+
 
 				results.add(newMinigame);
 
@@ -92,18 +93,21 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public boolean saveMinigame(Minigame minigame) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO MINIGAME (NAME, TYPE, CARDSOPENED, OMSCHRIJVING, TEACHERNAME, CARDSET) VALUES (?, ?, ?, ?, ?, ?);";
+			String query = "INSERT INTO public.minigame(\n" + 
+					"	name, \"cardsOpened\", description, \"teacherName\", \"cardsetID\", \"type\")\n" + 
+					"	VALUES (?, ?, ?, ?, ?, ?);";
+
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
-			
 			pstmt.setString(1, minigame.getName());
-			pstmt.setString(2, minigame.getType());
-			pstmt.setBoolean(3, minigame.isCardsOpened());
-			pstmt.setString(4, minigame.getOmschrijving());
-			pstmt.setString(5, minigame.getTeacher().getUsername());
-			pstmt.setInt(6, minigame.getCardset().getId());
+			pstmt.setBoolean(2, minigame.isCardsOpened());
+			pstmt.setString(3, minigame.getOmschrijving());
+			pstmt.setString(4, minigame.getTeacher().getUsername());
+			pstmt.setInt(5, minigame.getCardset().getId());
+			pstmt.setString(6, minigame.getType());
 
+			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());
@@ -166,5 +170,4 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			return false;
 		}
 	}
-
 }
