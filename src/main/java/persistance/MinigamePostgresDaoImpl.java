@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.postgresql.util.PSQLException;
-
 import model.CardRule;
 import model.Cardset;
 import model.Minigame;
@@ -34,7 +32,8 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
 				try {
 					omschrijving = rs.getString("omschrijving");
-				} catch(PSQLException e){
+				} catch(Exception e){
+					System.out.println(e);
 					omschrijving = "";
 				}
 				
