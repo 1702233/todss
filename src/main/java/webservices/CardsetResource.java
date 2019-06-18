@@ -8,8 +8,10 @@ import model.Cardset;
 import model.services.CardSetService;
 import model.services.CardSetServiceProvider;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 @Path("/cardset")
@@ -34,19 +36,19 @@ public class CardsetResource {
 	@POST
 	@Produces("application/json")
 	public Boolean saveCardset(String json) {
-		System.out.println("Json: " + json);
 		try {
-			System.out.println("joehoe");
-			JSONObject obj = new JSONObject(json);
+			JsonObject obj = new JsonParser().parse(json).getAsJsonObject();
 			System.out.println(obj);
-			String backsideText = obj.getJSONObject("backside").getString("text");
-			System.out.println(backsideText);
-			System.out.println("hoi");
+
+			JsonObject backside = obj.get("backside").getAsJsonObject();
+			String backsideText = backside.get("text").getAsString();
+			String backsideImage = backside.get("image").getAsString();
+
+
 		} catch (Exception e) {
 			System.out.println("error");
 			e.printStackTrace();
 		}
-		System.out.println("end");
 		return true;
 	}
 }
