@@ -63,23 +63,29 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	public boolean saveCardset(Cardset cardset) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSET (NAME, TEACHERNAME) VALUES (?, ?);";
+			String query = "insert into cardset (name, \"teacherName\") values (?, ?);\n";
 			PreparedStatement pstmt = con.prepareStatement(query);
 
 			pstmt.setString(1, cardset.getName());
 			pstmt.setString(2, cardset.getTeacher().getUsername());
 
 			queryResult = pstmt.executeUpdate();
+
+			// Save all cards into this cardset
+			CardPostgresDaoImpl cardPostgresDao = new CardPostgresDaoImpl();
+
+			ArrayList<Cardset> allCardsets = this.findAllCardsets();
+			int id = allCardsets.get(allCardsets.size() - 1).getId();
+
+			for (Card card : cardset.getAllCards()) {
+				cardPostgresDao.saveCard(card, id);
+			}
+
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());
 		}
 
-		if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
-								// (false)
-			return true;
-		} else {
-			return false;
-		}
+		return queryResult > 0; // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
 	}
 
 	@Override

@@ -59,13 +59,25 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 
 	@Override
 	public boolean saveCard(Card card, int cardsetID) {
+		CardsidePostgresDaoImpl cardsidePostgresDao = new CardsidePostgresDaoImpl();
+
+		cardsidePostgresDao.saveCardside(card.getBackside());
+		ArrayList<Cardside> cardsides = cardsidePostgresDao.findAllCardsides();
+		int backsideId = cardsides.get(cardsides.size() - 1).getID();
+		System.out.println(backsideId);
+
+		cardsidePostgresDao.saveCardside(card.getFrontside());
+		cardsides = cardsidePostgresDao.findAllCardsides();
+		int frontsideId = cardsides.get(cardsides.size() - 1).getID();
+		System.out.println(frontsideId);
+
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARD (VOORKANT, ACHTERKANT, CARDSETID) VALUES (?, ?, ?);"; //zet een nieuwe afgeronde taak in de database
+			String query = "insert into card (\"voorkantID\", \"achterkantID\", \"cardsetID\") values (?, ?, ?);"; //zet een nieuwe afgeronde taak in de database
 			PreparedStatement pstmt = con.prepareStatement(query);
 			
-			pstmt.setInt(1, card.getFrontside().getID());
-			pstmt.setInt(2, card.getBackside().getID());
+			pstmt.setInt(1, frontsideId);
+			pstmt.setInt(2, backsideId);
 			pstmt.setInt(3, cardsetID);
 				
 			queryResult = pstmt.executeUpdate();

@@ -43,4 +43,12 @@ public class Card {
 		this.backside = achterkant;
 	}
 
+	@Override
+	public String toString() {
+		return "Card{" +
+				"ID=" + ID +
+				", frontside=" + frontside +
+				", backside=" + backside +
+				'}';
+	}
 }

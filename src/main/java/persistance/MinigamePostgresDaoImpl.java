@@ -170,5 +170,4 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			return false;
 		}
 	}
-
 }

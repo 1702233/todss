@@ -18,6 +18,16 @@ public class Cardside {
 		this.picture = picture;
 	}
 
+	public Cardside(String tekst) {
+		super();
+		this.tekst = tekst;
+	}
+
+	public Cardside(Picture picture) {
+		super();
+		this.picture = picture;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -42,4 +52,12 @@ public class Cardside {
 		this.picture = picture;
 	}
 
+	@Override
+	public String toString() {
+		return "Cardside{" +
+				"ID=" + ID +
+				", tekst='" + tekst + '\'' +
+				", picture=" + picture +
+				'}';
+	}
 }

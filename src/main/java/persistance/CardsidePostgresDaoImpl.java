@@ -53,13 +53,28 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 
 	@Override
 	public boolean saveCardside(Cardside cardside) {
+		int pictureId;
+		if (cardside.getPicture() != null) {
+			PicturePostgresDaoImpl picturePostgresDao = new PicturePostgresDaoImpl();
+
+			picturePostgresDao.savePicture(cardside.getPicture());
+
+			ArrayList<Picture> pictures = picturePostgresDao.findAllPictures();
+			pictureId = pictures.get(pictures.size() - 1).getID();
+		} else {
+			pictureId = -1;
+		}
+
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDSIDE (TEKST, PICTUREID) VALUES (?, ?);";
+			String query = "insert into cardside (tekst, \"pictureID\") values (?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cardside.getID());
-			pstmt.setString(2, cardside.getTekst());
-			pstmt.setInt(3, cardside.getPicture().getID());
+			pstmt.setString(1, cardside.getTekst());
+			if (pictureId != -1) {
+				pstmt.setInt(2, pictureId);
+			} else {
+				pstmt.setNull(2, java.sql.Types.INTEGER);
+			}
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
