@@ -1,6 +1,7 @@
 package webservices;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import io.jsonwebtoken.lang.Collections;
 import model.CardRule;
 import model.Cardset;
 import model.Minigame;
@@ -57,7 +59,6 @@ public class MinigameResource {
 		TeacherDao tDao = new TeacherPostgresDaoImpl();
 		CardsetDao cDao = new CardsetPostgresDaoImpl();
 		
-		
 		Teacher t1 = tDao.findByUsername(teachernaam);
 		Cardset c1 = cDao.findByID(cardsetid);
 		ArrayList<CardRule> cr1 = new ArrayList<CardRule>();
@@ -68,13 +69,13 @@ public class MinigameResource {
 		} else{
 			cardstart = true;
 		} 
-		
+
 		Minigame newMinigame = new Minigame(1, titel, type, cardstart, omschrijving, t1, c1, cr1);
-	
-
 		service.saveMinigame(newMinigame);
+		List<Minigame> allminigames = service.getAllMinigames();
+		Minigame maxint = allminigames.stream().max(Comparator.comparingInt(Minigame::getId)).get();
 
-		return Response.ok(newMinigame).build();
+		return Response.ok(maxint).build();
 	}
 
 	@GET

@@ -1,12 +1,13 @@
 var cardsetfetch;
+var selectedcardset;
 
 (function init(){
 	console.log("fetching all cardsets");
-	document.getElementById("minigamebasics").style.display = "block";
-	document.getElementById("minigameselection").style.display = "none";
-	document.getElementById("minigamespecifics").style.display = "none";
-	document.getElementById("summaryform").style.display = "none";
-	fetch("gamechane/cardset/leraar1")
+//	document.getElementById("minigamebasics").style.display = "block";
+//	document.getElementById("minigameselection").style.display = "none";
+//	document.getElementById("minigamespecifics").style.display = "none";
+//	document.getElementById("summaryform").style.display = "none";
+	fetch("gamechane/cardset/"+sessionStorage.getItem('docent'))
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);
@@ -17,13 +18,36 @@ var cardsetfetch;
 })();
 
 function minigamebasisinformatie() {
-	document.getElementById("minigamebasics").style.display = "none";
-	document.getElementById("minigameselection").style.display = "block";
-	document.getElementById("minigamespecifics").style.display = "none";
-	document.getElementById("summaryform").style.display = "none";
+//	document.getElementById("minigamebasics").style.display = "none";
+//	document.getElementById("minigameselection").style.display = "block";
+//	document.getElementById("minigamespecifics").style.display = "none";
+//	document.getElementById("summaryform").style.display = "none";
 }
 
 function minigameinformatie() {
+	var slot1;
+	var slot2;
+	var aantalsets = document.getElementById("setaantal").value;
+	console.log("aantalsets : " + aantalsets)
+	
+	JsonObj = []
+	
+	for(var i = 0;  i < aantalsets;  i++) {
+		var slot1 = document.getElementById("kaartsetslotdiv"+i+"1");
+		console.log(slot1);
+		console.log("slot1 van set" + (i+1) + " heeft de kaart id van " + slot1.childNodes[0].id.split("_").pop());
+		
+		var slot2 = document.getElementById("kaartsetslotdiv"+i+"2");
+		console.log(slot2);
+		console.log("slot2 van set" + (i+1) + " heeft de kaart id van " + slot2.childNodes[0].id.split("_").pop());
+		
+		item = {};
+		item["set"+i] = slot1.childNodes[0].id.split("_").pop() + " " + slot2.childNodes[0].id.split("_").pop();
+		JsonObj.push(item);
+		
+	}
+	
+	console.log(JsonObj);
 	
 	var titel = document.getElementById("titelinput");
 	var omschrijving = document.getElementById("omschrijvinginput");
@@ -38,7 +62,7 @@ function minigameinformatie() {
 	document.getElementById("cardopened").value = $("#kaartsidestart :selected").val();;
 	document.getElementById("omschrijving").value = omschrijving.value;
 	document.getElementById("teachernaam").value = leraar;
-	document.getElementById("cardsetid").value = cardset.value;
+	document.getElementById("cardsetid").value = selectedcardset;
 		
 }
 
@@ -55,10 +79,12 @@ function fillcardsetdropdown(myJson) {
 
 function cardsetselectie(cardset) {
 	var cardsetimages = document.getElementById("cardsetimages");
+	selectedcardset = cardsetfetch[cardset].id;
+	console.log("kaartsetgeselecteerd id = " + selectedcardset);
 	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
 		//cardsetimages.innerHTML += '<div class="col-sm">' + cardsetfetch[cardset].allCards[i].frontside.picture.url + "</div>";
-		//cardsetimages.innerHTML += '<img id="drag' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="100" height="150">';
-		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag' + i + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+		//cardsetimages.innerHTML += '<img id="drag_' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="100" height="150">';
+		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag_' + i + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
 	}
 	console.log(cardsetfetch[cardset].allCards)
 }
@@ -104,10 +130,10 @@ function memoryselected() {
 }
 
 function memorydefined() {
-	document.getElementById("minigamebasics").style.display = "none";
-	document.getElementById("minigameselection").style.display = "block";
-	document.getElementById("minigamespecifics").style.display = "block";
-	document.getElementById("summaryform").style.display = "none";
+//	document.getElementById("minigamebasics").style.display = "none";
+//	document.getElementById("minigameselection").style.display = "block";
+//	document.getElementById("minigamespecifics").style.display = "block";
+//	document.getElementById("summaryform").style.display = "none";
 	
 	var setamountobject = document.getElementById("setaantal");
 	var kaartsidestart = document.getElementById("kaartsidestart").value;
@@ -116,9 +142,9 @@ function memorydefined() {
 	
 	for(var i = 0;  i < setamountobject.value;  i++) {
 		if (sethtml == null) {
-			sethtml = 'Set 1 :<div class ="row"><div class="col kaartsetslot" id="kaartset01" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv02" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+			sethtml = 'Set 1 :<div class ="row"><div class="col kaartsetslot" id="kaartsetslotdiv01" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv02" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 		} else {
-		sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row"><div class="col kaartsetslot" id="kaartset' + i +'1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartset' + i +'2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+		sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row"><div class="col kaartsetslot" id="kaartsetslotdiv' + i +'1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv' + i +'2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 		};
 	};
 	
@@ -128,15 +154,14 @@ function memorydefined() {
 }
 
 function finalformminigame() {
-	document.getElementById("minigamebasics").style.display = "none";
-	document.getElementById("minigameselection").style.display = "none";
-	document.getElementById("minigamespecifics").style.display = "none";
-	document.getElementById("summaryform").style.display = "block";
+//	document.getElementById("minigamebasics").style.display = "none";
+//	document.getElementById("minigameselection").style.display = "none";
+//	document.getElementById("minigamespecifics").style.display = "none";
+//	document.getElementById("summaryform").style.display = "block";
 	minigameinformatie();
-	console.log("hier de functie voor de form aanmaken.")
 }
 
-function maakminigameaan(sets, kaartsidestart) {
+function maakminigameaan() {
 	console.log("minigame aangemaakt met : ");
 	var formData = new FormData(document.querySelector("#minigamedata"));
 	var encData = new URLSearchParams(formData.entries());
@@ -146,6 +171,7 @@ function maakminigameaan(sets, kaartsidestart) {
 	    .then(function(myJson) { 
 	    	console.log(myJson); 
 	    	})
+//	  fetch("gamechane/cardrule")
 }
 
 function allowDrop(ev) {
