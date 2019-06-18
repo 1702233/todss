@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Arrangement;
-import model.Cardset;
 import model.Minigame;
 import model.Teacher;
 
@@ -30,8 +29,6 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 				String teacherName = rs.getString("teacherName");
 
 				ArrayList<Minigame> allMinigames = minigameDao.findByArrangementID(id);
-
-				System.out.println("minigames: " + allMinigames.toString());
 
 				Teacher teacher = teacherDao.findByUsername(teacherName);
 

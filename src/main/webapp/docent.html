@@ -33,7 +33,9 @@
 <script>
 function login(event) {
     var ingelogdeDocent = document.getElementById("username").value;
+    
     var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
+
     var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 
     var fetchoptionsPost = {
@@ -49,6 +51,7 @@ function login(event) {
             window.location.href = "dashboard.html";
             return response.json();
             }
+
         else {
             alert("Wrong username/password");
             throw "Wrong username/password";

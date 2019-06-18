@@ -55,6 +55,7 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
 	@Override
 	public ArrayList<Cardset> findByTeacher(String teacher) {
 		System.out.println("SELECT * FROM CARDSET WHERE \"teacherName\" = '" + teacher + "';");
+
 		return queryExecutor("SELECT * FROM CARDSET WHERE \"teacherName\" = '" + teacher + "';");
 	}
 

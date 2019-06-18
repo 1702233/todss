@@ -135,4 +135,14 @@ public class Minigame {
 		this.type = type;
 	}
 
+	@Override
+	public String toString() {
+		return "Minigame [id=" + id + ", name=" + name + ", type=" + type + ", cardsOpened=" + cardsOpened
+				+ ", omschrijving=" + omschrijving + ", allBeoordelingen=" + allBeoordelingen + ", teacher=" + teacher
+				+ ", cardset=" + cardset + ", cardRules=" + cardRules + ", allTags=" + allTags + ", allResults="
+				+ allResults + "]";
+	}
+	
+	
+
 }

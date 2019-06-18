@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Ordering Game</title>
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/ordering.css">
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+  <section class="cards-field" id="cards-field">
+    <img id="drag1" data-div="div1" draggable="true" ondragstart="drag(event)" src="http://images.stockfreeimages.com/866/sfi/free_8660001.jpg">
+	<img id="drag2" data-div="div2" draggable="true" ondragstart="drag(event)" src="http://images.stockfreeimages.com/866/sfi/free_8660001.jpg">
+
+
+<!--
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" draggable="true" ondragstart="drag(event)"/>
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia" draggable="true" ondragstart="drag(event)">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+    <div class="game-card" data-framework="aurelia">
+      <img class="front-face" src="img/aurelia.svg" alt="Aurelia" />
+    </div>
+     --> 
+  </section>
+  <section class="game-squares" id="game-squares">
+  	<div class="end-square" id="end-square" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="end-wrapper">Stap 1</div></div>
+  	<div class="end-square" id="end-square" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="end-wrapper">Stap 2</div></div>
+  	<div class="end-square" id="end-square" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="end-wrapper">Stap 3</div></div>
+  	<div class="end-square" id="end-square" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="end-wrapper">Stap 4</div></div>
+  </section>
+</div>
+  <script src="js/ordergame.js"></script>
+</body>
+</html>
