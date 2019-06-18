@@ -13,8 +13,6 @@ public class Picture {
 		this.url = url;
 		this.teacher = teacher;
 	}
-	
-	
 
 	public Picture(int iD, String url, Teacher teacher) {
 		super();
@@ -22,8 +20,6 @@ public class Picture {
 		this.url = url;
 		this.teacher = teacher;
 	}
-
-
 
 	public int getID() {
 		return ID;
@@ -49,4 +45,12 @@ public class Picture {
 		this.teacher = teacher;
 	}
 
+	@Override
+	public String toString() {
+		return "Picture{" +
+				"ID=" + ID +
+				", url='" + url + '\'' +
+				", teacher=" + teacher +
+				'}';
+	}
 }

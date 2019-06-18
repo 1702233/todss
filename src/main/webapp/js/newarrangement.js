@@ -4,8 +4,6 @@ function initPage() {
     getMinigames();
     addMinigameToArrangement();
     saveArrangement();
-
-
 }
 
 function getMinigames() {
@@ -26,7 +24,6 @@ function getMinigames() {
                 option.innerHTML = "Er zijn nog geen minigames gemaakt";
                 option.value = "";
                 dropdownMinigames.appendChild(option);
-
             } else {
 
                 for (const minigame of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
@@ -40,7 +37,6 @@ function getMinigames() {
                     }
                 }
             }
-
         });
 }
 

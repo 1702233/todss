@@ -58,9 +58,13 @@ function initPage(cardTemplate) {
 
         var obj = {};
 
+        obj.title = document.getElementById("cardset-name").value;
+
+        obj.teacherName = sessionStorage.getItem("docent");
+
         obj.backside = {
-            "text": "dinges",
-            "image": "url"
+            "text": document.getElementById("backside-text").value,
+            "image": document.getElementById("backside-image").value
         };
         obj.frontside = [];
 
