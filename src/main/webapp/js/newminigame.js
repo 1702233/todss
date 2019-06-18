@@ -1,5 +1,7 @@
 var cardsetfetch;
 var selectedcardset;
+var aangemaakteminigameid;
+var jsonSets;
 
 (function init(){
 	console.log("fetching all cardsets");
@@ -30,16 +32,11 @@ function minigameinformatie() {
 	var aantalsets = document.getElementById("setaantal").value;
 	console.log("aantalsets : " + aantalsets)
 	
+	//maak een jsonobject aan met alle sets met kaartIds erin om op te slaan
 	JsonObj = []
-	
 	for(var i = 0;  i < aantalsets;  i++) {
-		var slot1 = document.getElementById("kaartsetslotdiv"+i+"1");
-		console.log(slot1);
-		console.log("slot1 van set" + (i+1) + " heeft de kaart id van " + slot1.childNodes[0].id.split("_").pop());
-		
+		var slot1 = document.getElementById("kaartsetslotdiv"+i+"1");	
 		var slot2 = document.getElementById("kaartsetslotdiv"+i+"2");
-		console.log(slot2);
-		console.log("slot2 van set" + (i+1) + " heeft de kaart id van " + slot2.childNodes[0].id.split("_").pop());
 		
 		item = {};
 		item["set"+i] = slot1.childNodes[0].id.split("_").pop() + " " + slot2.childNodes[0].id.split("_").pop();
@@ -48,6 +45,7 @@ function minigameinformatie() {
 	}
 	
 	console.log(JsonObj);
+	jsonSets = JsonObj;
 	
 	var titel = document.getElementById("titelinput");
 	var omschrijving = document.getElementById("omschrijvinginput");
@@ -91,7 +89,7 @@ function cardsetselectie(cardset) {
 
 
 function soortselectie(soort) {
-	console.log("geselecteerde minigame soort = " + soort);
+	console.log("soortselectie() gaat af met soort = " + soort);
 	// functie die een specifieke minigame selected aanroept op basis van de gebruiker's keuze
 	if (soort == "memory") {
 		memoryselected();
@@ -105,7 +103,7 @@ function soortselectie(soort) {
 }
 
 function memoryselected() {
-	console.log("memoryselected functie");
+	console.log("memoryselected() functie");
 	// functie die wordt uitgevoerd als er een memory type game word geselecteerd.
 	document.getElementById('minigamedefine').innerHTML = '' +
 	'<div class="input-group mb-3">' +
@@ -130,6 +128,7 @@ function memoryselected() {
 }
 
 function memorydefined() {
+	console.log("memorydefined() functie")
 //	document.getElementById("minigamebasics").style.display = "none";
 //	document.getElementById("minigameselection").style.display = "block";
 //	document.getElementById("minigamespecifics").style.display = "block";
@@ -154,6 +153,7 @@ function memorydefined() {
 }
 
 function finalformminigame() {
+	console.log("finalformminigame()");
 //	document.getElementById("minigamebasics").style.display = "none";
 //	document.getElementById("minigameselection").style.display = "none";
 //	document.getElementById("minigamespecifics").style.display = "none";
@@ -162,26 +162,30 @@ function finalformminigame() {
 }
 
 function maakminigameaan() {
-	console.log("minigame aangemaakt met : ");
+	console.log("maakminigameaan() functie ");
 	var formData = new FormData(document.querySelector("#minigamedata"));
 	var encData = new URLSearchParams(formData.entries());
 
 	  fetch("gamechane/minigames", { method: 'POST', body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
 	    .then(response => response.json())
 	    .then(function(myJson) { 
-	    	console.log(myJson); 
+	    	console.log(myJson);
+	    	aangemaakteminigameid = myJson.id;
+	    	fetch("gamechane/cardrule", { method: 'POST', body: JSON.stringify(jsonSets), headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
+		    .then(response => response.json())
+		    .then(function(myJson) { 
+		    	console.log(myJson);
+		    	})
 	    	})
-//	  fetch("gamechane/cardrule")
 }
 
+//deze functies zijn voor het drag en drop van plaatjes.
 function allowDrop(ev) {
   ev.preventDefault();
 }
-
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
 }
-
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
