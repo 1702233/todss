@@ -11,7 +11,6 @@ function initPage() {
 function getMinigames() {
 
     clearDropdown();
-    console.log(minigameIDsInTable);
     var fetchoptionsGet = { method: 'GET' }
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
@@ -83,7 +82,6 @@ function addMinigameToArrangement() {
             verwijderButton.addEventListener("click", function () {
                 var row = verwijderButton.parentNode.parentNode
                 row.parentNode.removeChild(row);
-                console.log("td = " + td.innerHTML);
                 minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1 );
                
                 clearDropdown();

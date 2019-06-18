@@ -106,7 +106,7 @@
           <span>Arrangementen</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="dashboard.html">Alle arrangementen</a>
+          <a class="dropdown-item" href="allarrangements.html">Alle arrangementen</a>
           <a class="dropdown-item" href="newarrangement.html">Nieuw arrangement</a>
         </div>
       </li>
@@ -124,15 +124,15 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="sessionsDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-copy"></i>
-            <span>Sessions</span>
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-copy"></i>
+          <span>Sessions</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="allsessions.html">Alle sessies</a>
-            <a class="dropdown-item" href="newsession.html">Nieuwe sessie</a>
+          <a class="dropdown-item" href="allsessions.html">Alle sessies</a>
+          <a class="dropdown-item" href="newsession.html">Nieuwe sessie</a>
         </div>
-    </li>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="cardsetsDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -167,9 +167,12 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon">Omschrijving: </span>
             </div>
-            <input type="text" name="omschrijving" id="omschrijving">
+
+
 
           </div>
+          <textarea name="omschrijving" id="omschrijving" rows="4" cols="50" name="opmerking"></textarea>
+          
         </form>
 
         <h2>Selecteer de minigames</h2>
@@ -197,10 +200,13 @@
           </div>
 
           <table id="arrangementTable" class="minimalistBlack">
-            <th>MinigameID</th>
-            <th>Naam</th>
-            <th>Gametype</th>
-            <th>Verwijder</th>
+            <thead>
+                <th>MinigameID</th>
+                <th>Naam</th>
+                <th>Gametype</th>
+                <th>Verwijder</th>
+            </thead>
+            
 
           </table>
 
