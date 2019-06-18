@@ -15,7 +15,7 @@
         <div class="container">
             <form id="loginForm">
                 <h3>Kies een gebruikersnaam en wachtwoord: </h3>
-                <input type="text" placeholder="Gebruikersnaam" name="username" class="inputRuimte" required><br>
+                <input type="text" placeholder="Gebruikersnaam" id="username" name="username" class="inputRuimte" required><br>
                 <input type="password" placeholder="Wachtwoord" name="password" required><br><br>
             </form>
 
@@ -32,7 +32,8 @@
         </div>
 <script>
 function login(event) {
-	var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
+    var ingelogdeDocent = document.getElementById("username").value;
+    var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
     var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 
     var fetchoptionsPost = {
@@ -43,13 +44,14 @@ function login(event) {
     fetch("gamechane/account", { method: 'POST', body: encData })
         .then(function(response) {
         if (response.ok) 
-        	{
-        	window.location.href = "dashboard.html";
-        	return response.json();
-        	}
+            {
+            sessionStorage.setItem('docent', ingelogdeDocent);
+            window.location.href = "dashboard.html";
+            return response.json();
+            }
         else {
-        	alert("Wrong username/password");
-        	throw "Wrong username/password";
+            alert("Wrong username/password");
+            throw "Wrong username/password";
         }
         })
         .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
