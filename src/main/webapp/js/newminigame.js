@@ -2,6 +2,10 @@ var cardsetfetch;
 
 (function init(){
 	console.log("fetching all cardsets");
+	document.getElementById("minigamebasics").style.display = "block";
+	document.getElementById("minigameselection").style.display = "none";
+	document.getElementById("minigamespecifics").style.display = "none";
+	document.getElementById("summaryform").style.display = "none";
 	fetch("gamechane/cardset/leraar1")
     .then(response => response.json())
     .then(function(myJson) {
@@ -12,17 +16,30 @@ var cardsetfetch;
 	
 })();
 
+function minigamebasisinformatie() {
+	document.getElementById("minigamebasics").style.display = "none";
+	document.getElementById("minigameselection").style.display = "block";
+	document.getElementById("minigamespecifics").style.display = "none";
+	document.getElementById("summaryform").style.display = "none";
+}
+
 function minigameinformatie() {
+	
 	var titel = document.getElementById("titelinput");
 	var omschrijving = document.getElementById("omschrijvinginput");
-	var speltype = document.getElementById("speltypeinput");
+	var speltype = document.getElementById("soortselection");
 	var kaartsidestart = document.getElementById("kaartsidestart");
-	var leraar;
+	var opendicht = kaartsidestart.options[kaartsidestart.selectedIndex].value;
+	var leraar = sessionStorage.getItem('docent');
+	var cardset = document.getElementById("cardsetdropdown")
 	
 	document.getElementById("titel").value = titel.value;
+	document.getElementById("speltype").value = speltype.value;
+	document.getElementById("cardopened").value = $("#kaartsidestart :selected").val();;
 	document.getElementById("omschrijving").value = omschrijving.value;
-	
-	
+	document.getElementById("teachernaam").value = leraar;
+	document.getElementById("cardsetid").value = cardset.value;
+		
 }
 
 function fillcardsetdropdown(myJson) {
@@ -87,6 +104,10 @@ function memoryselected() {
 }
 
 function memorydefined() {
+	document.getElementById("minigamebasics").style.display = "none";
+	document.getElementById("minigameselection").style.display = "block";
+	document.getElementById("minigamespecifics").style.display = "block";
+	document.getElementById("summaryform").style.display = "none";
 	
 	var setamountobject = document.getElementById("setaantal");
 	var kaartsidestart = document.getElementById("kaartsidestart").value;
@@ -103,10 +124,15 @@ function memorydefined() {
 	
 	var form = '<form>';
 	var submitbutton = '<div><input type="submit" value="Submit" onclick="finalformminigame()"></div>'
-	document.getElementById('minigamespecifics').innerHTML = sethtml + submitbutton;
+	document.getElementById('minigamesets').innerHTML = sethtml + submitbutton;
 }
 
 function finalformminigame() {
+	document.getElementById("minigamebasics").style.display = "none";
+	document.getElementById("minigameselection").style.display = "none";
+	document.getElementById("minigamespecifics").style.display = "none";
+	document.getElementById("summaryform").style.display = "block";
+	minigameinformatie();
 	console.log("hier de functie voor de form aanmaken.")
 }
 
