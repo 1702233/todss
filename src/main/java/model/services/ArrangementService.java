@@ -23,5 +23,9 @@ public class ArrangementService {
 	public List<Arrangement> getArrangementsByTeacher(String teacherName){
 		return dao.findByTeacher(teacherName);
 	}
+	
+	public boolean saveArrangement(Arrangement arrangement) {
+		return dao.saveArrangement(arrangement);
+	}
 
 }

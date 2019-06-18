@@ -3,9 +3,16 @@
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);
+    	for(var cr=0;cr<myJson.cardRules.length; cr++){
+    		console.log(myJson.cardRules[cr]);
+    		createCard(myJson.cardRules[cr]);
+    	}
     })
 })();
 
+function createCard(cardRule){
+	
+}
 
 function allowDrop(ev)
 {
@@ -20,6 +27,7 @@ function drag(ev)
 
 function drop(ev)
 {
+	console.log(ev.target.className)
 	ev.preventDefault();
 	var data =ev.dataTransfer.getData("content");
 	ev.target.appendChild(document.getElementById(data));
@@ -36,8 +44,8 @@ function drop(ev)
 		document.getElementById(data).style.width = "100%";
 		document.getElementById(data).style.height = "90%";
 	}
-	if(ev.target.className == "cards-field"){
-		document.getElementById(data).style.width = "calc(16.667% - 10px)%";
+	else if(ev.target.className == "cards-field"){
+		document.getElementById(data).style.width = "calc(16.667% - 10px)";
 		document.getElementById(data).style.height = "calc(20% - 10px)";
 	}
 }

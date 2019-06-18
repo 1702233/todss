@@ -18,8 +18,20 @@ public class Arrangement {
         this.allMinigames = allMinigames;
         this.teacher = teacher;
     }
+    
+    
 
-    public int getID() {
+    public Arrangement(String name, String description, ArrayList<Minigame> allMinigames, Teacher teacher) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.allMinigames = allMinigames;
+		this.teacher = teacher;
+	}
+
+
+
+	public int getID() {
         return ID;
     }
 
