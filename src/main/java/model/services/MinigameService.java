@@ -17,6 +17,10 @@ public class MinigameService {
 		return dao.findAllMinigames();
 	}
 	
+	public boolean saveMinigame(Minigame m) {
+		return dao.saveMinigame(m);
+	}
+	
 	public List<Minigame> getMinigameByTeacher(String username){
 		return dao.findByTeacher(username);
 	}
