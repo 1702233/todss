@@ -44,6 +44,7 @@ public class CardsetResource {
 			String backsideText = backside.get("text").getAsString();
 			String backsideImage = backside.get("image").getAsString();
 
+			JsonObject frontside = obj.get("frontside").getAsJsonObject();
 
 		} catch (Exception e) {
 			System.out.println("error");
