@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Ordering Game</title>
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/ordering2.css">
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+	<section class="title-field" id="title-field"><div id="minigameName"></div></section>
+	<section class="cards-field" id="cards-field" ondrop="drop(event)" ondragover="allowDrop(event)">
+	</section>
+	<section class="game-squares" id="game-squares">
+		<div class="end-square" id="end-square1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  		<div class="end-square" id="end-square2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  		<div class="end-square" id="end-square3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  		<div class="end-square" id="end-square4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	</section>
+</div>
+  <script src="js/ordergame.js"></script>
+</body>
+</html>

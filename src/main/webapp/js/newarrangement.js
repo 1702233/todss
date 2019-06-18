@@ -4,20 +4,18 @@ function initPage() {
     getMinigames();
     addMinigameToArrangement();
     saveArrangement();
-
-
 }
 
 function getMinigames() {
 
     clearDropdown();
     var fetchoptionsGet = { method: 'GET' }
+
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
     fetch("gamechane/minigames/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle minigames op
         .then(response => response.json())
         .then(function (myJson) {
-
 
             if (myJson.length == 0) { //als de myJson geen objecten bevat, zet dan een waarschuwing in de dropdown
 
@@ -26,11 +24,9 @@ function getMinigames() {
                 option.innerHTML = "Er zijn nog geen minigames gemaakt";
                 option.value = "";
                 dropdownMinigames.appendChild(option);
-
             } else {
 
                 for (const minigame of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
-
                     if (!minigameIDsInTable.includes(minigame.id)) {
                         var option = document.createElement("option");
                         var dropdownMinigames = document.getElementById("dropdownMinigames");
@@ -39,11 +35,8 @@ function getMinigames() {
                         option.innerHTML = minigame.name + " - " + minigame.type;
                         dropdownMinigames.appendChild(option);
                     }
-
-
                 }
             }
-
         });
 }
 
@@ -55,7 +48,7 @@ function addMinigameToArrangement() {
 
         if (dropdownMinigames.value != "") {
             minigameIDsInTable.push(parseInt(dropdownMinigames.value));
-            
+
 
             var value = dropdownMinigames[dropdownMinigames.selectedIndex].innerHTML;
             var minigameData = value.split(" - ")
@@ -76,14 +69,14 @@ function addMinigameToArrangement() {
             tr.appendChild(td4);
 
 
-
-
             verwijderButton.innerHTML = "Verwijder";
             verwijderButton.addEventListener("click", function () {
                 var row = verwijderButton.parentNode.parentNode
                 row.parentNode.removeChild(row);
+
                 minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1 );
                
+
                 clearDropdown();
                 getMinigames();
             });
@@ -113,10 +106,8 @@ function saveArrangement() {
         var name = document.getElementById("name").value;
         var omschrijving = document.getElementById("omschrijving").value;
         var ingelogdeDocent = sessionStorage.getItem('docent');
-        var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };
+        var obj = {name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList};
         jsonString = JSON.stringify(obj);
-
-
 
 
         var fetchoptionsPost = {
@@ -134,15 +125,11 @@ function saveArrangement() {
             });
 
 
-
-
-
         minigameList.forEach(function (element) {
             console.log("item");
             console.log(element);
         });
     });
-
 
 
 }

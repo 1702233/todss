@@ -1,0 +1,81 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  background: #5B9BD5;
+}
+
+.title-field{
+	height: 5%;
+	text-align: center;
+	font-size: 2.5rem;
+}
+
+.wrapper{
+	width: 100%;
+}
+
+.cards-field {
+  width: 80%;;
+  height: 60%;
+  margin: auto;
+  
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.game-squares{
+  width: 80%;
+  height: 20%;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.end-square{
+	width: 15%;
+	height: 80%;
+	background: #45709C;
+	margin: auto;
+	display: flex;
+}
+
+.end-wrapper{
+	color: white;
+	text-align: center;
+	margin: auto;
+}
+
+.card-wrapper{
+	text-align: center;
+	margin: auto;
+}
+
+.game-card {
+  width: calc(16.667% - 10px);
+  padding: 1%;
+  height: calc(20% - 10px);
+  margin: 5px;
+  position: relative;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  border-radius: 5px;
+  background: #DEEBF7;
+  display: flex;
+}

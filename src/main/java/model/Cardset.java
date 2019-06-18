@@ -28,6 +28,13 @@ public class Cardset {
 		this.allCards = allCards;
 	}
 
+	public Cardset(String name, Teacher teacher, ArrayList<Card> allCards) {
+		super();
+		this.name = name;
+		this.teacher = teacher;
+		this.allCards = allCards;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -68,4 +75,18 @@ public class Cardset {
 		this.allCards = allCards;
 	}
 
+	public void addCard(Card card) {
+		this.allCards.add(card);
+	}
+
+	@Override
+	public String toString() {
+		return "Cardset{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", teacher=" + teacher +
+				", allMinigames=" + allMinigames +
+				", allCards=" + allCards +
+				'}';
+	}
 }
