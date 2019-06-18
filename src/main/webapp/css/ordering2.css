@@ -11,5 +11,65 @@
                                   supported by Chrome and Opera */
 }
 
-div{width:50px;height:50px;background-color:grey;margin:5px;}
-img{width:50px;height:50px;}
+body {
+  height: 100vh;
+  display: flex;
+  background: #5B9BD5;
+}
+
+.wrapper{
+	width: 100%;
+}
+
+.cards-field {
+  width: 80%;;
+  height: 60%;
+  margin: auto;
+  
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.game-squares{
+  width: 80%;
+  height: 20%;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.end-square{
+	width: 15%;
+	height: 80%;
+	background: #45709C;
+	margin: auto;
+	display: flex;
+}
+
+.end-wrapper{
+	color: white;
+	text-align: center;
+	margin: auto;
+}
+
+.card-wrapper{
+	text-align: center;
+	margin: auto;
+}
+
+.game-card {
+  width: calc(16.667% - 10px);
+  padding: 1%;
+  height: calc(20% - 10px);
+  margin: 5px;
+  position: relative;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  border-radius: 5px;
+  background: #DEEBF7;
+  display: flex;
+}

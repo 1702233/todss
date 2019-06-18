@@ -46,7 +46,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
 				
-				System.out.println(type);
 				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset,
 						cardrules);
 
