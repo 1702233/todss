@@ -12,10 +12,12 @@ import model.Student;
 
 public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDao {
 
-	SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
-	ResultPostgresDaoImpl rDao = new ResultPostgresDaoImpl();
 	
 	public ArrayList<Student> queryExecutor(String query){
+		
+		SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
+		ResultPostgresDaoImpl rDao = new ResultPostgresDaoImpl();
+		
 		ArrayList<Student> results = new ArrayList<Student>();
 
 		try (Connection con = super.getConnection()) {
@@ -25,7 +27,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 				
 				int studentID = rs.getInt("id");
 				String name = rs.getString("name");
-				int sessionCode = rs.getInt("sessioncode");
+				int sessionCode = rs.getInt("sessionCode");
 				
 				ArrayList<Result> allResults = rDao.findByStudent(studentID);
 				Session session = sDao.findByID(sessionCode);
@@ -52,7 +54,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 
 	@Override
 	public ArrayList<Student> findStudentsBySession(String sessionCode) {
-		return queryExecutor("SELECT * FROM STUDENT WHERE SESSIONCODE = " + sessionCode + ";");
+		return queryExecutor("SELECT * FROM STUDENT WHERE \"sessionCode\" = '" + sessionCode + "';");
 	}
 	@Override
 	public boolean saveStudent(Student student) {

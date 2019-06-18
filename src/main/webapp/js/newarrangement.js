@@ -79,7 +79,7 @@ function addMinigameToArrangement() {
 
 function saveArrangement() {
 
-
+    
     var saveButton = document.getElementById("saveButton");
     saveButton.addEventListener("click", function () {
         

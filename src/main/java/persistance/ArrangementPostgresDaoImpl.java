@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Arrangement;
-import model.Cardset;
 import model.Minigame;
 import model.Teacher;
 
