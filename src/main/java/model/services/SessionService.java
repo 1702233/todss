@@ -18,6 +18,10 @@ public class SessionService {
 		return dao.saveSession(session);
 	}
 	
+	public boolean closeSession(String pin) {
+		return dao.deleteSession(pin);
+	}
+	
 	public boolean checkSessionExists(String code) {
 		return dao.checkSessionExists(code);
 	}
