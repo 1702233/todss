@@ -64,7 +64,7 @@ public class ArrangementResource {
 		String teacher = jsonObject.get("teacher").getAsString();
 
 		JsonArray jsonArray = jsonObject.getAsJsonArray("minigames");
-		
+
 		for (JsonElement minigameID : jsonArray) {
 			int ID = minigameID.getAsInt();
 			Minigame newMinigame = minigameService.getMinigameByID(ID);
@@ -78,9 +78,8 @@ public class ArrangementResource {
 		if (arrangementService.saveArrangement(newArrangement)) {
 
 			return Response.ok().build();
-			
+
 		} else {
-			
 			return Response.status(666).build();
 		}
 

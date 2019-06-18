@@ -62,18 +62,19 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
     @Override
     public ArrayList<Minigame> findAllMinigames() {
+		System.out.println("jemoeder");
         return queryExecutor("select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\";");
     }
 
     @Override
     public Minigame findByID(int ID) {
-        return queryExecutor("select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" WHERE \"ID\" = " + ID + ";").get(0);
+        return queryExecutor("select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" WHERE minigame.\"ID\" = " + ID + ";").get(0);
     }
 
     @Override
     public ArrayList<Minigame> findByArrangementID(int ID) {
         return queryExecutor(
-                "select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" where am.'arrangementID' = 1"
+                "select * from minigame left join arrangementminigame a on minigame.\"ID\" = a.\"minigameID\" left join arrangement a2 on a.\"arrangementID\" = a2.\"ID\" where am.'arrangementID' = " + ID
         );
     }
 

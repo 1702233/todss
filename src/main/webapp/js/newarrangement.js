@@ -13,7 +13,6 @@ function getMinigames() {
         .then(response => response.json())
         .then(function (myJson) {
 
-
             if (myJson.length == 0) { //als de myJson geen objecten bevat, zet dan een waarschuwing in de dropdown
 
                 var option = document.createElement("option");
@@ -25,7 +24,6 @@ function getMinigames() {
             } else {
 
                 for (const minigame of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
-
 
                     var option = document.createElement("option");
                     var dropdownMinigames = document.getElementById("dropdownMinigames");

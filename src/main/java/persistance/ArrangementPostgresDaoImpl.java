@@ -64,7 +64,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
     public boolean saveArrangement(Arrangement arrangement) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
-            String query = "INSERT INTO public.\"Arrangement\"(name, description, \"teacherName\") VALUES (?, ?, ?);";
+            String query = "INSERT INTO arrangement (name, description, \"teacherName\") VALUES (?, ?, ?);";
 
             PreparedStatement pstmt = con.prepareStatement(query);
 
