@@ -4,7 +4,7 @@ $(document).ready(function () {
         method: 'GET'
     };
 
-    fetch("gamechane/arrangements/teacher/leraar1")
+    fetch("gamechane/arrangement/teacher/leraar1", fetchoptionsGet)
         .then(response => response.json())
         .then(function (myJson) {
             for (var object in myJson) {

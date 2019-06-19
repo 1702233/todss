@@ -3,6 +3,7 @@ package webservices;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -65,5 +66,16 @@ public class SessionResource {
 			return Response.status(405).build();
 		}
 
+	}
+	
+	@DELETE
+	@Path("/{pin}")
+	public Response deleteAfgerondeTaak(@PathParam("pin") String pin) {
+		SessionService service = SessionServiceProvider.getSessionService();
+		if (!service.closeSession(pin)) {
+			return Response.status(404).build();
+		}
+
+		return Response.ok().build();
 	}
 }

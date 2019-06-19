@@ -10768,3 +10768,7 @@ table.minimalistBlack tfoot {
 table.minimalistBlack tfoot td {
   font-size: 14px;
 }
+
+#allSessionsTable{
+  /* display: none; */
+}

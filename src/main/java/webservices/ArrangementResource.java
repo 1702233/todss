@@ -51,8 +51,6 @@ public class ArrangementResource {
 
 	@POST
 	public Response addArrangement(String json) {
-
-		System.out.println(json);
 		ArrangementService arrangementService = ArrangementServiceProvider.getArrangementService();
 		MinigameService minigameService = MinigameServiceProvider.getMinigameService();
 		ArrayList<Minigame> allMinigames = new ArrayList<Minigame>();

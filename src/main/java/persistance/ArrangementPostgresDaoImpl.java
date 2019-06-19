@@ -29,9 +29,6 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
                 String teacherName = rs.getString("teacherName");
 
                 ArrayList<Minigame> allMinigames = minigameDao.findByArrangementID(id);
-
-                System.out.println("minigames: " + allMinigames.toString());
-
                 Teacher teacher = teacherDao.findByUsername(teacherName);
 
                 Arrangement arrangement = new Arrangement(id, name, description, allMinigames, teacher);
@@ -78,9 +75,9 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
             System.out.println(sqe.getMessage());
         }
 
-        if (queryResult > 0) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet
-            // (false)
-            return true;
+        if (queryResult > 0 && linkMinigameToArrangement(arrangement)) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
+
+        	return true;
         } else {
             return false;
         }
@@ -88,10 +85,12 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
     private boolean linkMinigameToArrangement(Arrangement arrangement) {
         boolean status = true;
-
+        System.out.println(getArrangementID(arrangement.getName(), arrangement.getDescription(), arrangement.getTeacher().getUsername()));
+        arrangement.setID(getArrangementID(arrangement.getName(), arrangement.getDescription(), arrangement.getTeacher().getUsername()));
+        System.out.println(arrangement.toString());
         for (Minigame minigame : arrangement.getAllMinigames()) {
             try (Connection con = super.getConnection()) {
-                String query = "INSERT INTO public.\"ArrangementMinigame\"(\"arrangementID\", \"minigameID\") VALUES (?, ?);";
+                String query = "INSERT INTO arrangementMinigame (\"arrangementID\", \"minigameID\") VALUES (?, ?);";
 
                 PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -119,4 +118,23 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
         // TODO Auto-generated method stub
         return false;
     }
+
+	@Override
+	public int getArrangementID(String name, String description, String teacherName) {
+		//return queryExecutor("SELECT \"ID\" FROM arrangement where name = '" + name + "' and description = '" + description + "' and \"teacherName\" = '" + teacherName + "';").get(0).getID();
+	
+		try (Connection con = super.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement("SELECT \"ID\" FROM arrangement where name = '" + name + "' and description = '" + description + "' and \"teacherName\" = '" + teacherName + "';");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt("ID");
+           
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            return 0;
+        }
+		return 0;
+	}
 }
