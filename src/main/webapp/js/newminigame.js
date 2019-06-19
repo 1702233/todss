@@ -79,10 +79,11 @@ function cardsetselectie(cardset) {
 	var cardsetimages = document.getElementById("cardsetimages");
 	selectedcardset = cardsetfetch[cardset].id;
 	console.log("kaartsetgeselecteerd id = " + selectedcardset);
+	//moet het zo maken dat de drag_id de kaartid wordt en niet een i loop waarde.
 	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
 		//cardsetimages.innerHTML += '<div class="col-sm">' + cardsetfetch[cardset].allCards[i].frontside.picture.url + "</div>";
 		//cardsetimages.innerHTML += '<img id="drag_' + 1 + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="100" height="150">';
-		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag_' + i + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+		cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag_' + cardsetfetch[cardset].allCards[i].id + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
 	}
 	console.log(cardsetfetch[cardset].allCards)
 }
@@ -171,7 +172,12 @@ function maakminigameaan() {
 	    .then(function(myJson) { 
 	    	console.log(myJson);
 	    	aangemaakteminigameid = myJson.id;
-	    	fetch("gamechane/cardrule", { method: 'POST', body: JSON.stringify(jsonSets), headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
+	    	item = {}
+	    	item["minigameid"] = aangemaakteminigameid;
+	    	var jsonSetsMinigameId = JSON.parse(JSON.stringify(jsonSets));
+	    	jsonSetsMinigameId.push(item)
+	    	console.log("minigame id = " + aangemaakteminigameid);
+	    	fetch("gamechane/cardrule", { method: 'POST', body: JSON.stringify(jsonSetsMinigameId), headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
 		    .then(response => response.json())
 		    .then(function(myJson) { 
 		    	console.log(myJson);

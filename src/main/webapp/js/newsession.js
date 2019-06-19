@@ -1,4 +1,8 @@
+var alertBoxGreen = document.getElementById("greenalert");
+var alertBox = document.getElementById("redalert");
+
 function initPage() {
+    document.getElementById("dropdownArrangements").value = 0;
     getArrangements();
     var saveButton = document.getElementById("saveButton");
     saveButton.addEventListener("click", saveSession);
@@ -6,19 +10,32 @@ function initPage() {
 }
 
 function saveSession() {
-    var formData = new FormData(document.getElementById("newSessionForm")); //pak de data uit de div en maak daar formdata van
-    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+    var dropdownArrangements = document.getElementById("dropdownArrangements");
 
-    var fetchoptionsPost = {
-        method: 'POST',
-        body: encData
-    };
+    if (dropdownArrangements.value != 0) {
 
-    fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
-        .then(response => response.text())
-        .then((body) => {
-          alert("Succes, de PIN van de nieuwe sessie is: " + body);
-        });
+        var formData = new FormData(document.getElementById("newSessionForm")); //pak de data uit de div en maak daar formdata van
+        var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+
+        var fetchoptionsPost = {
+            method: 'POST',
+            body: encData
+        };
+
+        fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
+            .then(response => response.text())
+            .then((body) => {
+
+                alertBoxGreen.style.display = "block";
+                alertBoxGreen.innerHTML = "Succes, de PIN van de nieuwe sessie is: " + body;
+
+            });
+    } else {
+        alertBoxGreen.style.display = "none";
+        alertBox.style.display = "block";
+        alertBox.innerHTML = "U heeft geen arrangement geselecteerd";
+    }
+
 }
 
 function getArrangements() {
@@ -34,7 +51,7 @@ function getArrangements() {
                 console.log(myJson);
                 var option = document.createElement("option");
                 var dropdownArrangements = document.getElementById("dropdownArrangements");
-                option.innerHTML = "Er zijn nog geen arrangements gemaakt";
+                option.innerHTML = "Er zijn nog geen arrangementen gemaakt";
                 option.value = "";
                 dropdownArrangements.appendChild(option);
 

@@ -87,7 +87,7 @@ function initPage(cardTemplate) {
         console.log(obj);
 
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/project5_war_exploded/gamechane/cardset";
+        var url = "gamechane/cardset";
         xhr.open("POST", url);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {

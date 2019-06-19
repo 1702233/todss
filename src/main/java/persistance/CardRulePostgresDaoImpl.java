@@ -25,7 +25,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 				int ID = rs.getInt("ID");
 				String type = rs.getString("type");
 				boolean isDraggable = rs.getBoolean("isDragable");
-				String group = rs.getString("group");
+				int group = rs.getInt("group");
 				int minigameID = rs.getInt("minigameid");
 				
 				ArrayList<CardAssignment> CardAssignments = cDao.findByCardRuleID(ID);
@@ -61,14 +61,17 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 	public boolean saveCardRules(CardRule cardRule, int minigameID) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO CARDRULE (TYPE, ISDRAGGABLE, GROUP, MINIGAMEID) VALUES (?, ?, ?, ?);";
+			String query = "INSERT INTO public.cardrule(\n" + 
+					"	type, \"isDragable\", \"group\", \"minigameID\")\n" + 
+					"	VALUES (?, ?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 
 			pstmt.setString(1, cardRule.getType());
 			pstmt.setBoolean(2, cardRule.isDraggable());
-			pstmt.setString(3, cardRule.getGroup());
+			pstmt.setInt(3, cardRule.getGroup());
 			pstmt.setInt(4, minigameID);
 
+			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());
@@ -91,7 +94,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 
 			pstmt.setString(1, cardRule.getType());
 			pstmt.setBoolean(2, cardRule.isDraggable());
-			pstmt.setString(3, cardRule.getGroup());
+			pstmt.setInt(3, cardRule.getGroup());
 			pstmt.setInt(4, minigameID);
 			pstmt.setInt(5, cardRule.getID());
 

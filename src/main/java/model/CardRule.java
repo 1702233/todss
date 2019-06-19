@@ -7,10 +7,10 @@ public class CardRule {
     private int ID;
     private String type;
     private boolean isDraggable;
-    private String group;
+    private int group;
     private ArrayList<CardAssignment> cardAssignments;
 
-    public CardRule(int iD, String type, boolean isDraggable, String group, ArrayList<CardAssignment> cardAssignments) {
+    public CardRule(int iD, String type, boolean isDraggable, int group, ArrayList<CardAssignment> cardAssignments) {
         super();
         ID = iD;
         this.type = type;
@@ -43,11 +43,11 @@ public class CardRule {
         this.isDraggable = isDraggable;
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(int group) {
         this.group = group;
     }
 

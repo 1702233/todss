@@ -1,4 +1,6 @@
 var minigameIDsInTable = [];
+var alertBox = document.getElementById("redalert");
+var alertBoxGreen = document.getElementById("greenalert");
 
 function initPage() {
     getMinigames();
@@ -74,8 +76,8 @@ function addMinigameToArrangement() {
                 var row = verwijderButton.parentNode.parentNode
                 row.parentNode.removeChild(row);
 
-                minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1 );
-               
+                minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1);
+
 
                 clearDropdown();
                 getMinigames();
@@ -92,6 +94,7 @@ function addMinigameToArrangement() {
 function saveArrangement() {
 
 
+
     var saveButton = document.getElementById("saveButton");
     saveButton.addEventListener("click", function () {
 
@@ -106,30 +109,59 @@ function saveArrangement() {
         var name = document.getElementById("name").value;
         var omschrijving = document.getElementById("omschrijving").value;
         var ingelogdeDocent = sessionStorage.getItem('docent');
-        var obj = {name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList};
+        var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };
         jsonString = JSON.stringify(obj);
 
+        console.log("input value =");
+        console.log(document.getElementById("name").value);
 
-        var fetchoptionsPost = {
-            method: 'POST',
-            body: jsonString
-        };
+        if (document.getElementById("name").value == "") {
+            alertBoxGreen.style.display = "none";
+            alertBox.style.display = "block";
+            alertBox.innerHTML = "U heeft nog geen naam ingevoerd";
+        }
 
-        fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database
-            .then(function (response) {
-                if (response.ok) {
-                    //window.location.href = 'docent.html'; // als het goed is gegaan keer terug naar de homepage
-                } else {
-                    alert("Er is iets mis gegaan");
-                }
-            });
+        else if (document.getElementById("omschrijving").value == "") {
+            alertBoxGreen.style.display = "none";
+            alertBox.style.display = "block";
+            alertBox.innerHTML = "U heeft nog geen omschrijving ingevoerd";
+        }
+
+        else if (minigameIDsInTable.length <= 0) {
+            alertBoxGreen.style.display = "none";
+            alertBox.style.display = "block";
+            alertBox.innerHTML = "U heeft nog geen minigames toegevoegd aan het arrangement";
+        }
+
+        else {
+
+            var fetchoptionsPost = {
+                method: 'POST',
+                body: jsonString
+            };
+
+            fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database
+                .then(function (response) {
+                    if (response.ok) {
+                        alertBox.style.display = "none";
+                        alertBoxGreen.style.display = "block";
+                        alertBoxGreen.innerHTML = "Arrangement is succesvol aangemaakt";
+                        clearPage();
+                    } else {
+                        alertBox.style.display = "block";
+                        alertBoxGreen.style.display = "none";
+                        alertBox.innerHTML = "U heeft al een arrangement aangemaakt met deze naam";
+                    }
+                });
 
 
-        minigameList.forEach(function (element) {
-            console.log("item");
-            console.log(element);
-        });
+        }
+
+
     });
+
+
+
 
 
 }
@@ -140,6 +172,23 @@ function clearDropdown() {
     for (i = 0; i < length; i++) {
         dropdownMinigames.options[i] = null;
     }
+}
+
+function clearPage() {
+
+    document.getElementById("name").value = "";
+    document.getElementById("omschrijving").value = "";
+
+    var tableHeaderRowCount = 1;
+    var table = document.getElementById("arrangementTable");
+    var rowCount = table.rows.length;
+    for (var i = tableHeaderRowCount; i < rowCount; i++) {
+        table.deleteRow(tableHeaderRowCount);
+    }
+
+    minigameIDsInTable = [];
+
+    getMinigames();
 }
 
 initPage();
