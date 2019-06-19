@@ -1,3 +1,5 @@
+var alertBoxGreen = document.getElementById("greenalert");
+
 function initPage() {
     getArrangements();
     var saveButton = document.getElementById("saveButton");
@@ -17,7 +19,10 @@ function saveSession() {
     fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
         .then(response => response.text())
         .then((body) => {
-          alert("Succes, de PIN van de nieuwe sessie is: " + body);
+
+            alertBoxGreen.style.display = "block";
+            alertBoxGreen.innerHTML = "Succes, de PIN van de nieuwe sessie is: " + body;
+            
         });
 }
 
@@ -34,7 +39,7 @@ function getArrangements() {
                 console.log(myJson);
                 var option = document.createElement("option");
                 var dropdownArrangements = document.getElementById("dropdownArrangements");
-                option.innerHTML = "Er zijn nog geen arrangements gemaakt";
+                option.innerHTML = "Er zijn nog geen arrangementen gemaakt";
                 option.value = "";
                 dropdownArrangements.appendChild(option);
 

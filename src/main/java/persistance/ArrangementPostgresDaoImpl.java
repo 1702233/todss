@@ -127,9 +127,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
 	@Override
 	public int getArrangementID(String name, String description, String teacherName) {
-		//return queryExecutor("SELECT \"ID\" FROM arrangement where name = '" + name + "' and description = '" + description + "' and \"teacherName\" = '" + teacherName + "';").get(0).getID();
-	
-		try (Connection con = super.getConnection()) {
+			try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement("SELECT \"ID\" FROM arrangement where name = '" + name + "' and description = '" + description + "' and \"teacherName\" = '" + teacherName + "';");
             ResultSet rs = pstmt.executeQuery();
 
