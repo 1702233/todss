@@ -174,9 +174,10 @@ function maakminigameaan() {
 	    	aangemaakteminigameid = myJson.id;
 	    	item = {}
 	    	item["minigameid"] = aangemaakteminigameid;
-	    	jsonSets.push(item)
+	    	var jsonSetsMinigameId = JSON.parse(JSON.stringify(jsonSets));
+	    	jsonSetsMinigameId.push(item)
 	    	console.log("minigame id = " + aangemaakteminigameid);
-	    	fetch("gamechane/cardrule", { method: 'POST', body: JSON.stringify(jsonSets), headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
+	    	fetch("gamechane/cardrule", { method: 'POST', body: JSON.stringify(jsonSetsMinigameId), headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}} )
 		    .then(response => response.json())
 		    .then(function(myJson) { 
 		    	console.log(myJson);
