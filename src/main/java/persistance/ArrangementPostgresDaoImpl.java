@@ -65,7 +65,6 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
             PreparedStatement pstmt = con.prepareStatement(query);
 
-
             pstmt.setString(1, arrangement.getName());
             pstmt.setString(2, arrangement.getDescription());
             pstmt.setString(3, arrangement.getTeacher().getUsername());
@@ -75,12 +74,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
             System.out.println(sqe.getMessage());
         }
 
-        if (queryResult > 0 && linkMinigameToArrangement(arrangement)) { // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
-
-        	return true;
-        } else {
-            return false;
-        }
+        return (queryResult > 0 && linkMinigameToArrangement(arrangement)); // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
     }
 
     private boolean linkMinigameToArrangement(Arrangement arrangement) {
@@ -114,9 +108,21 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
     }
 
     @Override
-    public boolean deleteArrangement(int ID) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean deleteArrangement(int id) {
+        int queryResult = 0;
+        try (Connection con = super.getConnection()) {
+            String query = "delete from arrangement where \"ID\" = ?;";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            pstmt.setInt(1, id);
+
+            queryResult = pstmt.executeUpdate();
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        }
+
+        return (queryResult > 0); // als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
     }
 
 	@Override

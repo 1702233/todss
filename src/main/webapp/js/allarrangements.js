@@ -7,38 +7,78 @@ $(document).ready(function () {
     fetch("gamechane/arrangement/teacher/leraar1", fetchoptionsGet)
         .then(response => response.json())
         .then(function (myJson) {
-            for (var object in myJson) {
-                console.log(myJson[object]);
-                console.log(myJson[object].name);
+            var table = document.getElementById("allArrangementsTable");
 
-                var minigames = myJson[object].allMinigames;
+            for (var arrangement of myJson) {
 
-                var arrangementBlock = "";
+                var tr = document.createElement("tr");
+                var tdTitle = document.createElement("td");
+                var tdGames = document.createElement("td");
+                var tdDescription = document.createElement("td");
+                var tdInfo = document.createElement("td");
+                var buttonInfo = document.createElement("button");
+                var tdDelete = document.createElement("td");
+                var buttonDelete = document.createElement("button");
 
-                arrangementBlock += "<div class='arrangementContainer'>";
-                arrangementBlock += "<h2>" + myJson[object].name + "</h2>";
-                arrangementBlock += "<p>Aantal spellen in dit arrangement: <span class='numberOfGames'>" + myJson[object].allMinigames.length + "</span></p>";
-                arrangementBlock += "<ul class='minigamelist'>";
+                console.log(myJson);
+                console.log(arrangement);
+                console.log(arrangement);
 
-                for (minigame in minigames) {
+                tdTitle.innerHTML = arrangement.name;
+
+                var minigames = arrangement.allMinigames;
+                var minigameList = "";
+                for (var minigame in minigames) {
                     if (minigame < 4) {
-                        arrangementBlock += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
+                        minigameList += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
                     } else if (minigames.length === 5) {
-                        arrangementBlock += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
+                        minigameList += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
                         break;
                     } else {
-                        arrangementBlock += "<li>En nog " + (minigames.length - 4) + " andere spellen...</li>";
+                        minigameList += "<li>En nog " + (minigames.length - 4) + " andere spellen...</li>";
                         break;
                     }
                 }
+                tdGames.innerHTML = minigameList;
 
-                arrangementBlock += "</ul>";
-                arrangementBlock += "<p class='description'>" + myJson[object].description + "</p>";
-                arrangementBlock += "<a href='/arrangement.html?id=" + myJson[object].id + "' class='btn btn-outline-primary'>Meer informatie</a>";
-                arrangementBlock += "</div>";
-                arrangementBlock += "<hr>";
+                tdDescription.innerHTML = arrangement.description;
+                buttonInfo.innerHTML = "Details";
+                buttonDelete.innerHTML = "Verwijderen";
 
-                $("#arrangementList").append(arrangementBlock)
+                buttonInfo.setAttribute("id", "buttonInfo");
+                buttonInfo.setAttribute("data-id", arrangement.id);
+
+                buttonDelete.setAttribute("id", "buttonDelete");
+                buttonDelete.setAttribute("data-id", arrangement.id);
+                buttonDelete.onclick = function() { deleteArrangement(arrangement.id) };
+
+                tdInfo.appendChild(buttonInfo);
+                tdDelete.appendChild(buttonDelete);
+
+                tr.appendChild(tdTitle);
+                tr.appendChild(tdGames);
+                tr.appendChild(tdDescription);
+                tr.appendChild(tdInfo);
+                tr.appendChild(tdDelete);
+
+                table.appendChild(tr);
             }
+
+
         })
 });
+
+function deleteArrangement(id) {
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/project5_war_exploded/gamechane/arrangement/delete/" +  id;
+    xhr.open("DELETE", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json.email + ", " + json.password);
+        }
+    };
+    xhr.send();
+    window.location.reload();
+}
