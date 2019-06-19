@@ -9,11 +9,7 @@ import model.services.MinigameService;
 import model.services.MinigameServiceProvider;
 
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonArray;
@@ -81,5 +77,13 @@ public class ArrangementResource {
 			return Response.status(666).build();
 		}
 
+	}
+
+	@DELETE
+	@Path("/delete/{id}")
+	public boolean deleteArrangementById(@PathParam("id") int id) {
+		System.out.println("hoi");
+		ArrangementService service = ArrangementServiceProvider.getArrangementService();
+		return service.deleteArrangementById(id);
 	}
 }

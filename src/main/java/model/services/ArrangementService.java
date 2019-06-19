@@ -32,4 +32,7 @@ public class ArrangementService {
 		return dao.getArrangementID(name, description, teacherName);
 	}
 
+	public boolean deleteArrangementById(int id) {
+		return dao.deleteArrangement(id);
+	}
 }
