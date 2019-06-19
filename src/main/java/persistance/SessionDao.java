@@ -14,4 +14,5 @@ public interface SessionDao {
 	public boolean updateSession(Session session);
 	public boolean deleteSession(String code);
 	public boolean checkSessionExists(String code);
+	public Session findByCode(String code);
 }

@@ -45,6 +45,7 @@ function getArrangements() {
 
                     var option = document.createElement("option");
                     var dropdownArrangements = document.getElementById("dropdownArrangements");
+                    console.log(arrangement.id);
                     option.value = arrangement.id;
                     option.innerHTML = arrangement.name + " - " + arrangement.description;
                     dropdownArrangements.appendChild(option);

@@ -110,7 +110,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 	@Override
 	public boolean checkTeacher(String username, String password) {
 		List<Teacher> teachers  = queryExecutor("SELECT * FROM TEACHER WHERE \"username\" = '" + username + "' AND \"password\" = '" + password + "';");
-		System.out.println(teachers.isEmpty());
 		if (teachers.isEmpty()) { 
 			return false;
 		} else {

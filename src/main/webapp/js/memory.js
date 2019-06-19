@@ -2,7 +2,7 @@
 (function init(){
 	console.log("starting");
 	
-	fetch("gamechane/minigames/7")
+	fetch("gamechane/minigames/2")
     .then(response => response.json())
     .then(function(myJson) {
     	var cardrule=0;

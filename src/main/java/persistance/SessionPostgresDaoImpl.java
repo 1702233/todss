@@ -141,6 +141,16 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 			return true;
 		}
 	}
+
+	@Override
+	public Session findByCode(String code) {
+		List<Session> sessions  = queryExecutor("SELECT * FROM session WHERE code = '" + code + "';");
+		if (sessions.isEmpty()) { 
+			return null;
+		} else {
+			return sessions.get(0);
+		}
+	}
 	
 	
 

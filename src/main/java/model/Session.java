@@ -37,6 +37,10 @@ public class Session {
 	public Arrangement getArrangement() {
 		return arrangement;
 	}
+	
+	public int getArrangementID() {
+		return arrangement.getID();
+	}
 
 	public void setArrangement(Arrangement arrangement) {
 		this.arrangement = arrangement;

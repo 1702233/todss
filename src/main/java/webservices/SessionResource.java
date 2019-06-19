@@ -10,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Arrangement;
@@ -66,6 +67,25 @@ public class SessionResource {
 			return Response.status(405).build();
 		}
 
+	}
+	
+	@POST
+	@Path("/check")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response checkSession(@FormParam("code") String code) {
+		SessionService service = SessionServiceProvider.getSessionService();
+		Session session = service.getSessionByCode(code);
+		
+		
+		try {
+			if (session == null) {
+	            throw new IllegalArgumentException("No session found!");
+			}
+			return Response.ok(session.getArrangementID()).build();
+	            
+        }catch(IllegalArgumentException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
 	}
 	
 	@DELETE

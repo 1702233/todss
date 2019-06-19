@@ -40,7 +40,6 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
         try {
-            System.out.println(username + password);
             boolean userBestaat = service.findUser(username, password);
 
             if (userBestaat == false) {
