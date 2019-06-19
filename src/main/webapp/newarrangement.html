@@ -155,6 +155,11 @@
         <h1>Nieuwe arrangement maken</h1>
         <hr>
 
+        <div class="alert alert-danger" role="alert" id="redalert">
+        </div>
+        <div class="alert alert-success" role="alert" id="greenalert">
+        </div>
+
         <form id="newArrangementForm">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -171,8 +176,9 @@
 
 
           </div>
-          <textarea name="omschrijving" id="omschrijving" rows="4" cols="50" name="opmerking" maxlength="200"></textarea>
-          
+          <textarea name="omschrijving" id="omschrijving" rows="4" cols="50" name="opmerking"
+            maxlength="200"></textarea>
+
         </form>
 
         <h2>Selecteer de minigames</h2>
@@ -201,13 +207,11 @@
 
           <table id="arrangementTable" class="minimalistBlack">
             <thead>
-                <th>MinigameID</th>
-                <th>Naam</th>
-                <th>Gametype</th>
-                <th>Verwijder</th>
+              <th>MinigameID</th>
+              <th>Naam</th>
+              <th>Gametype</th>
+              <th>Verwijder</th>
             </thead>
-            
-
           </table>
 
 
@@ -215,9 +219,8 @@
 
         <Button id="saveButton">Arrangement opslaan</Button>
 
-
-
       </div>
+
     </div>
 
     <!-- Sticky Footer -->

@@ -1,4 +1,5 @@
 var sessionDataJSON = [];
+var alertBoxGreen = document.getElementById("greenalert");
 
 function initPage() {
     getSessions();
@@ -38,9 +39,9 @@ function getSessions() {
                     fetch("gamechane/session/" + td.innerHTML, fetchoptionsDel)
                         .then(function (response) {
                             if (response.ok) {
-                                alert("Sessie is gesloten");
                                 location.reload();
-                                //window.location.href = 'docent.html'; // als het goed is gegaan keer terug naar de homepage
+
+
                             } else {
                                 alert("Er is iets mis gegaan");
                             }
