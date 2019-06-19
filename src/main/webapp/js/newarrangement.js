@@ -9,8 +9,8 @@ function initPage() {
 function getMinigames() {
 
     clearDropdown();
-    console.log(minigameIDsInTable);
-    var fetchoptionsGet = {method: 'GET'}
+    var fetchoptionsGet = { method: 'GET' }
+
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
     fetch("gamechane/minigames/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle minigames op
@@ -73,8 +73,9 @@ function addMinigameToArrangement() {
             verwijderButton.addEventListener("click", function () {
                 var row = verwijderButton.parentNode.parentNode
                 row.parentNode.removeChild(row);
-                console.log("td = " + td.innerHTML);
-                minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1);
+
+                minigameIDsInTable.splice(minigameIDsInTable.indexOf(parseInt(td.innerHTML)), 1 );
+               
 
                 clearDropdown();
                 getMinigames();

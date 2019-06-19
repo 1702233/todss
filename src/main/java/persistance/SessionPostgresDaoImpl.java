@@ -10,7 +10,6 @@ import java.util.List;
 import model.Arrangement;
 import model.Session;
 import model.Student;
-import model.Teacher;
 
 public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDao {
 
@@ -113,12 +112,12 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 	}
 
 	@Override
-	public boolean deleteSession(int ID) {
+	public boolean deleteSession(String code) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "DELETE FROM SESSION WHERE \"CODE\" = ?;";
+			String query = "DELETE FROM SESSION WHERE CODE = ?;";
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, ID);
+			pstmt.setString(1, code);
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

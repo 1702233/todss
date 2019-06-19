@@ -27,5 +27,9 @@ public class ArrangementService {
 	public boolean saveArrangement(Arrangement arrangement) {
 		return dao.saveArrangement(arrangement);
 	}
+	
+	public int getArrangementID(String name, String description, String teacherName) {
+		return dao.getArrangementID(name, description, teacherName);
+	}
 
 }

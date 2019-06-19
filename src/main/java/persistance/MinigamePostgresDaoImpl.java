@@ -31,7 +31,7 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				String type = rs.getString("type");
 				boolean cardsOpened = rs.getBoolean("cardsOpened");
 				try {
-					omschrijving = rs.getString("omschrijving");
+					omschrijving = rs.getString("description");
 				} catch(Exception e){
 					System.out.println(e);
 					omschrijving = "";

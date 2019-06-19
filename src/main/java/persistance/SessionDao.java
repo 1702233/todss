@@ -12,6 +12,6 @@ public interface SessionDao {
 	public Session findByID(int ID);
 	public boolean saveSession(Session session);
 	public boolean updateSession(Session session);
-	public boolean deleteSession(int ID);
+	public boolean deleteSession(String code);
 	public boolean checkSessionExists(String code);
 }
