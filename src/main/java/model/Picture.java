@@ -20,6 +20,12 @@ public class Picture {
 		this.url = url;
 	}
 
+	public Picture(String image, Teacher teacher2) {
+		this.url = image;
+		this.teacher = teacher2;
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getID() {
 		return ID;
 	}
