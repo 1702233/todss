@@ -45,12 +45,12 @@ public class CardRuleResource {
 				JsonObject jsonObject = (JsonObject) sets.get(i);
 				String value = jsonObject.get("set"+i).getAsString();
 				String[] setvalues = value.split(" ");
+				CardRule cr = new CardRule(1, "set", false, group, new ArrayList<CardAssignment>());
+				cardruleService.saveCardRule(cr, minigameid);
+				List<CardRule> allcardrule = cardruleService.getAllCardRules();
+				CardRule maxint = allcardrule.stream().max(Comparator.comparingInt(CardRule::getID)).get();
 				int in =1;
 				for (String s : setvalues) {
-					CardRule cr = new CardRule(1, "set", false, group, new ArrayList<CardAssignment>());
-					cardruleService.saveCardRule(cr, minigameid);
-					List<CardRule> allcardrule = cardruleService.getAllCardRules();
-					CardRule maxint = allcardrule.stream().max(Comparator.comparingInt(CardRule::getID)).get();
 					Card c = cardService.getCardByID(Integer.parseInt(s));
 					CardAssignment ca = new CardAssignment(1, in, c);
 					cardassignmentService.saveCardAssignment(ca, maxint.getID());

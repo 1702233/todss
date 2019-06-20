@@ -21,13 +21,13 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
             PreparedStatement pstmt = con.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int cardRuleID = rs.getInt("cardRuleID");
+                int cardruleID = rs.getInt("cardruleID");
                 int rank = rs.getInt("rank");
                 int cardID = rs.getInt("cardid");
 
                 Card card = cDao.findById(cardID);
 
-                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card);
+                CardAssignment newCardAssignment = new CardAssignment(cardruleID, rank, card);
 
                 results.add(newCardAssignment);
 
@@ -52,7 +52,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
-        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardRuleID\" = '" + ID + "';");
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardruleID\" = '" + ID + "';");
     }
 
 
@@ -62,7 +62,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
             String query = "INSERT INTO public.cardassignment(\n" + 
-            		"	\"cardID\", \"cardRuleID\", rank)\n" + 
+            		"	\"cardID\", \"cardruleID\", rank)\n" + 
             		"	VALUES (?, ?, ?);";
             PreparedStatement pstmt = con.prepareStatement(query);
             
