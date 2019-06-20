@@ -6,12 +6,8 @@ import javax.sql.DataSource;
 
 public class PostgresBaseDao {
 	
-	private static long count;
-	
 	protected final Connection getConnection() {
-		count++;
 		Connection result = null;
-		System.out.println("times connected to the database: " + count);
 		
 		try {
 			InitialContext ic = new InitialContext();
