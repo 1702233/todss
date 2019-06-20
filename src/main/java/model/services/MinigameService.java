@@ -24,4 +24,8 @@ public class MinigameService {
 	public List<Minigame> getMinigameByTeacher(String username){
 		return dao.findByTeacher(username);
 	}
+
+	public List<Minigame> getMinigamesByArrangementID(int ID) {
+		return dao.findByArrangementID(ID);
+	}
 }

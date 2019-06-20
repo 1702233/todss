@@ -39,6 +39,13 @@ public class MinigameResource {
 	}
 	
 	@GET
+	@Produces("application/json")
+	@Path("/arrangement/{id}")
+	public List<Minigame> getMinigamesByArrangementID(@PathParam("id") int ID){
+		return service.getMinigamesByArrangementID(ID);
+	}
+	
+	@GET
 	@Path("{id}")
 	@Produces("application/json")
 	public Minigame getMinigameByID(@PathParam("id") int ID) {

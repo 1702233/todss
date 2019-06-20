@@ -18,24 +18,32 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
         ArrayList<CardAssignment> results = new ArrayList<CardAssignment>();
 
         try (Connection con = super.getConnection()) {
+        	System.out.println("cardassignment 1");
             PreparedStatement pstmt = con.prepareStatement(query);
+            System.out.println(pstmt);
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("cardassignment 2");
             while (rs.next()) {
                 int cardruleID = rs.getInt("cardruleID");
                 int rank = rs.getInt("rank");
                 int cardID = rs.getInt("cardid");
 
+                System.out.println("cardassignment 3");
                 Card card = cDao.findById(cardID);
 
-                CardAssignment newCardAssignment = new CardAssignment(cardruleID, rank, card);
 
+                System.out.println("cardassignment 4");
+                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card);
+                
+                System.out.println("cardassignment 5");
                 results.add(newCardAssignment);
 
             }
+            con.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-
+        
         return results; // return de lijst
     }
 
@@ -52,7 +60,12 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
+<<<<<<< HEAD
         return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardruleID\" = '" + ID + "';");
+=======
+    	System.out.println("cardassignment findbycardruleid");
+        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardRuleID\" = '" + ID + "';");
+>>>>>>> branch 'master' of https://github.com/jappieman26/todss.git
     }
 
 

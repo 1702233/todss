@@ -1,8 +1,6 @@
 var alertBoxGreen = document.getElementById("greenalert");
-var alertBox = document.getElementById("redalert");
 
 function initPage() {
-    document.getElementById("dropdownArrangements").value = 0;
     getArrangements();
     var saveButton = document.getElementById("saveButton");
     saveButton.addEventListener("click", saveSession);
@@ -10,32 +8,22 @@ function initPage() {
 }
 
 function saveSession() {
-    var dropdownArrangements = document.getElementById("dropdownArrangements");
+    var formData = new FormData(document.getElementById("newSessionForm")); //pak de data uit de div en maak daar formdata van
+    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 
-    if (dropdownArrangements.value != 0) {
+    var fetchoptionsPost = {
+        method: 'POST',
+        body: encData
+    };
 
-        var formData = new FormData(document.getElementById("newSessionForm")); //pak de data uit de div en maak daar formdata van
-        var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+    fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
+        .then(response => response.text())
+        .then((body) => {
 
-        var fetchoptionsPost = {
-            method: 'POST',
-            body: encData
-        };
-
-        fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
-            .then(response => response.text())
-            .then((body) => {
-
-                alertBoxGreen.style.display = "block";
-                alertBoxGreen.innerHTML = "Succes, de PIN van de nieuwe sessie is: " + body;
-
-            });
-    } else {
-        alertBoxGreen.style.display = "none";
-        alertBox.style.display = "block";
-        alertBox.innerHTML = "U heeft geen arrangement geselecteerd";
-    }
-
+            alertBoxGreen.style.display = "block";
+            alertBoxGreen.innerHTML = "Succes, de PIN van de nieuwe sessie is: " + body;
+            
+        });
 }
 
 function getArrangements() {
@@ -62,6 +50,7 @@ function getArrangements() {
 
                     var option = document.createElement("option");
                     var dropdownArrangements = document.getElementById("dropdownArrangements");
+                    console.log(arrangement.id);
                     option.value = arrangement.id;
                     option.innerHTML = arrangement.name + " - " + arrangement.description;
                     dropdownArrangements.appendChild(option);

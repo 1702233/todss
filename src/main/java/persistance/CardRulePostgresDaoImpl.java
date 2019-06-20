@@ -18,8 +18,12 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 		ArrayList<CardRule> results = new ArrayList<CardRule>();
 
 		try (Connection con = super.getConnection()) {
+			System.out.println("cardrule 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
+			System.out.println(pstmt);
+			
 			ResultSet rs = pstmt.executeQuery();
+			System.out.println("cardrule 2");
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
 				int ID = rs.getInt("ID");
@@ -28,13 +32,17 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 				int group = rs.getInt("group");
 				int minigameID = rs.getInt("minigameid");
 				
+				System.out.println("cardrule 3");
 				ArrayList<CardAssignment> CardAssignments = cDao.findByCardRuleID(ID);
+				System.out.println("cardrule 4");
 				
 				CardRule newCardRule = new CardRule(ID, type, isDraggable, group, CardAssignments);
 
+				System.out.println("cardrule 5");
 				results.add(newCardRule);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -54,6 +62,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 
 	@Override
 	public ArrayList<CardRule> findByMinigame(int minigameID) {
+		System.out.println("cardrulefindbyminigame");
 		return queryExecutor("SELECT * FROM CARDRULE WHERE \"minigameID\" = '" + minigameID + "';");
 	}
 

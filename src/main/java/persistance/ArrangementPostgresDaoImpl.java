@@ -16,29 +16,39 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
         ArrayList<Arrangement> results = new ArrayList<Arrangement>();
 
         try (Connection con = super.getConnection()) {
+        	System.out.println("arrangement 1");
             PreparedStatement pstmt = con.prepareStatement(query);
+            System.out.println(pstmt);
             ResultSet rs = pstmt.executeQuery();
-
+            
+            System.out.println("arrangement 2");
             MinigamePostgresDaoImpl minigameDao = new MinigamePostgresDaoImpl();
+            System.out.println("arrangement 3");
             TeacherPostgresDaoImpl teacherDao = new TeacherPostgresDaoImpl();
+            System.out.println("arrangement 4");
 
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 String teacherName = rs.getString("teacherName");
+                System.out.println("arrangement 5");
 
                 ArrayList<Minigame> allMinigames = minigameDao.findByArrangementID(id);
+                System.out.println("arrangement 6");
                 Teacher teacher = teacherDao.findByUsername(teacherName);
+                System.out.println("arrangement 7");
 
                 Arrangement arrangement = new Arrangement(id, name, description, allMinigames, teacher);
+                System.out.println("arrangement 8");
 
                 results.add(arrangement);
             }
+            con.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-
+        
         return results; // return de lijst
     }
 
@@ -54,6 +64,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
     @Override
     public Arrangement findById(int ID) {
+    	System.out.println("findByID");
         return queryExecutor("select * from arrangement a where a.\"ID\" = '" + ID + "'").get(0);
     }
 
