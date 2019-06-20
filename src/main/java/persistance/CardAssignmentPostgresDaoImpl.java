@@ -33,7 +33,7 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
 
 
                 System.out.println("cardassignment 4");
-                CardAssignment newCardAssignment = new CardAssignment(cardRuleID, rank, card);
+                CardAssignment newCardAssignment = new CardAssignment(cardruleID, rank, card);
                 
                 System.out.println("cardassignment 5");
                 results.add(newCardAssignment);
@@ -60,12 +60,9 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
     @Override
     public ArrayList<CardAssignment> findByCardRuleID(int ID) {
         // TODO Auto-generated method stub
-<<<<<<< HEAD
-        return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardruleID\" = '" + ID + "';");
-=======
+
     	System.out.println("cardassignment findbycardruleid");
         return  queryExecutor("SELECT * FROM CARDASSIGNMENT WHERE \"cardRuleID\" = '" + ID + "';");
->>>>>>> branch 'master' of https://github.com/jappieman26/todss.git
     }
 
 
