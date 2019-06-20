@@ -15,25 +15,39 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	public ArrayList<Cardside> queryExecutor(String query){
 		ArrayList<Cardside> results = new ArrayList<Cardside>();
 		try (Connection con = super.getConnection()) {
+			System.out.println("cardside 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
+			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
+			System.out.println("cardside 2");
 			while (rs.next()) { 
 				
 				int cardsideID = rs.getInt("ID");
+				System.out.println("cardside 3");
 				try {
 					int pictureID = rs.getInt("pictureid");
+					System.out.println("cardside 3.1.1");
 					Picture picture = pDao.findById(pictureID);
+					System.out.println("cardside 3.1.2");
 					Cardside newCardside = new Cardside(cardsideID, picture);
+					System.out.println("cardside 3.1.3");
 					results.add(newCardside);
 					
 				}
 				catch(IndexOutOfBoundsException e){
+					System.out.println("cardside 3.2.1");
 					String tekst = rs.getString("tekst");
+					System.out.println("cardside 3.2.2");
 					Cardside newCardside = new Cardside(cardsideID, tekst);
+					System.out.println("cardside 3.2.3");
 					results.add(newCardside);
 				}
-
+				catch(Exception e) {
+					System.out.println(e);
+				}
+				
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -48,6 +62,7 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 	
 	@Override
 	public Cardside findByID(int ID) {
+		System.out.println("cardside findbyid");
 		return queryExecutor("SELECT * FROM CARDSIDE WHERE \"ID\" = '" + ID +"';").get(0);
 	}
 

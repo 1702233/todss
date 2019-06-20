@@ -7,7 +7,6 @@
 <body>
 
 <div >
-    
     <div class="center">
             <img src="img/pic-gamechane.png">
     </div>
@@ -36,14 +35,20 @@
 		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
 	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 
+	    console.log('checking');
+	    
 	    var fetchoptionsPost = {
 	        method: 'POST',
 	        body: encData
 	    };
 	    
+	    console.log('test');
+	    
 	    fetch("gamechane/session/check", { method: 'POST', body: encData })
         .then(function(response) {
+        	console.log(response);
 	        if (response.ok){
+	        	console.log('response ok');
 	        	return response.json();
 	        }
 	        else{
@@ -52,7 +57,7 @@
 	        }
 	        
         })
-        .then(myJson => arrangement = myJson)
+        .then(myJson => console.log(myJson))
         .catch(error => console.log(error));
 	}
 	
@@ -68,9 +73,12 @@
 		    };
 	    var minigames = [];
 	    
+	    console.log(arrangement);
+	    
 	    fetch("gamechane/minigames/arrangement/" + arrangement)
 	    .then(response => response.json())
 	    .then(function(myJson){
+	    	console.log(myJson);
 	    	for(minigame of myJson){
 	    		minigames.push(minigame.id);
 	    	}
