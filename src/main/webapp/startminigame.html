@@ -1,0 +1,17 @@
+<html>
+	<script>
+	console.log(sessionStorage.getItem('Minigames'));
+	var minigames = JSON.parse(sessionStorage.getItem('Minigames'));
+	var minigame = minigames[0];
+	
+	console.log(minigame);
+	console.log(minigames);
+	
+	fetch("gamechane/minigames/" + minigame)
+    .then(response => response.json())
+    .then(function(myJson) {
+    	sessionStorage.setItem('minigame', JSON.stringify(minigame));
+    	window.location.href=myJson.type+".html";
+    })
+	</script>
+</html>

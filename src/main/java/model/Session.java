@@ -7,6 +7,7 @@ public class Session {
 
 	private String code;
 	private String opmerking;
+	private int arrangementID;
 	private Arrangement arrangement;
 	private ArrayList<Student> allStudents;
 
@@ -16,6 +17,13 @@ public class Session {
 		this.opmerking = opmerking;
 		this.arrangement = arrangement;
 		this.allStudents = allStudents;
+	}
+	
+	public Session(String code, String opmerking, int arrangementID) {
+		super();
+		this.code = code;
+		this.opmerking = opmerking;
+		this.arrangementID = arrangementID;
 	}
 
 	public String getCode() {
@@ -39,7 +47,7 @@ public class Session {
 	}
 	
 	public int getArrangementID() {
-		return arrangement.getID();
+		return arrangementID;
 	}
 
 	public void setArrangement(Arrangement arrangement) {

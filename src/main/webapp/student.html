@@ -16,9 +16,9 @@
 	    <a class="myButtonKlein" id="checkSession">Deelnemen</a>
     </form>
     
-    <form id="nameForm">
+    <form id="nameForm" style="display:none">
     	<h3>Voer je naam in:</h3>
-	    <input type="text" id="naam" name="naam" style="text-transform:uppercase"><br><br>
+	    <input type="text" id="naam" name="naam"><br><br>
 	    <a class="myButtonKlein" id="joinSession">Deelnemen</a>
     </form>
 </div>
@@ -49,6 +49,8 @@
         	console.log(response);
 	        if (response.ok){
 	        	console.log('response ok');
+	        	document.getElementById("codeForm").style.display = "none";
+	        	document.getElementById("nameForm").style.display = "block";
 	        	return response.json();
 	        }
 	        else{
@@ -57,12 +59,12 @@
 	        }
 	        
         })
-        .then(myJson => console.log(myJson))
+        .then(myJson => arrangement = myJson)
         .catch(error => console.log(error));
 	}
 	
 	function joinSession(){
-		var name = document.getElementById("code").value;
+		var name = document.getElementById("naam").value;
 		
 		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
 	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
@@ -74,20 +76,24 @@
 	    var minigames = [];
 	    
 	    console.log(arrangement);
-	    
-	    fetch("gamechane/minigames/arrangement/" + arrangement)
-	    .then(response => response.json())
-	    .then(function(myJson){
-	    	console.log(myJson);
-	    	for(minigame of myJson){
-	    		minigames.push(minigame.id);
-	    	}
-	    	
-	    	sessionStorage.setItem('student', name);
-	    	sessionStorage.setItem('Minigames', minigames);
-	    })
-		
-		
+	    if(name.length < 3){
+	    	alert("kies een langere naam");
+	    }
+	    else{
+		    fetch("gamechane/minigames/arrangement/" + arrangement, {method: 'GET'})
+		    .then(response => response.json())
+		    .then(function(myJson){
+		    	console.log(myJson);
+		    	for(minigame of myJson){
+		    		minigames.push(minigame.id);
+		    	}
+		    	console.log(minigames);
+		    	sessionStorage.setItem('student', name);
+		    	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
+		    	window.location.href="startminigame.html";
+		    	
+		    })
+	    }		
 	}
 </script>
 

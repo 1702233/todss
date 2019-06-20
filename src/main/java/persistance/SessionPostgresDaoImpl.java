@@ -21,27 +21,16 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 		ArrayList<Session> results = new ArrayList<Session>();
 
 		try (Connection con = super.getConnection()) {
-			System.out.println(1);
 			PreparedStatement pstmt = con.prepareStatement(query);
-			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println(2);
 			while (rs.next()) { 
 				
 				String code = rs.getString("code");
 				String opmerking = rs.getString("opmerking");
 				int arrangementID = rs.getInt("arrangementID");
 				
-				System.out.println(3);
-				ArrayList<Student> allStudents = sDao.findStudentsBySession(code);
+				Session newSession = new Session(code, opmerking, arrangementID);
 				
-				System.out.println(4);
-				Arrangement arrangement = aDao.findById(arrangementID);
-				System.out.println(5);
-
-				Session newSession = new Session(code, opmerking, arrangement, allStudents);
-				
-				System.out.println(6);
 				results.add(newSession);
 
 			}
@@ -153,9 +142,7 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 
 	@Override
 	public Session findByCode(String code) {
-		System.out.println("findbycode");
 		List<Session> sessions  = queryExecutor("SELECT * FROM session WHERE code = '" + code + "';");
-		System.out.println(sessions);
 		if (sessions.isEmpty()) { 
 			return null;
 		} else {

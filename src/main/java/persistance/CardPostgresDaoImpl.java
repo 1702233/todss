@@ -20,11 +20,8 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 		ArrayList<Card> results = new ArrayList<Card>();
 
 		try (Connection con = super.getConnection()) {
-			System.out.println("card 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
-			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("card 2");
 			while (rs.next()) { 
 				
 				int cardID = rs.getInt("ID");
@@ -32,13 +29,9 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 				int achterkantID = rs.getInt("achterkantID");
 				int cardsetID = rs.getInt("cardsetid");
 				
-				System.out.println("card 3");
 				Cardside voorkant = csDao.findByID(voorkantID);
-				System.out.println("card 4");
 				Cardside achterkant = csDao.findByID(achterkantID);
-				System.out.println("card 5");
 				Card newCard = new Card(voorkant, achterkant, cardID);
-				System.out.println("card 6");
 				results.add(newCard);
 
 			}
@@ -56,7 +49,6 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 	
 	@Override
 	public Card findById(int ID) {
-		System.out.println("card findbyID");
 		return queryExecutor("SELECT * FROM CARD WHERE \"ID\" = '" + ID +"';").get(0);
 	}
 	

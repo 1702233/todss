@@ -21,11 +21,8 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 		ArrayList<Minigame> results = new ArrayList<Minigame>();
 
 		try (Connection con = super.getConnection()) {
-			System.out.println("minigame 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
-			System.out.println("pstmt");
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("minigame 2");
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
 				String omschrijving;
@@ -39,21 +36,16 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 					System.out.println(e);
 					omschrijving = "";
 				}
-				System.out.println("minigame 3");
 				String teacherName = rs.getString("teachername");
 				Teacher teacher = tDao.findByUsername(teacherName);
-				System.out.println("minigame 4");
 				
 				int cardsetID = rs.getInt("cardsetID");				
 				Cardset cardset = csDao.findByID(cardsetID);
-				System.out.println("minigame 5");
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
-				System.out.println("minigame 6");
 				
 				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset, cardrules);
-				System.out.println("minigame 7");
-
+				
 
 				results.add(newMinigame);
 
@@ -78,7 +70,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
 	@Override
 	public ArrayList<Minigame> findByArrangementID(int ID) {
-		System.out.println("minigame findbyarrangement");
 		return queryExecutor(
 				"select *" +
 				"from minigame m " +
@@ -115,7 +106,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			pstmt.setInt(5, minigame.getCardset().getId());
 			pstmt.setString(6, minigame.getType());
 
-			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());

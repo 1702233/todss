@@ -17,23 +17,17 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 		ArrayList<Picture> results = new ArrayList<Picture>();
 
 		try (Connection con = super.getConnection()) {
-			System.out.println("picture 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
-			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("picture 2");
 			while (rs.next()) { 
 				int ID = rs.getInt("ID");
 				String url = rs.getString("url");
 				String teacherName = rs.getString("teacherName");
 
-				System.out.println("picture 3");
 				Teacher teacher = tDao.findByUsername(teacherName);
-				System.out.println("picture 4");
+				
+				Picture newPicture = new Picture(ID, url);
 
-				Picture newPicture = new Picture(ID, url, teacher);
-
-				System.out.println("picture 5");
 				results.add(newPicture);
 
 			}
@@ -52,7 +46,6 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 
 	@Override
 	public Picture findById(int id) {
-		System.out.println("picture findbyid");
 		return queryExecutor("SELECT * FROM PICTURE WHERE \"ID\" = '" + id + "';").get(0);
 	}
 	

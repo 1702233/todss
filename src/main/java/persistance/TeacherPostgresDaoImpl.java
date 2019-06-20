@@ -12,29 +12,21 @@ import model.Teacher;
 public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDao{
 	
 	public ArrayList<Teacher> queryExecutor(String query){
-		System.out.println("t1");
 		ArrayList<Teacher> results = new ArrayList<Teacher>();
-		System.out.println("t2");
 		try (Connection con = super.getConnection()) {
-			System.out.println("teacher 1");
 			PreparedStatement pstmt = con.prepareStatement(query);
-			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("teacher 2");
-
+			
 			while (rs.next()) { 
 				String username = rs.getString("username");
      			String password = rs.getString("password");
      		
-     			System.out.println("teacher 3");
 				Teacher newTeacher = new Teacher(username, password);
-				System.out.println("teacher 4");
 				results.add(newTeacher);
 
 			}
 			con.close();
 		} catch (SQLException sqle) {
-			System.out.println("AAAAAAAAAAAAAAA");
 			sqle.printStackTrace();
 		}catch(Exception e) {
 			System.out.println(e);
@@ -48,8 +40,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 	
 	@Override
 	public Teacher findByUsername(String username) {
-		System.out.println("teacher findbyUsername");
-		//return queryExecutor("SELECT * FROM TEACHER WHERE \"username\" = " + username + ";").get(0);
 		return queryExecutor("SELECT * FROM public.teacher where username = '" + username + "';").get(0);
 	}
 

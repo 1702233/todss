@@ -17,6 +17,8 @@ import model.Arrangement;
 import model.RandomString;
 import model.Session;
 import model.Student;
+import model.services.ArrangementService;
+import model.services.ArrangementServiceProvider;
 import model.services.SessionService;
 import model.services.SessionServiceProvider;
 import persistance.ArrangementDao;
@@ -31,8 +33,14 @@ public class SessionResource {
 	@Path("/{teacherName}")
 	@Produces("application/json")
 	public ArrayList<Session> getSessionsByTeacher(@PathParam("teacherName") String teacherName) {
-		SessionService service = SessionServiceProvider.getSessionService();
-		return service.getSessionsByTeacher(teacherName);
+		SessionService sessionService = SessionServiceProvider.getSessionService();
+		ArrangementService arrangementService = ArrangementServiceProvider.getArrangementService();
+		
+		ArrayList<Session> sessions = sessionService.getSessionsByTeacher(teacherName);
+		for(Session session : sessions) {
+			session.setArrangement(arrangementService.getArrangementByID(session.getArrangementID()));
+		}
+		return sessions;
 	}
 
 	@POST
