@@ -16,18 +16,18 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
         ArrayList<Arrangement> results = new ArrayList<Arrangement>();
 
         try (Connection con = super.getConnection()) {
-            PreparedStatement pstmt = con.prepareStatement(query);
+        	PreparedStatement pstmt = con.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
-
+            
             MinigamePostgresDaoImpl minigameDao = new MinigamePostgresDaoImpl();
-            TeacherPostgresDaoImpl teacherDao = new TeacherPostgresDaoImpl();
-
+            TeacherPostgresDaoImpl teacherDao = new TeacherPostgresDaoImpl();           
+            
             while (rs.next()) {
                 int id = rs.getInt("ID");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 String teacherName = rs.getString("teacherName");
-
+            
                 ArrayList<Minigame> allMinigames = minigameDao.findByArrangementID(id);
                 Teacher teacher = teacherDao.findByUsername(teacherName);
 
@@ -35,10 +35,11 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
                 results.add(arrangement);
             }
+            con.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-
+        
         return results; // return de lijst
     }
 
@@ -54,7 +55,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
     @Override
     public Arrangement findById(int ID) {
-        return queryExecutor("select * from arrangement a where a.\"ID\" = '" + ID + "'").get(0);
+    	return queryExecutor("select * from arrangement a where a.\"ID\" = '" + ID + "'").get(0);
     }
 
     @Override

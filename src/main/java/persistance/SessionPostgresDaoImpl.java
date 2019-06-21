@@ -29,14 +29,12 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 				String opmerking = rs.getString("opmerking");
 				int arrangementID = rs.getInt("arrangementID");
 				
-				ArrayList<Student> allStudents = sDao.findStudentsBySession(code);
-				Arrangement arrangement = aDao.findById(arrangementID);
-
-				Session newSession = new Session(code, opmerking, arrangement, allStudents);
-
+				Session newSession = new Session(code, opmerking, arrangementID);
+				
 				results.add(newSession);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -139,6 +137,16 @@ public class SessionPostgresDaoImpl extends PostgresBaseDao implements SessionDa
 			return false;
 		} else {
 			return true;
+		}
+	}
+
+	@Override
+	public Session findByCode(String code) {
+		List<Session> sessions  = queryExecutor("SELECT * FROM session WHERE code = '" + code + "';");
+		if (sessions.isEmpty()) { 
+			return null;
+		} else {
+			return sessions.get(0);
 		}
 	}
 	

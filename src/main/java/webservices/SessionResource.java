@@ -10,12 +10,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Arrangement;
 import model.RandomString;
 import model.Session;
 import model.Student;
+import model.services.ArrangementService;
+import model.services.ArrangementServiceProvider;
 import model.services.SessionService;
 import model.services.SessionServiceProvider;
 import persistance.ArrangementDao;
@@ -30,8 +33,14 @@ public class SessionResource {
 	@Path("/{teacherName}")
 	@Produces("application/json")
 	public ArrayList<Session> getSessionsByTeacher(@PathParam("teacherName") String teacherName) {
-		SessionService service = SessionServiceProvider.getSessionService();
-		return service.getSessionsByTeacher(teacherName);
+		SessionService sessionService = SessionServiceProvider.getSessionService();
+		ArrangementService arrangementService = ArrangementServiceProvider.getArrangementService();
+		
+		ArrayList<Session> sessions = sessionService.getSessionsByTeacher(teacherName);
+		for(Session session : sessions) {
+			session.setArrangement(arrangementService.getArrangementByID(session.getArrangementID()));
+		}
+		return sessions;
 	}
 
 	@POST
@@ -66,6 +75,28 @@ public class SessionResource {
 			return Response.status(405).build();
 		}
 
+	}
+	
+	@POST
+	@Path("/check")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response checkSession(@FormParam("code") String code) {
+		System.out.println(code);
+		SessionService service = SessionServiceProvider.getSessionService();
+		System.out.println(service);
+		Session session = service.getSessionByCode(code);
+		
+		System.out.println(code);
+		
+		try {
+			if (session == null) {
+	            throw new IllegalArgumentException("No session found!");
+			}
+			return Response.ok(session.getArrangementID()).build();
+	            
+        }catch(IllegalArgumentException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
 	}
 	
 	@DELETE

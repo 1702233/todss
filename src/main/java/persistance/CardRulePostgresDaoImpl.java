@@ -18,7 +18,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 		ArrayList<CardRule> results = new ArrayList<CardRule>();
 
 		try (Connection con = super.getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
 								// aan de lijst results toe
@@ -35,6 +35,7 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 				results.add(newCardRule);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}

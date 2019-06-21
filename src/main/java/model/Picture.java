@@ -8,17 +8,22 @@ public class Picture {
 	private String url;
 	private Teacher teacher;
 
-	public Picture(String url, Teacher teacher) {
-		super();
-		this.url = url;
-		this.teacher = teacher;
-	}
+//	public Picture(int iD2, String url2) {
+//		super();
+//		this.url = iD2;
+//		this.teacher = url2;
+//	}
 
-	public Picture(int iD, String url, Teacher teacher) {
+	public Picture(int iD, String url) {
 		super();
 		ID = iD;
 		this.url = url;
-		this.teacher = teacher;
+	}
+
+	public Picture(String image, Teacher teacher2) {
+		this.url = image;
+		this.teacher = teacher2;
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getID() {

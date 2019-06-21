@@ -14,6 +14,10 @@ public class SessionService {
 		return dao.findByTeacher(username);
 	}
 	
+	public Session getSessionByCode(String code) {
+		return dao.findByCode(code);
+	}
+	
 	public boolean saveSession(Session session) {
 		return dao.saveSession(session);
 	}

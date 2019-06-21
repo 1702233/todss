@@ -16,17 +16,20 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) { 
 				String username = rs.getString("username");
      			String password = rs.getString("password");
-
+     		
 				Teacher newTeacher = new Teacher(username, password);
 				results.add(newTeacher);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
+		}catch(Exception e) {
+			System.out.println(e);
 		}
 		return results; // return de lijst
 	}
@@ -37,7 +40,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 	
 	@Override
 	public Teacher findByUsername(String username) {
-		//return queryExecutor("SELECT * FROM TEACHER WHERE \"username\" = " + username + ";").get(0);
 		return queryExecutor("SELECT * FROM public.teacher where username = '" + username + "';").get(0);
 	}
 
@@ -110,7 +112,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 	@Override
 	public boolean checkTeacher(String username, String password) {
 		List<Teacher> teachers  = queryExecutor("SELECT * FROM TEACHER WHERE \"username\" = '" + username + "' AND \"password\" = '" + password + "';");
-		System.out.println(teachers.isEmpty());
 		if (teachers.isEmpty()) { 
 			return false;
 		} else {

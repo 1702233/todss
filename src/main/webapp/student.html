@@ -7,15 +7,95 @@
 <body>
 
 <div >
-    
     <div class="center">
             <img src="img/pic-gamechane.png">
     </div>
-
-    <h3>Voer hier de gamepin in:</h3>
-    <input type="text" style="text-transform:uppercase"><br><br>
-    <a href="index.html" class="myButtonKlein">Deelnemen</a>
+	<form id="codeForm">
+	    <h3>Voer hier de gamepin in:</h3>
+	    <input type="text" id="code" name="code" style="text-transform:uppercase"><br><br>
+	    <a class="myButtonKlein" id="checkSession">Deelnemen</a>
+    </form>
+    
+    <form id="nameForm" style="display:none">
+    	<h3>Voer je naam in:</h3>
+	    <input type="text" id="naam" name="naam"><br><br>
+	    <a class="myButtonKlein" id="joinSession">Deelnemen</a>
+    </form>
 </div>
+<script>
+	document.querySelector("#checkSession").addEventListener("click", checkSession);
+	document.querySelector("#joinSession").addEventListener("click", joinSession);
+	
+	var code;
+	var arrangement;
+	
+	
+	function checkSession(){
+		var code = document.getElementById("code").value;
+		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
+	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+
+	    console.log('checking');
+	    
+	    var fetchoptionsPost = {
+	        method: 'POST',
+	        body: encData
+	    };
+	    
+	    console.log('test');
+	    
+	    fetch("gamechane/session/check", { method: 'POST', body: encData })
+        .then(function(response) {
+        	console.log(response);
+	        if (response.ok){
+	        	console.log('response ok');
+	        	document.getElementById("codeForm").style.display = "none";
+	        	document.getElementById("nameForm").style.display = "block";
+	        	return response.json();
+	        }
+	        else{
+	        	alert("No session found with this code");
+	            throw "No session found with this code";
+	        }
+	        
+        })
+        .then(myJson => arrangement = myJson)
+        .catch(error => console.log(error));
+	}
+	
+	function joinSession(){
+		var name = document.getElementById("naam").value;
+		
+		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
+	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
+		
+	    var fetchoptionsPost = {
+		        method: 'POST',
+		        body: encData
+		    };
+	    var minigames = [];
+	    
+	    console.log(arrangement);
+	    if(name.length < 3){
+	    	alert("kies een langere naam");
+	    }
+	    else{
+		    fetch("gamechane/minigames/arrangement/" + arrangement, {method: 'GET'})
+		    .then(response => response.json())
+		    .then(function(myJson){
+		    	console.log(myJson);
+		    	for(minigame of myJson){
+		    		minigames.push(minigame.id);
+		    	}
+		    	console.log(minigames);
+		    	sessionStorage.setItem('student', name);
+		    	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
+		    	window.location.href="startminigame.html";
+		    	
+		    })
+	    }		
+	}
+</script>
 
 
 </body>

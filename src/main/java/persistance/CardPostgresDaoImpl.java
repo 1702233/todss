@@ -35,6 +35,7 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 				results.add(newCard);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}

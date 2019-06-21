@@ -15,6 +15,7 @@ public class PostgresBaseDao {
 			
 			result = ds.getConnection();
 		} catch(Exception e) {
+			System.out.println(e);
 			throw new RuntimeException(e);
 		}
 		

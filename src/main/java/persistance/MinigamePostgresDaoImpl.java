@@ -12,7 +12,7 @@ import model.Minigame;
 import model.Teacher;
 
 public class MinigamePostgresDaoImpl extends PostgresBaseDao implements MinigameDao {
-
+	
 	private TeacherPostgresDaoImpl tDao = new TeacherPostgresDaoImpl();
 	private CardsetPostgresDaoImpl csDao = new CardsetPostgresDaoImpl();
 	private CardRulePostgresDaoImpl crDao = new CardRulePostgresDaoImpl();
@@ -36,7 +36,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 					System.out.println(e);
 					omschrijving = "";
 				}
-				
 				String teacherName = rs.getString("teachername");
 				Teacher teacher = tDao.findByUsername(teacherName);
 				
@@ -44,14 +43,14 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 				Cardset cardset = csDao.findByID(cardsetID);
 				
 				ArrayList<CardRule> cardrules = crDao.findByMinigame(minigameID);
-
+				
 				Minigame newMinigame = new Minigame(minigameID, name, type, cardsOpened, omschrijving, teacher, cardset, cardrules);
-
-
+				
 
 				results.add(newMinigame);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -107,7 +106,6 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 			pstmt.setInt(5, minigame.getCardset().getId());
 			pstmt.setString(6, minigame.getType());
 
-			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());

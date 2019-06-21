@@ -32,8 +32,12 @@ public class CardsidePostgresDaoImpl extends PostgresBaseDao implements Cardside
 					Cardside newCardside = new Cardside(cardsideID, tekst);
 					results.add(newCardside);
 				}
-
+				catch(Exception e) {
+					System.out.println(e);
+				}
+				
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}

@@ -2,7 +2,9 @@
 (function init(){
 	console.log("starting");
 	
-	fetch("gamechane/minigames/7")
+	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
+	
+	fetch("gamechane/minigames/" + minigame)
     .then(response => response.json())
     .then(function(myJson) {
     	var cardrule=0;

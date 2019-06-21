@@ -25,12 +25,13 @@ public class PicturePostgresDaoImpl extends PostgresBaseDao implements PictureDa
 				String teacherName = rs.getString("teacherName");
 
 				Teacher teacher = tDao.findByUsername(teacherName);
-
-				Picture newPicture = new Picture(ID, url, teacher);
+				
+				Picture newPicture = new Picture(ID, url);
 
 				results.add(newPicture);
 
 			}
+			con.close();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
