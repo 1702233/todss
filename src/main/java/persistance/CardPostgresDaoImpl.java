@@ -87,12 +87,7 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 			System.out.println(sqe.getMessage());
 		}
 		
-		if (queryResult > 0) { //als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
-			return true;
-		}
-		else {
-			return false;
-		}
+		return queryResult > 0; //als queryResult hoger dan 0 is is het opslaan gelukt (true), anders niet (false)
 	}
 
 	@Override
