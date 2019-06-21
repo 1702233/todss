@@ -16,8 +16,19 @@ public class Student {
         this.allResults = allResults;
         this.session = session;
     }
+    
+    
 
-    public String getName() {
+    public Student(int iD, String name, ArrayList<Result> allResults) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.allResults = allResults;
+	}
+
+
+
+	public String getName() {
         return name;
     }
 
@@ -48,5 +59,14 @@ public class Student {
     public void setID(int iD) {
         ID = iD;
     }
+
+
+
+	@Override
+	public String toString() {
+		return "Student [ID=" + ID + ", name=" + name + ", allResults=" + allResults + ", session=" + session + "]";
+	}
+    
+    
 
 }

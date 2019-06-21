@@ -1,41 +1,53 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Result {
 
-    private Date start;
-    private Date end;
-    private Student student;
+	private Timestamp start;
+	private Timestamp end;
+	private Student student;
+	private Minigame minigame;
 
-    public Result(Date start, Date end, Student student) {
-        super();
-        this.start = start;
-        this.end = end;
-        this.student = student;
-    }
+	public Result(Timestamp start, Timestamp end, Minigame minigame) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.minigame = minigame;
 
-    public Date getStart() {
-        return start;
-    }
+	}
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
+	public Timestamp getStart() {
+		return start;
+	}
 
-    public Date getEnd() {
-        return end;
-    }
+	public void setStart(Timestamp start) {
+		this.start = start;
+	}
 
-    public void setEnd(Date end) {
-        this.end = end;
-    }
+	public Timestamp getEnd() {
+		return end;
+	}
 
-    public Student getStudent() {
-        return student;
-    }
+	public void setEnd(Timestamp end) {
+		this.end = end;
+	}
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Minigame getMinigame() {
+		return minigame;
+	}
+
+	public void setMinigame(Minigame minigame) {
+		this.minigame = minigame;
+	}
+
 }
