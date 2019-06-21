@@ -1,5 +1,7 @@
 (function init(){
-	fetch("gamechane/minigames/8")
+	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
+	
+	fetch("gamechane/minigames/" + minigame)
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);

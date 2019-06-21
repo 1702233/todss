@@ -82,6 +82,14 @@ public class CardsetResource {
 		return true;
 	}
 
+	@DELETE
+	@Path("/delete/{id}")
+	public boolean deleteArrangementById(@PathParam("id") int id) {
+		System.out.println("hoi");
+		CardSetService service = CardSetServiceProvider.getCardSetService();
+		return service.deleteCardsetById(id);
+	}
+
 	private Cardside createCardside(String text, String image, Teacher teacher) {
 		if (text.equals("") || text.isEmpty() || text == null) {
 			Picture picture = new Picture(image, teacher);

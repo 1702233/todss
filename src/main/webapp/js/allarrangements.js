@@ -15,8 +15,6 @@ $(document).ready(function () {
                 var tdTitle = document.createElement("td");
                 var tdGames = document.createElement("td");
                 var tdDescription = document.createElement("td");
-                var tdInfo = document.createElement("td");
-                var buttonInfo = document.createElement("button");
                 var tdDelete = document.createElement("td");
                 var buttonDelete = document.createElement("button");
 
@@ -42,29 +40,21 @@ $(document).ready(function () {
                 tdGames.innerHTML = minigameList;
 
                 tdDescription.innerHTML = arrangement.description;
-                buttonInfo.innerHTML = "Details";
                 buttonDelete.innerHTML = "Verwijderen";
-
-                buttonInfo.setAttribute("id", "buttonInfo");
-                buttonInfo.setAttribute("data-id", arrangement.id);
 
                 buttonDelete.setAttribute("id", "buttonDelete");
                 buttonDelete.setAttribute("data-id", arrangement.id);
                 buttonDelete.onclick = function() { deleteArrangement(arrangement.id) };
 
-                tdInfo.appendChild(buttonInfo);
                 tdDelete.appendChild(buttonDelete);
 
                 tr.appendChild(tdTitle);
                 tr.appendChild(tdGames);
                 tr.appendChild(tdDescription);
-                tr.appendChild(tdInfo);
                 tr.appendChild(tdDelete);
 
                 table.appendChild(tr);
             }
-
-
         })
 });
 

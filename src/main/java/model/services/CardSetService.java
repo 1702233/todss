@@ -8,15 +8,19 @@ import persistance.CardsetDao;
 import persistance.CardsetPostgresDaoImpl;
 
 public class CardSetService {
-	private CardsetDao dao = new CardsetPostgresDaoImpl();
+    private CardsetDao dao = new CardsetPostgresDaoImpl();
 
-	public List<Cardset> findByTeacher(String teacher) {
-		return dao.findByTeacher(teacher);
-	}
+    public List<Cardset> findByTeacher(String teacher) {
+        return dao.findByTeacher(teacher);
+    }
 
-	public List<Cardset> findAllCardsets() {
-		System.out.println("findallcardsetsservice");
-		return dao.findAllCardsets();
-	}
+    public List<Cardset> findAllCardsets() {
+        System.out.println("findallcardsetsservice");
+        return dao.findAllCardsets();
+    }
+
+    public boolean deleteCardsetById(int id) {
+        return dao.deleteCardset(id);
+    }
 
 }

@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="css/newcardset.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -141,27 +143,33 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="cardset-name-label">Titel</span>
                 </div>
-                <input type="text" class="form-control" id="cardset-name" placeholder="Kaartset-titel" aria-label="title-cardset"
+                <input type="text" class="form-control" id="cardset-name" placeholder="Kaartset-titel"
+                       aria-label="title-cardset"
                        aria-describedby="cardset-name-label">
             </div>
             <hr>
             <p>Selecteer hieronder een afbeelding en tekst voor de nieuwe kaartenset.</p>
 
-            <!-- Input for text back side entire cardset -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="backside-text-label">Tekst</span>
+            <div class="backside-inputs">
+                <!-- Input for text back side entire cardset -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="backside-text-label">Tekst</span>
+                    </div>
+                    <input type="text" class="form-control cardside-input" id="backside-text" placeholder="Tekst"
+                           aria-label="Tekst-backside-cardset"
+                           aria-describedby="backside-text">
                 </div>
-                <input type="text" class="form-control" id="backside-text" placeholder="Tekst" aria-label="Tekst-backside-cardset"
-                       aria-describedby="backside-text">
-            </div>
-            <!-- Input for image back side entire cardset -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="backside-image-label">Tekst</span>
+                <!-- Input for image back side entire cardset -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="backside-image-label">Afbeelding-URL</span>
+                    </div>
+                    <input type="text" class="form-control cardside-input" id="backside-image"
+                           placeholder="Afbeelding-URL"
+                           aria-label="Image-backside-cardset"
+                           aria-describedby="backside-image">
                 </div>
-                <input type="text" class="form-control" id="backside-image" placeholder="Tekst" aria-label="Image-backside-cardset"
-                       aria-describedby="backside-image">
             </div>
 
             <div class="row">
@@ -187,7 +195,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tekst</span>
                                 </div>
-                                <input type="text" class="form-control front-side-text" placeholder="Tekst"
+                                <input type="text" class="form-control cardside-input front-side-text"
+                                       placeholder="Tekst"
                                        aria-label="Tekst">
                             </div>
                             <!-- Input for image front side card -->
@@ -195,7 +204,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Afbeelding-URL</span>
                                 </div>
-                                <input type="text" class="form-control front-side-image" placeholder="Tekst"
+                                <input type="text" class="form-control cardside-input front-side-image"
+                                       placeholder="Afbeelding-URL"
                                        aria-label="Image">
                             </div>
                         </div>
