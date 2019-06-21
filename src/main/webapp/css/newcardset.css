@@ -1,3 +1,14 @@
 .input-group-prepend {
     min-width: 140px;
 }
+
+.alert {
+    display:none;
+    height: 0;
+    transition: 0.5s;
+}
+
+.alert.active {
+    display: block;
+    height: auto;
+}

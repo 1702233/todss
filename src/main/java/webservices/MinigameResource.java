@@ -86,9 +86,9 @@ public class MinigameResource {
 	}
 
 	@GET
-	@Path("/teacher/{id}")
+	@Path("/teacher/{username}")
 	@Produces("application/json")
-	public List<Minigame> getMinigameByTeacher(@PathParam("id") String username) {
+	public List<Minigame> getMinigameByTeacher(@PathParam("username") String username) {
 		return service.getMinigameByTeacher(username);
 
 	}
