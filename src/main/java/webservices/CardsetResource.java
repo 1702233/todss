@@ -38,7 +38,7 @@ public class CardsetResource {
 
 	@POST
 	@Produces("application/json")
-	public Boolean saveCardset(String json) {
+	public boolean saveCardset(String json) {
 		try {
 			JsonObject obj = new JsonParser().parse(json).getAsJsonObject();
 			System.out.println(obj);
@@ -72,14 +72,14 @@ public class CardsetResource {
 
 			System.out.println(cardset.toString());
 
-			CardsetPostgresDaoImpl cardsetPostgresDao = new CardsetPostgresDaoImpl();
-			cardsetPostgresDao.saveCardset(cardset);
+			CardSetService service = CardSetServiceProvider.getCardSetService();
+			return service.saveCardset(cardset);
 
 		} catch (Exception e) {
 			System.out.println("error");
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	@DELETE

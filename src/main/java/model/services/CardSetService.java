@@ -19,6 +19,10 @@ public class CardSetService {
         return dao.findAllCardsets();
     }
 
+    public boolean saveCardset(Cardset cardset) {
+        return dao.saveCardset(cardset);
+    }
+
     public boolean deleteCardsetById(int id) {
         return dao.deleteCardset(id);
     }

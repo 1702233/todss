@@ -81,17 +81,42 @@ function initPage(cardTemplate) {
 
         var xhr = new XMLHttpRequest();
         var url = "gamechane/cardset";
-        xhr.open("POST", url);
+        xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json.email + ", " + json.password);
+                var response = JSON.parse(xhr.responseText);
+                if (response) {
+                    greenAlert("De nieuwe kaartset is succesvol opgeslagen!");
+                } else {
+                    redAlert("De nieuwe kaartenset kon niet worden opgelsagen... ");
+                }
+                return;
             }
         };
         var data = JSON.stringify(obj);
         xhr.send(data);
     });
+}
+
+function greenAlert(message, time) {
+    customAlert("greenalert", message, time);
+}
+
+function redAlert(message, time) {
+    customAlert("redalert", message, time);
+}
+
+function customAlert(alert, message, time = 5) {
+    var greenAlert = document.getElementById(alert);
+    greenAlert.classList.add("active");
+    greenAlert.innerText = message;
+
+    if (time !== "infinity") {
+        setTimeout(function() {
+            greenAlert.classList.remove("active")
+        }, time * 1000);
+    }
 }
 
 function addCard(cardTemplate) {
