@@ -1,4 +1,6 @@
 let openKaarten;
+document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
+
 
 (function init(){
 	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
@@ -101,6 +103,8 @@ function checkMatch(){
 	cardInSquare3 = document.getElementById("end-square3").childNodes[0];
 	cardInSquare4 = document.getElementById("end-square4").childNodes[0];
 	
+	console.log(cardInSquare1);
+	
 	try{
 		if(cardInSquare1.dataset.rank == 1){
 			var cardsInSet = cardInSquare1.dataset.cardsingroup;
@@ -147,12 +151,13 @@ function removeCards(card1, card2, card3, card4){
 		});
 	}, 3000);
 	
-	checkWon();
+	checkWon(card1);
 	
 }
 
-function checkWon(){
-	openKaarten = openKaarten -2;
+function checkWon(card1){
+	openKaarten = openKaarten -card1.dataset.cardsingroup;
+	console.log(openKaarten)
 	
 	if(openKaarten == 0){
 		console.log("WIN");
@@ -161,5 +166,6 @@ function checkWon(){
 }
 
 function nextMinigame(){
+	console.log("AAAAAAAAAAAAAAA");
 	window.location.href="startminigame.html";
 }
