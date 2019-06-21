@@ -168,8 +168,9 @@
 	                <div class="input-group-prepend">
 	                    <span class="input-group-text" id="basic-addon">omschrijving</span>
 	                </div>
-	                <input type="text" name="omschrijving" id="omschrijvinginput">
 	            </div>
+	            <textarea name="omschrijving" id="omschrijvinginput" rows="4" cols="50"
+                          maxlength="200"></textarea>
 	            
 	            <div class="input-group mb-3">
 	                <div class="input-group-prepend">
@@ -204,9 +205,10 @@
 								<option value="3rij">3 op een rij</option>
 							</select>
 						</div>
-						<div id="minigamedefine"></div>
-
-                    </div>
+					</div>
+					<div id="minigamedefine"></div>
+                        
+                    
                     </div>
 					
 
@@ -257,7 +259,7 @@
 	            <form id="minigamedata">
 	                <span class="input-group-text">titel:</span><input type="text" id="titel" name="titel" value="" readonly/><br>
 	                <span class="input-group-text">speltype:</span><input type="text" id="speltype" name="speltype" value="" readonly/><br>
-	                <span class="input-group-text">cardopen:</span><input type="text" id="cardopened" name="cardopened" value="" readonly/><br>
+	                <span class="input-group-text">cardopen:</span><input type="text" id="cardopened" name="cardopened" value="open" readonly/><br>
 	                <span class="input-group-text">omschrijving:</span><input type="text" id="omschrijving" name="omschrijving" value="" readonly/><br>
 	                <span class="input-group-text">leraarnaam:</span><input type="text" id="teachernaam" name="teachernaam" value="" readonly/><br>
 	                <span class="input-group-text">cardset:</span><input type="text" id="cardsetid" name="cardsetid" value="" readonly/><br>
