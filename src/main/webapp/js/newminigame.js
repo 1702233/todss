@@ -3,6 +3,7 @@ var selectedcardset;
 var aangemaakteminigameid;
 var jsonSets;
 var aantalSets;
+var setLengte;
 var alertBoxGreen = document.getElementById("greenalert");
 var alertBox = document.getElementById("redalert");
 
@@ -40,17 +41,39 @@ function minigamebasisinformatie() {
 }
 
 function minigameinformatie() {
-	var slot1;
-	var slot2;
+	var setlengte = document.getElementById("setlengte");
+	var aantalsets = document.getElementById("setaantal");
 	
 	//maak een jsonobject aan met alle sets met kaartIds erin om op te slaan
 	JsonObj = []
 	for(var i = 0;  i < aantalSets;  i++) {
-		var slot1 = document.getElementById("kaartsetslotdiv"+i+"1");	
-		var slot2 = document.getElementById("kaartsetslotdiv"+i+"2");
+		var slot = [];
+		for(var i2 = 0; i2 < setlengte.value; i2++) {
+			slot.push(document.getElementById("kaartsetslotdiv"+i+(i2+1)));
+//			var slot+(i2+1) = document.getElementById("kaartsetslotdiv"+i+(i2+1));	
+		}
+		try {
+			console.log(slot[0]);
+			console.log(slot[1]);
+			console.log(slot[2]);
+			console.log(slot[3]);
+		} catch(e) {		}
 		
 		item = {};
-		item["set"+i] = slot1.childNodes[0].id.split("_").pop() + " " + slot2.childNodes[0].id.split("_").pop();
+		for(var i3 = 0; i3 < setlengte.value; i3++) {
+			if (i3 == 0) {
+				item["set"+i] = slot[i3].childNodes[0].id.split("_").pop() + " ";
+			}else if(i3 < 2) {
+				item["set"+i] += slot[i3].childNodes[0].id.split("_").pop() + " ";
+			} else {
+				try {
+					item["set"+i] += slot[i3].childNodes[0].id.split("_").pop() + " ";
+				} catch(e) {
+					console.log(slot[i3].id + "heeft geen waarde.")
+				}
+			}
+			
+		}
 		JsonObj.push(item);
 		
 	}
