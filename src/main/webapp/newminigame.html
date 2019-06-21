@@ -257,13 +257,13 @@
                 <h2>Overzicht van gemaakte minigame</h2>
                 <hr>
 	            <form id="minigamedata">
-	                <span class="input-group-text">titel:</span><input type="text" id="titel" name="titel" value="" readonly/><br>
-	                <span class="input-group-text">speltype:</span><input type="text" id="speltype" name="speltype" value="" readonly/><br>
-	                <span class="input-group-text">cardopen:</span><input type="text" id="cardopened" name="cardopened" value="open" readonly/><br>
-	                <span class="input-group-text">omschrijving:</span><input type="text" id="omschrijving" name="omschrijving" value="" readonly/><br>
-	                <span class="input-group-text">leraarnaam:</span><input type="text" id="teachernaam" name="teachernaam" value="" readonly/><br>
-	                <span class="input-group-text">cardset:</span><input type="text" id="cardsetid" name="cardsetid" value="" readonly/><br>
-	                <input type="button" id="post" value="maak minigame aan/sla op in db" onclick="maakminigameaan()">
+	                titel:<input type="text" id="titel" name="titel" value="" readonly/><br>
+	                speltype:<input type="text" id="speltype" name="speltype" value="" readonly/><br>
+	                <input type="hidden" id="cardopened" name="cardopened" value="open" readonly/><br>
+	                omschrijving:<input type="text" id="omschrijving" name="omschrijving" value="" readonly/><br>
+	                leraarnaam:<input type="text" id="teachernaam" name="teachernaam" value="" readonly/><br>
+	                cardset:<input type="text" id="cardsetid" name="cardsetid" value="" readonly/><br>
+	                <input type="button" id="post" value="maak minigame aan" onclick="checkIfMinigameNameExistsForTeacher()">
 	            </form>
                </div>
 			<hr>
