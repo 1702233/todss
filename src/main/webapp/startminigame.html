@@ -1,17 +1,33 @@
 <html>
+<head>
+	<link rel="stylesheet" href="css/styles.css">
+	<title>Welkom bij GameChane</title>
+</head>
+	<body>
+		<div id="textfield">
+			<h3 id="minigamehead"></h3>
+			<p id="minigametext"></p>
+			<a class="myButtonKlein" id="startMinigame">Start minigame</a>
+		</div>
+	</body>
 	<script>
-	console.log(sessionStorage.getItem('Minigames'));
+	document.querySelector("#startMinigame").addEventListener("click", startMinigame);
+	
 	var minigames = JSON.parse(sessionStorage.getItem('Minigames'));
-	var minigame = minigames[0];
+	var minigameID = minigames[0];
 	
-	console.log(minigame);
-	console.log(minigames);
-	
-	fetch("gamechane/minigames/" + minigame)
+	fetch("gamechane/minigames/" + minigameID)
     .then(response => response.json())
     .then(function(myJson) {
-    	sessionStorage.setItem('minigame', JSON.stringify(minigame));
-    	window.location.href=myJson.type+".html";
+    	console.log(myJson);
+    	document.getElementById("minigamehead").innerHTML = "Je staat op het punt " + myJson.name + " te starten";
+    	document.getElementById("minigametext").innerHTML = myJson.omschrijving;
+    	sessionStorage.setItem('minigame', JSON.stringify(minigameID));
+    	minigame = myJson;
     })
-	</script>
+    
+    function startMinigame(){
+		window.location.href=minigame.type+".html";
+	}
+    </script>
 </html>

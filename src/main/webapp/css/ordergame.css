@@ -27,6 +27,16 @@ body {
 	width: 100%;
 }
 
+.winDIV{
+	margin: auto;
+	margin-top:5%;
+  	display: none;
+	width: 80%;
+	height: 6%;
+	color: black;
+	background: #DEEBF7;
+}
+
 .cards-field {
   width: 80%;;
   height: 60%;

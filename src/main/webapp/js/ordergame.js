@@ -1,3 +1,5 @@
+let openKaarten;
+
 (function init(){
 	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
 	
@@ -14,6 +16,7 @@
     	console.log(myJson.name)
     	document.getElementById('minigameName').innerHTML = myJson.name;
     	shuffle(document.querySelectorAll('.game-card'))
+    	openKaarten = document.querySelectorAll('.game-card').length;
     })
 })();
 
@@ -135,15 +138,28 @@ function removeCards(card1, card2, card3, card4){
 	setTimeout(() => {
 		document.getElementById("end-square1").removeChild(card1);
 		document.getElementById("end-square2").removeChild(card2);
-		try{
-			document.getElementById("end-square3").removeChild(card3);
-		}catch(e){console.log(e)}
-		try{document.getElementById("end-square4").removeChild(card4);}
+		try{document.getElementById("end-square3").removeChild(card3)}
+		catch(e){console.log(e)}
+		try{document.getElementById("end-square4").removeChild(card4)}
 		catch(e){console.log(e)}
 		document.querySelectorAll('.game-card').forEach(card => {
 			card.setAttribute("draggable","true");
 		});
 	}, 3000);
 	
+	checkWon();
 	
+}
+
+function checkWon(){
+	openKaarten = openKaarten -2;
+	
+	if(openKaarten == 0){
+		console.log("WIN");
+		document.getElementById('winDIV').style.display='block';
+	}
+}
+
+function nextMinigame(){
+	window.location.href="startminigame.html";
 }
