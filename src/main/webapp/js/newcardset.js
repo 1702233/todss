@@ -11,14 +11,14 @@
         "                            <div class=\"input-group-prepend\">\n" +
         "                                <span class=\"input-group-text\" id=\"basic-addon1\">Tekst</span>\n" +
         "                            </div>\n" +
-        "                            <input type=\"text\" class=\"form-control front-side-text\" placeholder=\"Username\" aria-label=\"Username\"\n" +
+        "                            <input type=\"text\" class=\"form-control cardside-input front-side-text\" placeholder=\"Tekst\" aria-label=\"Tekst\"\n" +
         "                                   aria-describedby=\"basic-addon1\">\n" +
         "                        </div>\n" +
         "                        <div class=\"input-group mb-3\">\n" +
         "                            <div class=\"input-group-prepend\">\n" +
         "                                <span class=\"input-group-text\">Afbeelding-URL</span>\n" +
         "                            </div>\n" +
-        "                            <input type=\"text\" class=\"form-control front-side-image\" placeholder=\"Tekst\" aria-label=\"Image\">\n" +
+        "                            <input type=\"text\" class=\"form-control cardside-input front-side-image\" placeholder=\"Afbeelding-URL\" aria-label=\"Image\">\n" +
         "                        </div>" +
         "                    </div>\n" +
         "\n" +
@@ -38,18 +38,11 @@
 
 function initPage(cardTemplate) {
     $(".add-card").on("click", function () {
-        console.log("voeg kaart toe");
+        addCard(cardTemplate)
+    });
 
-        var newCard = $(".card-master").append(cardTemplate);
-
-        // var newCard = $(this).parents(".card-wrapper").last().after(cardTemplate);
-
-        newCard.find(".delete-card").on("click", function () {
-            if ($(this).parents(".card-wrapper").parent().find(".card-wrapper").length > 1) {
-                console.log("verwijder kaart");
-                $(this).parents(".card-wrapper").remove();
-            }
-        });
+    $(".cardside-input").on("change", function () {
+        disableInput($(this))
     });
 
     console.log("test");
@@ -98,5 +91,42 @@ function initPage(cardTemplate) {
         };
         var data = JSON.stringify(obj);
         xhr.send(data);
+    });
+}
+
+function addCard(cardTemplate) {
+    console.log("voeg kaart toe");
+
+    var newCard = $(".card-master").append(cardTemplate);
+
+    // var newCard = $(this).parents(".card-wrapper").last().after(cardTemplate);
+
+    newCard.find(".delete-card").on("click", function () {
+        if ($(this).parents(".card-wrapper").parent().find(".card-wrapper").length > 1) {
+            console.log("verwijder kaart");
+            $(this).parents(".card-wrapper").remove();
+        }
+    });
+
+    $(".cardside-input").on("change", function () {
+        disableInput($(this))
+    });
+}
+
+function disableInput(input) {
+    console.log(input.parent().parent().find(".cardside-input"));
+
+    var currentElement = input[0];
+
+    input.parent().parent().find(".cardside-input").each(function (key, element) {
+        if (element !== currentElement) {
+            console.log(input.val());
+            if (input.val() === "") {
+                element.disabled = false;
+            } else {
+                element.value = "";
+                element.disabled = true;
+            }
+        }
     });
 }
