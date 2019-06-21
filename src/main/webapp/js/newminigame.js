@@ -41,16 +41,32 @@ function minigamebasisinformatie() {
 }
 
 function minigameinformatie() {
-	var setlengte = document.getElementById("setlengte");
-	var aantalsets = document.getElementById("setaantal");
+	var titel = document.getElementById("titelinput");
+	var omschrijving = document.getElementById("omschrijvinginput");
+	var speltype = document.getElementById("soortselection");
+	var leraar = sessionStorage.getItem('docent');
+	var cardset = document.getElementById("cardsetdropdown")
+	try {
+		var kaartsidestart = document.getElementById("kaartsidestart");
+	} catch(e) {}
 	
+	// zet de zetlengte op 2 als het type memory is, anders haalt hij het op uit de userinput.
+	console.log("speltype :" + speltype.value)
+	if (speltype.value == "memory") {
+		setLengte = 2;
+	} else if (speltype.value == "ordergame") {
+		var setlengte = document.getElementById("setlengte").value;
+		setLengte = setlengte;
+	}
+	console.log("setlengte :" + setLengte);
+	var aantalsets = document.getElementById("setaantal");
+
 	//maak een jsonobject aan met alle sets met kaartIds erin om op te slaan
 	JsonObj = []
 	for(var i = 0;  i < aantalSets;  i++) {
 		var slot = [];
-		for(var i2 = 0; i2 < setlengte.value; i2++) {
+		for(var i2 = 0; i2 < setLengte; i2++) {
 			slot.push(document.getElementById("kaartsetslotdiv"+i+(i2+1)));
-//			var slot+(i2+1) = document.getElementById("kaartsetslotdiv"+i+(i2+1));	
 		}
 		try {
 			console.log(slot[0]);
@@ -60,7 +76,7 @@ function minigameinformatie() {
 		} catch(e) {		}
 		
 		item = {};
-		for(var i3 = 0; i3 < setlengte.value; i3++) {
+		for(var i3 = 0; i3 < setLengte; i3++) {
 			if (i3 == 0) {
 				item["set"+i] = slot[i3].childNodes[0].id.split("_").pop() + " ";
 			}else if(i3 < 2) {
@@ -80,15 +96,6 @@ function minigameinformatie() {
 	
 	console.log(JsonObj);
 	jsonSets = JsonObj;
-	
-	var titel = document.getElementById("titelinput");
-	var omschrijving = document.getElementById("omschrijvinginput");
-	var speltype = document.getElementById("soortselection");
-	var leraar = sessionStorage.getItem('docent');
-	var cardset = document.getElementById("cardsetdropdown")
-	try {
-		var kaartsidestart = document.getElementById("kaartsidestart");
-	} catch(e) {}
 	
 	document.getElementById("titel").value = titel.value;
 	document.getElementById("speltype").value = speltype.value;
@@ -340,6 +347,7 @@ function maakminigameaan() {
 		  alertBox.style.display = "none";
 		  alertBoxGreen.style.display = "block";
           alertBoxGreen.innerHTML = "Succes, de minigame '" + formtitel  + "' is aangemaakt "
+          resetAllInputs();
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
@@ -351,6 +359,43 @@ function maakminigameaan() {
 		window.scrollTo(0,0);
 	}
 	
+}
+
+function checkIfMinigameNameExistsForTeacher() {
+	console.log("checkIfMinigameNameExistsForTeacher() functie ");
+	fetch("gamechane/minigames/teacher/"+sessionStorage.getItem('docent'))
+    .then(response => response.json())
+    .then(function(myJson) {
+    	console.log(myJson);
+    	var formtitel = document.getElementById("titel").value
+    	var check = 0;
+    	for (var i = 0;  i < myJson.length;  i++) {
+    		if (formtitel == myJson[i].name) {
+    			console.log("GELIJKE TITEL" + formtitel + "==" + myJson[i].name);
+    			check = 1;
+    			document.getElementById('titel').removeAttribute('readonly');
+    			document.getElementById('titel').value = "";
+    			document.getElementById('titel').focus();
+    			alertBoxGreen.style.display = "none";
+    	        alertBox.style.display = "block";
+    	        alertBox.innerHTML = "Minigametitel '"+ formtitel +"' bestaat al voor leraar : " + sessionStorage.getItem('docent') + "\n voer een nieuwe titel in.";
+    		} else {
+    			console.log(formtitel + "!=" + myJson[i].name);
+    		}
+    	}
+    	if (check != 1) {
+    		maakminigameaan();
+    		alertBox.style.display = "none";
+    	}
+    })
+}
+
+function resetAllInputs() {
+	 $("input[type=text], input[type=number], textarea").val("");
+	 $('#soortselection').get(0).selectedIndex = 0;
+	 $('#cardsetdropdown').get(0).selectedIndex = 0;
+	 document.getElementById('cardsetimages').innerHTML = "";
+	 
 }
 
 //deze functie is voor het drag en drop van plaatjes.
