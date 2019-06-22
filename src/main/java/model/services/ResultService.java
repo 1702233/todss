@@ -26,11 +26,11 @@ public class ResultService {
 			JsonArray minigameResult = new JsonArray();
 		
 			for(Result result : student.getAllResults()) {
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 				
 				JsonObject resultObject = new JsonObject();
 				resultObject.addProperty("starttime", sdf.format(result.getStart()));
-				resultObject.addProperty("endtime", sdf.format(result.getStart()));
+				resultObject.addProperty("endtime", sdf.format(result.getEnd()));
 				resultObject.addProperty("minigamename", result.getMinigame().getName());
 				
 				minigameResult.add(resultObject);
