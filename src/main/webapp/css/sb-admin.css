@@ -6839,7 +6839,9 @@ button.bg-light:focus {
 }
 
 .bg-dark {
+  /* background-color: rgba(222, 235, 247, 1.0) !important; */
   background-color: #343a40 !important;
+  /* aanpassing van kleur bovenste menu balk */
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -10202,7 +10204,9 @@ button.bg-dark:focus {
 }
 
 .text-white {
-  color: #fff !important;
+  /* color: black !important; */
+  color: white !important;
+  /* aanpassing kleur van hamburgermenu  */
 }
 
 .text-primary {
@@ -10450,6 +10454,12 @@ body {
 
 .z-1 {
   z-index: 1;
+}
+.navbar-nav{
+  float: right;
+}
+.dropdown-menu dropdown-menu-right{
+  float:right;
 }
 
 .navbar-nav .form-inline .input-group {
