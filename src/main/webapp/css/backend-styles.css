@@ -9,3 +9,7 @@ input, textarea, .input-group-text {
 .input-group-text {
     z-index: 1;
 }
+
+.navbar-brand img {
+    max-height: 30px;
+}
