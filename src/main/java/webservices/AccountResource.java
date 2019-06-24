@@ -40,13 +40,15 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
         try {
-            boolean userBestaat = service.findUser(username, password);
-
-            if (userBestaat == false) {
+            String role = service.findRoleForUser(username, password);
+            
+            System.out.println(role);
+            
+            if (role == null) {
                 throw new IllegalArgumentException("No user found!");
             }
 
-            String token = createToken(username, "docent");
+            String token = createToken(username, role);
 
             SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
             return Response.ok(JWT).build();

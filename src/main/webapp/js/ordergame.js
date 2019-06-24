@@ -149,9 +149,10 @@ function removeCards(card1, card2, card3, card4){
 		document.querySelectorAll('.game-card').forEach(card => {
 			card.setAttribute("draggable","true");
 		});
+		checkWon(card1);
 	}, 3000);
 	
-	checkWon(card1);
+	
 	
 }
 

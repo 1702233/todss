@@ -15,8 +15,8 @@ public class AccountService {
 		return dao.findAllTeachers();
 	}
 	
-	public boolean findUser(String username, String password) {
-		return dao.checkTeacher(username, password);
+	public String findRoleForUser(String username, String password) {
+		return dao.findRoleForUser(username, password);
 	}
 	
 	public boolean saveAccount(Teacher teacher) {
