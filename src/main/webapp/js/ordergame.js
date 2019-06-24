@@ -117,11 +117,13 @@ function checkMatch(){
 				break;
 			case 3:
 				if(cardInSquare1.dataset.set === cardInSquare2.dataset.set &&cardInSquare1.dataset.set === cardInSquare3.dataset.set && cardInSquare1 !== null && cardInSquare4 == null){
-					removeCards(cardInSquare1,cardInSquare2,cardInSquare3);
+					if(cardInSquare2.dataset.rank == 2 && cardInSquare3.dataset.rank == 3)
+						removeCards(cardInSquare1,cardInSquare2,cardInSquare3);
 				}
 				break;
 			case 4:
 				if(cardInSquare1.dataset.set === cardInSquare2.dataset.set &&cardInSquare1.dataset.set === cardInSquare3.dataset.set && cardInSquare4.dataset.set == cardInSquare1.dataset.set && cardInSquare1 !== null){
+					if(cardInSquare2.dataset.rank == 2 && cardInSquare3.dataset.rank == 3 && cardInSquare4.dataset.rank == 4)
 					removeCards(cardInSquare1,cardInSquare2,cardInSquare3,cardInSquare4);
 				}
 				break;
