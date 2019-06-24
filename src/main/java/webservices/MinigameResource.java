@@ -42,7 +42,6 @@ public class MinigameResource {
 	@Produces("application/json")
 	@Path("/arrangement/{id}")
 	public List<Minigame> getMinigamesByArrangementID(@PathParam("id") int ID){
-		System.out.println("test");
 		return service.getMinigamesByArrangementID(ID);
 	}
 	
@@ -90,6 +89,7 @@ public class MinigameResource {
 	@Path("/teacher/{username}")
 	@Produces("application/json")
 	public List<Minigame> getMinigameByTeacher(@PathParam("username") String username) {
+		System.out.println(service.getMinigameByTeacher(username));
 		return service.getMinigameByTeacher(username);
 
 	}

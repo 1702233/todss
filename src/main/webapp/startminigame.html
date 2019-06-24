@@ -1,17 +1,58 @@
 <html>
+<head>
+	<link rel="stylesheet" href="css/styles.css">
+	<title>Welkom bij GameChane</title>
+</head>
+	<body>
+		<div id="textfield">
+			<h3 id="minigamehead"></h3>
+			<p id="minigametext"></p>
+			<a class="myButtonKlein" id="startMinigame">Doorgaan</a>
+		</div>
+	</body>
 	<script>
-	console.log(sessionStorage.getItem('Minigames'));
+	document.querySelector("#startMinigame").addEventListener("click", startMinigame);
+	
 	var minigames = JSON.parse(sessionStorage.getItem('Minigames'));
-	var minigame = minigames[0];
+	console.log(minigames.length)
 	
-	console.log(minigame);
-	console.log(minigames);
+	if(minigames.length == 0){
+		console.log('is 0');
+		var minigameID = 'undefined';
+	}
+	else{
+		console.log('is meer dan 1');
+		var minigameID = minigames[0];
+		minigames.shift();
+		
+	}
+	console.log(minigameID);
+	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
 	
-	fetch("gamechane/minigames/" + minigame)
-    .then(response => response.json())
-    .then(function(myJson) {
-    	sessionStorage.setItem('minigame', JSON.stringify(minigame));
-    	window.location.href=myJson.type+".html";
-    })
-	</script>
+	if(minigameID !==  "undefined"){
+		
+		fetch("gamechane/minigames/" + minigameID)
+		.then(response => response.json())
+		.then(function(myJson) {
+		    	console.log(myJson);
+		    	document.getElementById("minigamehead").innerHTML = "Je staat op het punt " + myJson.name + " te starten";
+		    	document.getElementById("minigametext").innerHTML = myJson.omschrijving;
+		    	sessionStorage.setItem('minigame', JSON.stringify(minigameID));
+		    	minigame = myJson;
+		    })
+	}
+	else{
+		document.getElementById("minigamehead").innerHTML = "Je hebt het hele arrangement voltooid!";
+		document.getElementById("minigametext").innerHTML = "Klik op doorgaan om je besteden tijd te zien.";
+	}
+    
+    function startMinigame(){
+    	if(minigameID !== 'undefined'){
+			window.location.href=minigame.type+".html";
+    	}
+    	else{
+    		window.location.href="index.html";
+    	}
+	}
+    </script>
 </html>

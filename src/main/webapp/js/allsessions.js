@@ -29,6 +29,14 @@ function getSessions() {
 
                 var resultatenButton = document.createElement("button");
                 resultatenButton.innerHTML = "Resultaten";
+                resultatenButton.addEventListener("click", function(){
+                    sessionStorage.setItem('sessionID', session.code );
+                    window.location.href = "results.html";
+                });
+
+
+
+
                 var sluitenButton = document.createElement("button");
                 sluitenButton.innerHTML = "Sluiten";
 
@@ -36,7 +44,7 @@ function getSessions() {
 
 
 
-                    fetch("gamechane/session/" + td.innerHTML, fetchoptionsDel)
+                    fetch("gamechane/session/" + session.code, fetchoptionsDel)
                         .then(function (response) {
                             if (response.ok) {
                                 location.reload();
