@@ -60,7 +60,7 @@ $(document).ready(function () {
 
 function deleteArrangement(id) {
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/project5_war_exploded/gamechane/arrangement/delete/" +  id;
+    var url = "/todss/gamechane/arrangement/delete/" +  id;
     xhr.open("DELETE", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
