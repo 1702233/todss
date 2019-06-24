@@ -15,7 +15,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 	
 	public ArrayList<Student> queryExecutor(String query){
 		
-		SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
+		//SessionPostgresDaoImpl sDao = new SessionPostgresDaoImpl();
 		ResultPostgresDaoImpl rDao = new ResultPostgresDaoImpl();
 		
 		ArrayList<Student> results = new ArrayList<Student>();
@@ -26,14 +26,8 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 			while (rs.next()) { 
 				int studentID = rs.getInt("ID");
 				String name = rs.getString("name");
-				String sessionCode = rs.getString("sessionCode");
-				
 				ArrayList<Result> allResults = rDao.findByStudent(studentID);
-				Session session = sDao.findByCode(sessionCode);
 
-				
-
-				//Student newStudent = new Student(studentID, name, allResults, session);
 				Student newStudent = new Student(studentID, name, allResults);
 
 				results.add(newStudent);

@@ -31,7 +31,7 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 				Timestamp startTime = rs.getTimestamp("starttime");
 				Timestamp endTime = rs.getTimestamp("endtime");
 
-				Minigame minigame = mDao.findByID(minigameID);
+				Minigame minigame = mDao.findByIDSimple(minigameID);
 				//Student student = sDao.findByID(studentID);
 
 				
