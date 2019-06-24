@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/project5_war_exploded/gamechane/menu";
+    var url = "/todss/gamechane/menu";
     xhr.open("GET", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {

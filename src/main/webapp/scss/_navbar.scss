@@ -60,9 +60,17 @@
 }
 
 .sidebar {
-  width: $sidebar-collapsed-width !important;
+  transition: 0.2s;
+  position: fixed;
+  z-index: 1;
+  //width: 0 !important;
+  width: $sidebar-base-width !important;
   background-color: $gray-900;
   min-height: calc(100vh - #{$navbar-base-height});
+  overflow: hidden;
+
+  left: -#{$sidebar-base-width};
+
   @include sidebar-icons;
   .nav-item {
     .nav-link {
@@ -75,22 +83,20 @@
     }
   }
   &.toggled {
-    width: 0 !important;
-    overflow: hidden;
+    //width: $sidebar-base-width !important;
+    left: 0;
   }
 }
 
 @media (min-width: 768px) {
   .sidebar {
-    width: $sidebar-base-width !important;
-
     .nav-item {
       .nav-link {
         display: block;
         width: 100%;
         text-align: left;
         padding: 1rem;
-        width: $sidebar-base-width;
+
         span {
           font-size: 1rem;
           display: inline;
@@ -107,9 +113,7 @@
       }
     }
     &.toggled {
-      overflow: visible;
-      width: $sidebar-collapsed-width !important;
-      @include sidebar-icons;
+      //@include sidebar-icons;
     }
   }
 }
