@@ -6839,8 +6839,8 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  /* background-color: rgba(222, 235, 247, 1.0) !important; */
-  background-color: #343a40 !important;
+  background-color: rgba(222, 235, 247, 1.0) !important;
+  /* background-color: #343a40 !important; */
   /* aanpassing van kleur bovenste menu balk */
 }
 
@@ -10204,8 +10204,8 @@ button.bg-dark:focus {
 }
 
 .text-white {
-  /* color: black !important; */
-  color: white !important;
+  color: black !important;
+  /* color: white !important; */
   /* aanpassing kleur van hamburgermenu  */
 }
 

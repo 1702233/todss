@@ -39,12 +39,39 @@ public class Minigame {
 		this.id = id;
 		this.name = name;
 		this.type = type;
-
 		this.cardsOpened = cardsOpened;
 		this.omschrijving = omschrijving;
 		this.teacher = teacher;
 		this.cardset = cardset;
 		this.cardRules = cardRules;
+	}
+	
+	
+
+	public Minigame(int id, String name, String type, String omschrijving, Teacher teacher) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.omschrijving = omschrijving;
+		this.teacher = teacher;
+	}
+	
+
+	public Minigame(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
+	public Minigame(int id, String name, String type, boolean cardsOpened, String omschrijving) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.cardsOpened = cardsOpened;
+		this.omschrijving = omschrijving;
 	}
 
 	public String getName() {

@@ -17,7 +17,6 @@ public class ResultService {
 	
 	public JsonArray getResultsForSession(String code){
 		ArrayList<Student> studentsOfSession = studentDao.findStudentsBySession(code);
-
 		JsonArray results = new JsonArray();
 		for(Student student : studentsOfSession) {
 			JsonObject studentObject = new JsonObject();
@@ -32,14 +31,13 @@ public class ResultService {
 				resultObject.addProperty("starttime", sdf.format(result.getStart()));
 				resultObject.addProperty("endtime", sdf.format(result.getEnd()));
 				resultObject.addProperty("minigamename", result.getMinigame().getName());
-				
 				minigameResult.add(resultObject);
 			}
-			
+
 			studentObject.add("result", minigameResult);
 			results.add(studentObject);
 		}
-		
+
 		return results;
 	}
 }
