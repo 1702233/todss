@@ -1,3 +1,9 @@
+let hasFlippedCard = false;
+let lockBoard = false;
+let firstCard, secondCard;
+let openKaarten;
+document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
+
 
 (function init(){
 	console.log("starting");
@@ -16,16 +22,15 @@
     					var cardrule = myJson.cardRules[cr].id;
     				}
     			}
-    		}
-    		
+    		}	
     		createCard(myJson.cardset.allCards[i], cardrule);
     	}
     	const cards = document.querySelectorAll('.memory-card');
+    	openKaarten = cards.length;
     	shuffle(cards);
     	
     	cards.forEach(card => card.addEventListener('click', flipCard));
-    })
-	
+    })	
 })();
 
 function createCard(card, cardruleID){
@@ -62,10 +67,6 @@ function createCard(card, cardruleID){
 	document.getElementById("memory-game").appendChild(div);
 }
 
-let hasFlippedCard = false;
-let lockBoard = false;
-let firstCard, secondCard;
-
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
@@ -89,7 +90,10 @@ function flipCard() {
 function checkForMatch() {
     let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-    isMatch ? disableCards() : unflipCards();
+    if(isMatch){
+    	disableCards();
+    	checkWon()
+    }else{unflipCards()}
 }
 
 function disableCards() {
@@ -122,4 +126,15 @@ function shuffle(cards) {
   });
 }
 
+function checkWon(){
+	openKaarten = openKaarten -2;
+	
+	if(openKaarten == 0){
+		console.log("WIN");
+		document.getElementById('winDIV').style.display='block';
+	}
+}
 
+function nextMinigame(){
+	window.location.href="startminigame.html";
+}

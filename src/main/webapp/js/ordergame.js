@@ -1,3 +1,7 @@
+let openKaarten;
+document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
+
+
 (function init(){
 	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
 	
@@ -14,6 +18,7 @@
     	console.log(myJson.name)
     	document.getElementById('minigameName').innerHTML = myJson.name;
     	shuffle(document.querySelectorAll('.game-card'))
+    	openKaarten = document.querySelectorAll('.game-card').length;
     })
 })();
 
@@ -98,6 +103,8 @@ function checkMatch(){
 	cardInSquare3 = document.getElementById("end-square3").childNodes[0];
 	cardInSquare4 = document.getElementById("end-square4").childNodes[0];
 	
+	console.log(cardInSquare1);
+	
 	try{
 		if(cardInSquare1.dataset.rank == 1){
 			var cardsInSet = cardInSquare1.dataset.cardsingroup;
@@ -135,15 +142,31 @@ function removeCards(card1, card2, card3, card4){
 	setTimeout(() => {
 		document.getElementById("end-square1").removeChild(card1);
 		document.getElementById("end-square2").removeChild(card2);
-		try{
-			document.getElementById("end-square3").removeChild(card3);
-		}catch(e){console.log(e)}
-		try{document.getElementById("end-square4").removeChild(card4);}
+		try{document.getElementById("end-square3").removeChild(card3)}
+		catch(e){console.log(e)}
+		try{document.getElementById("end-square4").removeChild(card4)}
 		catch(e){console.log(e)}
 		document.querySelectorAll('.game-card').forEach(card => {
 			card.setAttribute("draggable","true");
 		});
+		checkWon(card1);
 	}, 3000);
 	
 	
+	
+}
+
+function checkWon(card1){
+	openKaarten = openKaarten -card1.dataset.cardsingroup;
+	console.log(openKaarten)
+	
+	if(openKaarten == 0){
+		console.log("WIN");
+		document.getElementById('winDIV').style.display='block';
+	}
+}
+
+function nextMinigame(){
+	console.log("AAAAAAAAAAAAAAA");
+	window.location.href="startminigame.html";
 }

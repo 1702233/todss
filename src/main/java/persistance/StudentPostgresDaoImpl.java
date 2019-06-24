@@ -24,17 +24,17 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { 
-				
-				int studentID = rs.getInt("id");
+				int studentID = rs.getInt("ID");
 				String name = rs.getString("name");
-				int sessionCode = rs.getInt("sessionCode");
+				String sessionCode = rs.getString("sessionCode");
 				
 				ArrayList<Result> allResults = rDao.findByStudent(studentID);
-				Session session = sDao.findByID(sessionCode);
+				Session session = sDao.findByCode(sessionCode);
 
 				
 
-				Student newStudent = new Student(studentID, name, allResults, session);
+				//Student newStudent = new Student(studentID, name, allResults, session);
+				Student newStudent = new Student(studentID, name, allResults);
 
 				results.add(newStudent);
 
@@ -49,7 +49,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 	@Override
 	public Student findByID(int ID) {
 		
-		return queryExecutor("SELECT * FROM STUDENT WHERE ID = " + ID + ";").get(0);
+		return queryExecutor("SELECT * FROM STUDENT WHERE \"ID\" = " + ID + ";").get(0);
 	}
 
 	@Override

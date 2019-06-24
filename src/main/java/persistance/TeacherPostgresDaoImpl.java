@@ -118,4 +118,26 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
 			return true;
 		}
 	}
+	
+public String findRoleForUser(String name, String pass){
+		
+		try(Connection con = super.getConnection()) {
+			String antwoord = "a";
+			String query = "SELECT role FROM teacher WHERE username = ? AND password = ?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pass);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				antwoord = rs.getString("role");
+				return antwoord;
+			}
+			
+			System.out.println(antwoord);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
