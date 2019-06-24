@@ -45,7 +45,7 @@ function getResults() {
                     }
                     var timeDifferenceString = hours + ":" + minutes + ":" + seconds;
 
-                    minigamelist += "<li><strong>" + subresult.minigamename + "</strong> " + timeDifferenceString;
+                    minigamelist += "<li><strong>" + subresult.minigamename + "</strong> / " + timeDifferenceString;
                     td2.innerHTML = minigamelist;
                     console.log(minutes + ":" + seconds);
 
