@@ -7692,10 +7692,4 @@ footer.sticky-footer {
     footer.sticky-footer {
       width: calc(100% - 300px); } }
 
-body.sidebar-toggled footer.sticky-footer {
-  width: 100%; }
-@media (min-width: 768px) {
-  body.sidebar-toggled footer.sticky-footer {
-    width: calc(100% - 0px); } }
-
 /*# sourceMappingURL=sb-admin.css.map */
