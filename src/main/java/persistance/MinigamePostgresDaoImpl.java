@@ -224,7 +224,9 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 	public ArrayList<Minigame> findByTeacher(String teacher) {
 		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
 		
-//		double code, en geeft een SQLerror. petitie om deze shit weg te gooien.
+//		double code om alleen een pstmt te gebruiken, en geeft een SQLerror.
+//		zorg gewoon dat queryExecutor een pstmt parameter heeft en geef die mee.
+		
 //		ArrayList<Minigame> results = new ArrayList<Minigame>();
 //
 //		try (Connection con = super.getConnection()) {
