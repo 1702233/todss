@@ -2,6 +2,9 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let openKaarten;
+var timeStarted;
+var timeDone;
+
 document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
 
 
@@ -28,6 +31,9 @@ document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
     	const cards = document.querySelectorAll('.memory-card');
     	openKaarten = cards.length;
     	shuffle(cards);
+    	
+    	timeStarted = new Date;
+    	console.log("test " +timeStarted);
     	
     	cards.forEach(card => card.addEventListener('click', flipCard));
     })	
@@ -132,6 +138,9 @@ function checkWon(){
 	if(openKaarten == 0){
 		console.log("WIN");
 		document.getElementById('winDIV').style.display='block';
+		
+		timeDone = new Date;
+		
 	}
 }
 

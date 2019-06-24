@@ -56,11 +56,33 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 	public ArrayList<Student> findStudentsBySession(String sessionCode) {
 		return queryExecutor("SELECT * FROM STUDENT WHERE \"sessionCode\" = '" + sessionCode + "';");
 	}
+	
+	@Override
+	public int findMaxStudentID() {
+		int result = 0;
+		
+		try(Connection con = super.getConnection()){
+			String query = "SELECT max(\"ID\") FROM STUDENT";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				System.out.println("test" +rs);
+				result = rs.getInt("max");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
 	@Override
 	public boolean saveStudent(Student student) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO STUDENT (NAME, SESSIONCODE) VALUES (?, ?);";
+			String query = "INSERT INTO STUDENT VALUES (?, ?, ?);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, student.getID());
 			pstmt.setString(2, student.getName());
@@ -68,6 +90,7 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
+			System.out.println("testing");
 			System.out.println(sqe.getMessage());
 		}
 

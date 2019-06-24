@@ -16,8 +16,6 @@ public class Student {
         this.allResults = allResults;
         this.session = session;
     }
-    
-    
 
     public Student(int iD, String name, ArrayList<Result> allResults) {
 		super();

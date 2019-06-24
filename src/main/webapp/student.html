@@ -10,16 +10,18 @@
     <div class="center">
             <img src="img/pic-gamechane.png">
     </div>
-	<form id="codeForm">
-	    <h3>Voer hier de gamepin in:</h3>
-	    <input type="text" id="code" name="code" style="text-transform:uppercase"><br><br>
-	    <a class="myButtonKlein" id="checkSession">Deelnemen</a>
-    </form>
+	<form id="gegevensForm">
+		<div id="codeDiv">
+		    <h3>Voer hier de gamepin in:</h3>
+		    <input type="text" id="code" name="code" style="text-transform:uppercase"><br><br>
+		    <a class="myButtonKlein" id="checkSession">Deelnemen</a>
+	    </div>
     
-    <form id="nameForm" style="display:none">
-    	<h3>Voer je naam in:</h3>
-	    <input type="text" id="naam" name="naam"><br><br>
-	    <a class="myButtonKlein" id="joinSession">Deelnemen</a>
+    	<div id="nameDiv" style="display:none">
+	    	<h3>Voer je naam in:</h3>
+		    <input type="text" id="naam" name="naam"><br><br>
+		    <a class="myButtonKlein" id="joinSession">Deelnemen</a>
+	    </div>
     </form>
 </div>
 <script>
@@ -32,7 +34,7 @@
 	
 	function checkSession(){
 		var code = document.getElementById("code").value;
-		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
+		var formData = new FormData(document.getElementById("gegevensForm")); //pak de data uit de div en maak daar formdata van
 	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 
 	    console.log('checking');
@@ -49,8 +51,8 @@
         	console.log(response);
 	        if (response.ok){
 	        	console.log('response ok');
-	        	document.getElementById("codeForm").style.display = "none";
-	        	document.getElementById("nameForm").style.display = "block";
+	        	document.getElementById("codeDiv").style.display = "none";
+	        	document.getElementById("nameDiv").style.display = "block";
 	        	return response.json();
 	        }
 	        else{
@@ -66,9 +68,12 @@
 	function joinSession(){
 		var name = document.getElementById("naam").value;
 		
-		var formData = new FormData(document.getElementById("codeForm")); //pak de data uit de div en maak daar formdata van
+		var formData = new FormData(document.getElementById("gegevensForm")); //pak de data uit de div en maak daar formdata van
 	    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
 		
+	    console.log(formData);
+	    console.log(encData);
+	    
 	    var fetchoptionsPost = {
 		        method: 'POST',
 		        body: encData
@@ -80,20 +85,34 @@
 	    	alert("kies een langere naam");
 	    }
 	    else{
-		    fetch("gamechane/minigames/arrangement/" + arrangement, {method: 'GET'})
-		    .then(response => response.json())
-		    .then(function(myJson){
-		    	console.log(myJson);
-		    	for(minigame of myJson){
-		    		minigames.push(minigame.id);
-		    	}
-		    	console.log(minigames);
-		    	sessionStorage.setItem('student', name);
-		    	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
-		    	window.location.href="startminigame.html";
-		    	
-		    })
-	    }		
+	    	fetch("gamechane/student", fetchoptionsPost)
+	    	//.then(function(response){
+	    	.then(response =>response.text())
+	    	.then((body) =>{
+	    		try{
+	    			var studentID = body;
+		    		console.log("yay");
+		    		fetch("gamechane/minigames/arrangement/" + arrangement, {method: 'GET'})
+				    .then(response => response.json())
+				    .then(function(myJson){
+				    	console.log(myJson);
+				    	for(minigame of myJson){
+				    		minigames.push(minigame.id);
+				    	}
+				    	console.log(minigames);
+				    	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
+				    	sessionStorage.setItem('studentID',studentID)
+				    	window.location.href="startminigame.html";
+				    	
+				    });
+		    		}
+		    		catch(e){
+		    			alert("Er is iets mis gegaan");
+		    			console.log(e);
+		    		}
+	    	})
+		    .catch(error => console.log(error));
+		}
 	}
 </script>
 
