@@ -1,9 +1,8 @@
 package webservices;
 
-import model.Arrangement;
-import model.RandomString;
-import model.Session;
-import model.Student;
+import model.*;
+import model.services.MenuService;
+import model.services.MenuServiceProvider;
 import model.services.SessionService;
 import model.services.SessionServiceProvider;
 import persistance.ArrangementDao;
@@ -17,11 +16,12 @@ import java.util.concurrent.TimeUnit;
 @Path("/menu")
 public class MenuResource {
 
-	ArrangementDao aDao = new ArrangementPostgresDaoImpl();
-
 	@GET
 	@Produces("application/json")
-	public ArrayList<Session> getMenu() {
-		return null;
+	public Menu getMenu() {
+		MenuService service = MenuServiceProvider.getMenuService();
+
+		Teacher teacher = new Teacher("leraar1", "wachtwoord1");
+		return service.getMenu(teacher);
 	}
 }
