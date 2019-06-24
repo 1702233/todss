@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import model.Minigame;
@@ -25,15 +26,16 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) { 
 				
-				int studentID = rs.getInt("studentid");
-				int minigameID = rs.getInt("minigame");
-				Date startTime = rs.getDate("starttime");
-				Date endTime = rs.getDate("endtime");
+				int studentID = rs.getInt("studentID");
+				int minigameID = rs.getInt("minigameID");
+				Timestamp startTime = rs.getTimestamp("starttime");
+				Timestamp endTime = rs.getTimestamp("endtime");
 
 				Minigame minigame = mDao.findByID(minigameID);
-				Student student = sDao.findByID(studentID);
+				//Student student = sDao.findByID(studentID);
 
-				Result newResult = new Result(startTime, endTime, student);
+				
+				Result newResult = new Result(startTime, endTime, minigame);
 
 				results.add(newResult);
 
@@ -52,7 +54,7 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 	
 	@Override
 	public ArrayList<Result> findByStudent(int ID) {
-		return queryExecutor("SELECT * FROM RESULT WHERE STUDENTID = " + ID +";");
+		return queryExecutor("SELECT * FROM RESULT WHERE \"studentID\" = " + ID +";");
 	}
 
 	@Override
@@ -63,8 +65,8 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, result.getStudent().getID());
 			pstmt.setInt(2, minigameID);
-			pstmt.setDate(3, result.getStart());
-			pstmt.setDate(3, result.getEnd());
+			pstmt.setTimestamp(3, result.getStart());
+			pstmt.setTimestamp(3, result.getEnd());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>GameChane</title>
+    <title>Dashboard - GameChane</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,14 +26,14 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">GameChane</a>
+    <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
     </button>
 
     <!-- Navbar Search -->
-    <!-- <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
                    aria-describedby="basic-addon2">
@@ -43,11 +43,11 @@
                 </button>
             </div>
         </div>
-    </form> -->
+    </form>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
-        <!-- <li class="nav-item dropdown no-arrow mx-1">
+        <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
@@ -84,7 +84,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
             </div>
-        </li> -->
+        </li>
     </ul>
 
 </nav>
@@ -152,23 +152,20 @@
 
 
             <!-- Page Content -->
-            <h1>Alle sessies</h1>
-            <p>Bekijk de resultaten van een sessie of beëindig een sessie</p>
+            <h1 id="titel">Resultaten van </h1>
             <hr>
 
             <div class="table-responsive">
                 <div class="alert alert-success" role="alert" id="greenalert">
                 </div>
                 
-                <table class="minimalistBlack" id="allSessionsTable">
+                <table class="minimalistBlack" id="allResultsTable">
                     <thead>
                     <tr>
-                        <th>PIN</th>
-                        <th>Session opmerking</th>
-                        <th>Arrangment naam</th>
-                        <th>Arrangement beschrijving</th>
-                        <th>Resultaten</th>
-                        <th>Sessie sluiten</th>
+                        <th>Student naam</th>
+                        <th>Minigames/ resultaten (HH:MM:SS)</th>
+
+                        
 
                     </tr>
                     </thead>
@@ -238,7 +235,7 @@
 <script src="js/demo/datatables-demo.js"></script>
 <script src="js/demo/chart-area-demo.js"></script>
 
-<script src="js/allsessions.js">
+<script src="js/results.js">
 
 </script>
 </body>
