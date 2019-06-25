@@ -3,7 +3,7 @@
 }
 
 input, textarea, .input-group-text {
-    box-shadow: 0 2px  5px #555555;
+    box-shadow: 0 2px 5px #555555;
 }
 
 .input-group-text {
@@ -12,4 +12,10 @@ input, textarea, .input-group-text {
 
 .navbar-brand img {
     max-height: 30px;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand img {
+        max-height: initial;
+    }
 }

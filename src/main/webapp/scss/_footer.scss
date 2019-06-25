@@ -6,9 +6,13 @@ footer.sticky-footer {
   width: 100%;
   height: $sticky-footer-height;
   background-color: $gray-200;
+
+  @media (min-width: 768px) {
+    width: calc(100vw - #{$sidebar-base-width});
+  }
+
   .copyright {
     line-height: 1;
     font-size: 0.8rem;
   }
 }
-
