@@ -19,21 +19,13 @@ $(document).ready(function () {
                 var tdDescription = document.createElement("td");
                 var tdDelete = document.createElement("td");
                 var buttonDelete = document.createElement("button");
-                
+
                 tdTitle.innerHTML = arrangement.name;
 
                 var minigames = arrangement.allMinigames;
                 var minigameList = "";
                 for (var minigame in minigames) {
-                    if (minigame < 4) {
-                        minigameList += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
-                    } else if (minigames.length === 5) {
-                        minigameList += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
-                        break;
-                    } else {
-                        minigameList += "<li>En nog " + (minigames.length - 4) + " andere spellen...</li>";
-                        break;
-                    }
+                    minigameList += "<li><strong>" + minigames[minigame].name + "</strong> " + minigames[minigame].omschrijving;
                 }
                 tdGames.innerHTML = minigameList;
 
@@ -42,7 +34,7 @@ $(document).ready(function () {
 
                 buttonDelete.setAttribute("id", "buttonDelete");
                 buttonDelete.setAttribute("data-id", arrangement.id);
-                
+
                 buttonDelete.setAttribute("data-toggle", "modal");
                 buttonDelete.setAttribute("data-target", "#myModal");
                 buttonDelete.addEventListener("click", function () {
@@ -60,13 +52,15 @@ $(document).ready(function () {
             }
 
             var jaButton = document.getElementById("jaButton");
-            jaButton.addEventListener("click", function() { deleteArrangement(arrangementID) });
+            jaButton.addEventListener("click", function () {
+                deleteArrangement(arrangementID)
+            });
         })
 });
 
 function deleteArrangement(id) {
     var xhr = new XMLHttpRequest();
-    var url = "/todss/gamechane/arrangement/delete/" +  id;
+    var url = "/todss/gamechane/arrangement/delete/" + id;
     xhr.open("DELETE", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
