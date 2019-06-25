@@ -222,39 +222,43 @@ public class MinigamePostgresDaoImpl extends PostgresBaseDao implements Minigame
 
 	@Override
 	public ArrayList<Minigame> findByTeacher(String teacher) {
-		//return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
-		ArrayList<Minigame> results = new ArrayList<Minigame>();
-
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement("\"SELECT * FROM MINIGAME WHERE \"teacherName\" = ?;");
-			pstmt.setString(1, teacher);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
-								// aan de lijst results toe
-				String omschrijving;
-				int minigameID = rs.getInt("ID");
-				String namee = rs.getString("name");
-				String type = rs.getString("type");
-				try {
-					omschrijving = rs.getString("description");
-				} catch (Exception e) {
-					System.out.println(e);
-					omschrijving = "";
-				}
-				String teacherName = rs.getString("teachername");
-				Teacher teacherr = tDao.findByUsername(teacherName);
-
-				Minigame newMinigame = new Minigame(minigameID, namee, type, omschrijving, teacherr);
-
-				results.add(newMinigame);
-
-			}
-			con.close();
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
-
-		return results; // return de lijst
+		return queryExecutor("SELECT * FROM MINIGAME WHERE \"teacherName\" = '" + teacher + "';");
+		
+//		double code om alleen een pstmt te gebruiken, en geeft een SQLerror.
+//		zorg gewoon dat queryExecutor een pstmt parameter heeft en geef die mee.
+		
+//		ArrayList<Minigame> results = new ArrayList<Minigame>();
+//
+//		try (Connection con = super.getConnection()) {
+//			PreparedStatement pstmt = con.prepareStatement("\"SELECT * FROM MINIGAME WHERE \"teacherName\" = ?;");
+//			pstmt.setString(1, teacher);
+//			ResultSet rs = pstmt.executeQuery();
+//			while (rs.next()) { // zolang er meer in de ResultSet zit maak een Taakobject van de info en voeg de
+//								// aan de lijst results toe
+//				String omschrijving;
+//				int minigameID = rs.getInt("ID");
+//				String namee = rs.getString("name");
+//				String type = rs.getString("type");
+//				try {
+//					omschrijving = rs.getString("description");
+//				} catch (Exception e) {
+//					System.out.println(e);
+//					omschrijving = "";
+//				}
+//				String teacherName = rs.getString("teachername");
+//				Teacher teacherr = tDao.findByUsername(teacherName);
+//
+//				Minigame newMinigame = new Minigame(minigameID, namee, type, omschrijving, teacherr);
+//
+//				results.add(newMinigame);
+//
+//			}
+//			con.close();
+//		} catch (SQLException sqle) {
+//			sqle.printStackTrace();
+//		}
+//
+//		return results; // return de lijst
 	}
 
 	@Override

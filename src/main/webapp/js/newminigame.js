@@ -31,6 +31,8 @@ function minigamebasisinformatie() {
 		document.getElementById("minigameselection").style.display = "block";
 		document.getElementById("minigamespecifics").style.display = "none";
 		document.getElementById("summaryform").style.display = "none";
+		document.getElementsByClassName("step")[0].className += " finish";
+		document.getElementsByClassName("step")[1].className += " active";
 		alertBox.style.display = "none";
 	} else {
 		alertBoxGreen.style.display = "none";
@@ -127,9 +129,9 @@ function cardsetselectie(cardset) {
 	// kijkt van elke kaart van de geselecteerde set of het tekst heeft dan maakt het een dragable div aan met de tekst erin, anders een dragable img met het plaatje.
 	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
 		if (cardsetfetch[cardset].allCards[i].frontside.tekst != null) {
-			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><div id="drag_' + cardsetfetch[cardset].allCards[i].id + '" draggable="true" ondragstart="drag(event)" width="150" height="150">' + cardsetfetch[cardset].allCards[i].frontside.tekst + '</div></div>'
+			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" draggable="true" ondragstart="drag(event)" width="150" height="150">' + cardsetfetch[cardset].allCards[i].frontside.tekst + '</div></div>'
 		} else {
-			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag_' + cardsetfetch[cardset].allCards[i].id + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
 		}
 	}
 	console.log(cardsetfetch[cardset].allCards)
@@ -155,25 +157,19 @@ function memoryselected() {
 	console.log("memoryselected() functie");
 	// functie die wordt uitgevoerd als er een memory type game word geselecteerd.
 	document.getElementById('minigamedefine').innerHTML = '' +
-	'<div class="input-group mb-3">' +
-		'<form> \n' +
-		'<div class="input-group-prepend">' +
-			'<span class="input-group-text" id="basic-addon">open of dicht</span>' +
-			'<select id="kaartsidestart">' +
-				'<option disabled selected value> -- selecteer hoe een game begint -- </option>' +
-				'<option value="open">kaarten open</option>' +
-				'<option value="dicht">kaarten dicht</option>' +
-			'</select>' +
-		'</form>' +
-		'</div>' +
+	'<div style="display:none">' +
+		'<select id="kaartsidestart">' +
+			'<option value="open">kaarten open</option>' +
+			'<option value="dicht" selected value>kaarten dicht</option>' +
+		'</select>' +
 	'</div>' +
-	'<div class="input-group mb-3">' +
-		'<div class="input-group-prepend">' +
-			'<span class="input-group-text" id="basic-addon">hoeveel sets van 2</span>' +
-	'<input type="number" name="setaantal" id="setaantal">' +
-	'</div>' +
-	'</div>' +
-	'<input type="submit" value="Submit" onclick="memorydefined()">';
+	'<div class="form-group row">' +
+	    '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
+	    '<div class="col-sm-10">' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	    '</div>' +
+    '</div>' +
+	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="memorydefined()">';
 }
 
 function memorydefined() {
@@ -193,39 +189,41 @@ function memorydefined() {
 		
 		for(var i = 0;  i < aantalsets.value;  i++) {
 			if (sethtml == null) {
-				sethtml = 'Set 1 :<div class ="row"><div class="col kaartsetslot" id="kaartsetslotdiv01" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv02" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+				sethtml = '<div class ="row">Set 1 :<div class="col kaartsetslot" id="kaartsetslotdiv01" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv02" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 			} else {
-			sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row"><div class="col kaartsetslot" id="kaartsetslotdiv' + i +'1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv' + i +'2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
+			sethtml = sethtml + '<div class ="row">Set : ' + (i + 1) + '<div class="col kaartsetslot" id="kaartsetslotdiv' + i +'1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>' + '<div class="col kaartsetslot" id="kaartsetslotdiv' + i +'2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></div>';
 			};
 		};
 		
-		var alertbox =  '<div class="alert alert-danger" role="alert" id="redalert2"></div>';
-		var submitbutton = '<div><input type="submit" value="Submit" onclick="finalformminigame()"></div>'
+		var alertbox =  '<div class="alert alert-danger row" role="alert" id="redalert2"></div>';
+		var submitbutton = '<div class="row"><input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()"></div>'
 		document.getElementById('minigamesets').innerHTML = sethtml + alertbox + submitbutton;
+		document.getElementsByClassName("step")[1].className += " finish";
+		document.getElementsByClassName("step")[2].className += " active";
 		alertBox.style.display = "none";
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
-        alertBox.innerHTML = "lege waarde ingevuld.";
+        alertBox.innerHTML = "Ongeldig 'Aantal sets' voor minigametype";
 	}
 }
 
 function ordergameselected() {
 	console.log("ordergameselected() functie");
 	document.getElementById('minigamedefine').innerHTML = '' +
-	'<div class="input-group mb-3">' +
-		'<div class="input-group-prepend">' +
-			'<span class="input-group-text" id="basic-addon">hoeveel sets</span>' +
-			'<input type="number" name="setaantal" id="setaantal">' +
-		'</div>' +
-	'</div>' +
-	'<div class="input-group mb-3">' +
-		'<div class="input-group-prepend">' +
-			'<span class="input-group-text" id="basic-addon">maximale setlengte 2-4</span>' +
-			'<input type="number" name="setlengte" id="setlengte">' +
-		'</div>' +
-	'</div>' +
-	'<input type="submit" value="Submit" onclick="ordergamedefined()">';;
+	'<div class="form-group row">' +
+    '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
+	    '<div class="col-sm-10">' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	    '</div>' +
+    '</div>' +
+    '<div class="form-group row">' +
+    '<label for="setlengte" class="col-sm-2 col-form-label">Set lengte</label>' +
+	    '<div class="col-sm-10">' +
+	      '<input type="number" class="form-control" id="setlengte" name="setlengte" value="" placeholder="min2-max4"/>' +
+	    '</div>' +
+    '</div>' +
+	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="ordergamedefined()">';;
 
 
 	
@@ -249,16 +247,18 @@ function ordergamedefined() {
 		var sethtml = "";
 		
 		for(var i = 0;  i < aantalsets.value;  i++) {
-			sethtml = sethtml + 'Set ' + (i + 1) +' :<div class ="row">';
+			sethtml = sethtml + '<div class ="row"> Set : ' + (i + 1);
 			for(var i2 = 0; i2 <setlengte.value; i2++) {
 				sethtml = sethtml + '<div class="col kaartsetslot" id="kaartsetslotdiv' + i + (i2+1) +'" ondrop="drop(event)" ondragover="allowDrop(event)"></div>';
 			};
 			sethtml = sethtml + '</div>';
 		};
 		
-		var alertbox =  '<div class="alert alert-danger" role="alert" id="redalert2"></div>';
-		var submitbutton = '<div><input type="submit" value="Submit" onclick="finalformminigame()"></div>'
+		var alertbox =  '<div class="alert alert-danger row" role="alert" id="redalert2"></div>';
+		var submitbutton = '<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()">'
 		document.getElementById('minigamesets').innerHTML = sethtml + alertbox + submitbutton;
+		document.getElementsByClassName("step")[1].className += " finish";
+		document.getElementsByClassName("step")[2].className += " active";
 		alertBox.style.display = "none";
 	} else {
 		alertBoxGreen.style.display = "none";
@@ -299,6 +299,8 @@ function finalformminigame() {
 		document.getElementById("minigamespecifics").style.display = "none";
 		document.getElementById("summaryform").style.display = "block";
 		alertBox2.style.display = "none";
+		document.getElementsByClassName("step")[2].className += " finish";
+		document.getElementsByClassName("step")[3].className += " active";
 		minigameinformatie();
 	} else {
 		alertBoxGreen.style.display = "none";
@@ -347,6 +349,10 @@ function maakminigameaan() {
 		  alertBox.style.display = "none";
 		  alertBoxGreen.style.display = "block";
           alertBoxGreen.innerHTML = "Succes, de minigame '" + formtitel  + "' is aangemaakt "
+	  		document.getElementsByClassName("step")[0].className = "step active";
+	  		document.getElementsByClassName("step")[1].className = "step";
+	  		document.getElementsByClassName("step")[2].className = "step";
+	  		document.getElementsByClassName("step")[3].className = "step";
           resetAllInputs();
 	} else {
 		alertBoxGreen.style.display = "none";
@@ -378,7 +384,7 @@ function checkIfMinigameNameExistsForTeacher() {
     			document.getElementById('titel').focus();
     			alertBoxGreen.style.display = "none";
     	        alertBox.style.display = "block";
-    	        alertBox.innerHTML = "Minigametitel '"+ formtitel +"' bestaat al voor leraar : " + sessionStorage.getItem('docent') + "\n voer een nieuwe titel in.";
+    	        alertBox.innerHTML = "Minigametitel '"+ formtitel +"' bestaat al voor '" + sessionStorage.getItem('docent') + "'\n voer een nieuwe titel in.";
     		} else {
     			console.log(formtitel + "!=" + myJson[i].name);
     		}

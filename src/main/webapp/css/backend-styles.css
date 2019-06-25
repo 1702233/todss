@@ -1,3 +1,21 @@
 .navbar {
     background-color: #deebf7 !important;
 }
+
+input, textarea, .input-group-text {
+    box-shadow: 0 2px 5px #555555;
+}
+
+.input-group-text {
+    z-index: 1;
+}
+
+.navbar-brand img {
+    max-height: 30px;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand img {
+        max-height: initial;
+    }
+}
