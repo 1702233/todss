@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Nieuwe minigame maken - edHUgames</title>
+    <title>Nieuwe minigame maken - GameChane</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-    
+
     <!-- Custom styles for this page-->
     <link href="css/newminigame.css" rel="stylesheet">
 
@@ -42,7 +42,7 @@
 
 <div id="wrapper">
 
-        <!-- Sidebar -->
+    <!-- Sidebar -->
     <ul class="sidebar navbar-nav" id="menu"></ul>
 
     <div id="content-wrapper">
@@ -62,170 +62,175 @@
                 <hr>
 				<div class="minigamebasics" id="minigamebasics">
 
-					<form>
-					  <div class="form-group">
-					    <label for="titelinput">Titel</label>
-					    <input type="text" class="form-control" id="titelinput" name="titel">
-					  </div>
-					  <div class="form-group">
-					    <label for="omschrijvinginput">Omschrijving</label>
-					    <textarea class="form-control" id="omschrijvinginput" name="omschrijvinginput" rows="4" cols="50"></textarea>
-					  </div>
-					</form>
-					<div>
-                        <input class="btn btn-outline-secondary" type="submit"
-                            value="Submit" onclick="minigamebasisinformatie()">
+
+                <form>
+                    <div class="form-group">
+                        <label for="titelinput">Titel</label>
+                        <input type="text" class="form-control" id="titelinput" name="titel">
                     </div>
-				</div>
+                    <div class="form-group">
+                        <label for="omschrijvinginput">Omschrijving</label>
+                        <textarea class="form-control" id="omschrijvinginput" name="omschrijvinginput" rows="4"
+                                  cols="50"></textarea>
+                    </div>
+                </form>
+                <div>
+                    <input class="btn btn-outline-secondary" type="submit"
+                           value="Submit" onclick="minigamebasisinformatie()">
+                </div>
+            </div>
 
-				<div class="minigameselection" id="minigameselection">
-					<h2>Minigame basics</h2>
-					<hr>
-					<p>selecteer hier de basis van je minigame</p>
-
-
-
-					
-
-                                <label for="soortselection">Type Minigame</label>
-								<select id="soortselection" class="form-control" onchange="soortselectie(this.value);">
-									<option disabled selected>-- selecteer een gamesoort
-										--</option>
-									<option value="memory">Memory</option>
-									<option value="ordergame">Order Game</option>
-								</select>
-						<div id="minigamedefine"></div>
+            <div class="minigameselection" id="minigameselection">
+                <h2>Minigame basics</h2>
+                <hr>
+                <p>selecteer hier de basis van je minigame</p>
 
 
+                <label for="soortselection">Type Minigame</label>
+                <select id="soortselection" class="form-control" onchange="soortselectie(this.value);">
+                    <option disabled selected>-- selecteer een gamesoort
+                        --
+                    </option>
+                    <option value="memory">Memory</option>
+                    <option value="ordergame">Order Game</option>
+                </select>
+                <div id="minigamedefine"></div>
 
 
+                <hr>
 
-					<hr>
-
-				</div>
-
-
-				<div class="minigamespecifics" id="minigamespecifics">
-					<h2>Minigame Specificeren</h2>
-					<hr>
-
-					<div class="row">
-						<div class="col-xs-12 col-sm-8 col-md-9">
-
-							<p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
-
-							<div>
-								<select class="form-control" id="cardsetdropdown" onchange="cardsetselectie(this.value);">
-									<option disabled selected>-- selecteer een kaartset --
-									</option>
-								</select>
-							</div>
-							<div id="cardsetimages" class="row"></div>
-
-							<div id="minigamesets" class="grid"></div>
+            </div>
 
 
-						</div>
+            <div class="minigamespecifics" id="minigamespecifics">
+                <h2>Minigame Specificeren</h2>
+                <hr>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-9">
+
+                        <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
+
+                        <div>
+                            <select class="form-control" id="cardsetdropdown" onchange="cardsetselectie(this.value);">
+                                <option disabled selected>-- selecteer een kaartset --
+                                </option>
+                            </select>
+                        </div>
+                        <div id="cardsetimages" class="row"></div>
+
+                        <div id="minigamesets" class="grid"></div>
 
 
-					</div>
+                    </div>
 
-				</div>
-				<div id="summaryform">
-					<h2>Overzicht van gemaakte minigame</h2>
-					<hr>
-					<form id="minigamedata">
-					  <div class="form-group row">
-					    <label for="titel" class="col-sm-2 col-form-label">Titel</label>
-					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="titel" name="titel" value="" readonly />
-					    </div>
-					  </div>
-					  <div class="form-group row">
+
+                </div>
+
+            </div>
+            <div id="summaryform">
+                <h2>Overzicht van gemaakte minigame</h2>
+                <hr>
+                <form id="minigamedata">
+                    <div class="form-group row">
+                        <label for="titel" class="col-sm-2 col-form-label">Titel</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="titel" name="titel" value="" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="speltype" class="col-sm-2 col-form-label">speltype</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="speltype" name="speltype" value="" readonly />
+                            <input type="text" class="form-control" id="speltype" name="speltype" value="" readonly/>
                         </div>
-                      </div>
-                      <input type="hidden" id="cardopened"name="cardopened" value="open" readonly />
-					  <div class="form-group row">
+                    </div>
+                    <input type="hidden" id="cardopened" name="cardopened" value="open" readonly/>
+                    <div class="form-group row">
                         <label for="omschrijving" class="col-sm-2 col-form-label">omschrijving</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="omschrijving" name="omschrijving" value="" readonly />
+                            <input type="text" class="form-control" id="omschrijving" name="omschrijving" value=""
+                                   readonly/>
                         </div>
-                      </div>
-                      <div class="form-group row">
+                    </div>
+                    <div class="form-group row">
                         <label for="teachernaam" class="col-sm-2 col-form-label">teachernaam</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="teachernaam" name="teachernaam" value="" readonly />
+                            <input type="text" class="form-control" id="teachernaam" name="teachernaam" value=""
+                                   readonly/>
                         </div>
-                      </div>
-                      <input type="hidden" class="form-control" id="cardsetid" name="cardsetid" value="" readonly />
-                      <input type="button" class="btn btn-outline-secondary" id="post" value="maak minigame aan" onclick="checkIfMinigameNameExistsForTeacher()">
-                      
-					</form>
-				</div>
-				<hr>
+                    </div>
+                    <input type="hidden" class="form-control" id="cardsetid" name="cardsetid" value="" readonly/>
+                    <input type="button" class="btn btn-outline-secondary" id="post" value="maak minigame aan"
+                           onclick="checkIfMinigameNameExistsForTeacher()">
 
-			</div>
-			<!-- /.container-fluid -->
+                </form>
+            </div>
+            <hr>
 
-			<!-- Sticky Footer -->
-			<footer class="sticky-footer">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright © Game Didactiek 2019</span>
-					</div>
-				</div>
-			</footer>
+        </div>
+        <!-- /.container-fluid -->
 
-		</div>
-		<!-- /.content-wrapper -->
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © Game Didactiek <span class="yeardisplay"></span></span>
+                </div>
+            </div>
+        </footer>
 
-	</div>
-	<!-- /#wrapper -->
+    </div>
+    <!-- /.content-wrapper -->
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
+</div>
+<!-- /#wrapper -->
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Klaar om te
-						vertrekken?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Klik op "uitloggen" hieronder als je
-					wilt uitloggen.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Ik blijf nog!</button>
-					<a class="btn btn-primary" href="login.html">Uitloggen</a>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Klaar om te
+                    vertrekken?</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Klik op "uitloggen" hieronder als je
+                wilt uitloggen.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Ik blijf nog!
+                </button>
+                <a class="btn btn-primary" href="login.html">Uitloggen</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for this page-->
-	<script src="js/newminigame.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin.min.js"></script>
+
+<!-- Main script -->
+<script src="js/main.js"></script>
+
+<!-- Custom scripts for this page-->
+<script src="js/newminigame.js"></script>
 
 <!-- Menu script -->
 <script src="js/menu.js"></script>

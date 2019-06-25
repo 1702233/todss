@@ -27,102 +27,125 @@
 
 <body id="page-top">
 
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html"><img src="img/pic-gamechane klein.png" alt=""></a>
+        <a class="navbar-brand mr-1" href="index.html"><img src="img/pic-gamechane klein.png" alt=""></a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-    </button>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
 
-</nav>
+    </nav>
 
-<div id="wrapper">
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav" id="menu"></ul>
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav" id="menu"></ul>
 
-    <div id="content-wrapper">
+        <div id="content-wrapper">
 
-        <div class="container-fluid">
+            <div class="container-fluid">
 
-            <main>
-                <h1>Overzicht arrangementen</h1>
-                <p>Dit is een overzicht van alle arrangementen. </p>
+                <main>
+                    <h1>Overzicht arrangementen</h1>
+                    <p>Dit is een overzicht van alle arrangementen. </p>
 
-                <div class="table-responsive">
-                    <table class="table" id="allArrangementsTable">
-                        <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Minigames</th>
-                            <th>Omschrijving</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </main>
+                    <div class="table-responsive">
+                        <table class="table" id="allArrangementsTable">
+                            <thead>
+                                <tr>
+                                    <th>Naam</th>
+                                    <th>Minigames</th>
+                                    <th>Omschrijving</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </main>
 
-            <!-- Sticky Footer -->
-            <footer class="sticky-footer">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright © Your Website 2019</span>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Weet u zeker dat u dit arrangement, bijbehorende sessies en resultaten wilt
+                                    verwijderen?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="jaButton">Ja</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Nee</button>
+                            </div>
+                        </div>
+
+                        <!-- Sticky Footer -->
+                        <footer class="sticky-footer">
+                            <div class="container my-auto">
+                                <div class="copyright text-center my-auto">
+                                    <span>Copyright © Game Didactiek <span class="yeardisplay"></span></span>
+                                </div>
+                            </div>
+                        </footer>
                     </div>
                 </div>
-            </footer>
+                <!-- /.content-wrapper -->
 
-        </div>
-        <!-- /.content-wrapper -->
+            </div>
+            <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.html">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+            <!-- Page level plugin JavaScript-->
+            <script src="vendor/datatables/jquery.dataTables.js"></script>
+            <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="js/sb-admin.min.js"></script>
 
-    <script src="js/allarrangements.js"></script>
+            <script src="js/allarrangements.js"></script>
 
-    <!-- Menu script -->
-    <script src="js/menu.js"></script>
+            <!-- Main script -->
+            <script src="js/main.js"></script>
+
+            <!-- Menu script -->
+            <script src="js/menu.js"></script>
 
 </body>
 
