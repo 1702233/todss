@@ -1,5 +1,5 @@
 var sessionDataJSON = [];
-var alertBoxGreen = document.getElementById("greenalert");
+var sessieCode = "";
 
 function initPage() {
     getSessions();
@@ -29,8 +29,8 @@ function getSessions() {
 
                 var resultatenButton = document.createElement("button");
                 resultatenButton.innerHTML = "Resultaten";
-                resultatenButton.addEventListener("click", function(){
-                    sessionStorage.setItem('sessionID', session.code );
+                resultatenButton.addEventListener("click", function () {
+                    sessionStorage.setItem('sessionID', session.code);
                     window.location.href = "results.html";
                 });
 
@@ -38,23 +38,15 @@ function getSessions() {
 
 
                 var sluitenButton = document.createElement("button");
+                sluitenButton.setAttribute("data-toggle", "modal");
+                sluitenButton.setAttribute("data-target", "#myModal");
+
                 sluitenButton.innerHTML = "Sluiten";
-
                 sluitenButton.addEventListener("click", function () {
-
-
-
-                    fetch("gamechane/session/" + session.code, fetchoptionsDel)
-                        .then(function (response) {
-                            if (response.ok) {
-                                location.reload();
-
-
-                            } else {
-                                alert("Er is iets mis gegaan");
-                            }
-                        })
+                    sessieCode = session.code;
                 });
+
+
 
                 td.innerHTML = session.code;
                 td2.innerHTML = session.opmerking;
@@ -71,14 +63,23 @@ function getSessions() {
                 tr.appendChild(td6);
 
                 table.appendChild(tr);
-
-                console.log(session.code + session.opmerking + session.arrangement.name + session.arrangement.description);
-
-
-
             }
 
+            var jaButton = document.getElementById("jaButton");
+            jaButton.addEventListener("click", function () {
 
+                console.log(sessieCode);
+                fetch("gamechane/session/" + sessieCode, fetchoptionsDel)
+                    .then(function (response) {
+                        if (response.ok) {
+                            location.reload();
+
+
+                        } else {
+                            alert("Er is iets mis gegaan");
+                        }
+                    })
+            });
         });
 }
 
