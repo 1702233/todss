@@ -1,3 +1,5 @@
+var arrangementID;
+
 $(document).ready(function () {
 
     var fetchoptionsGet = {
@@ -44,7 +46,12 @@ $(document).ready(function () {
 
                 buttonDelete.setAttribute("id", "buttonDelete");
                 buttonDelete.setAttribute("data-id", arrangement.id);
-                buttonDelete.onclick = function() { deleteArrangement(arrangement.id) };
+                
+                buttonDelete.setAttribute("data-toggle", "modal");
+                buttonDelete.setAttribute("data-target", "#myModal");
+                buttonDelete.addEventListener("click", function () {
+                    arrangementID = arrangement.id;
+                });
 
                 tdDelete.appendChild(buttonDelete);
 
@@ -55,6 +62,9 @@ $(document).ready(function () {
 
                 table.appendChild(tr);
             }
+
+            var jaButton = document.getElementById("jaButton");
+            jaButton.addEventListener("click", function() { deleteArrangement(arrangementID) });
         })
 });
 
