@@ -1,5 +1,22 @@
 package webservices;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import model.Arrangement;
 import model.Minigame;
 import model.Teacher;
@@ -8,20 +25,10 @@ import model.services.ArrangementServiceProvider;
 import model.services.MinigameService;
 import model.services.MinigameServiceProvider;
 
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Path("/arrangement")
 public class ArrangementResource {
+	
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Produces("application/json")
 	public List<Arrangement> getAllArrangements() {
@@ -37,6 +44,7 @@ public class ArrangementResource {
 		return service.getArrangementByID(ID);
 	}
 
+	@RolesAllowed({"admin","docent"})
 	@GET
 	@Path("teacher/{teacherName}")
 	@Produces("application/json")
@@ -45,6 +53,7 @@ public class ArrangementResource {
 		return service.getArrangementsByTeacher(teacherName);
 	}
 
+	@RolesAllowed({"admin","docent"})
 	@POST
 	public Response addArrangement(String json) {
 		ArrangementService arrangementService = ArrangementServiceProvider.getArrangementService();
@@ -79,6 +88,7 @@ public class ArrangementResource {
 
 	}
 
+	@RolesAllowed({"admin", "docent"})
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteArrangementById(@PathParam("id") int id) {

@@ -58,15 +58,15 @@ public class ResultPostgresDaoImpl extends PostgresBaseDao implements ResultDao{
 	}
 
 	@Override
-	public boolean saveResult(Result result, int minigameID) {
+	public boolean saveResult(Result result) {
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {
-			String query = "INSERT INTO RESULT (STUDENTID, MINIGAME, STARTTIME, ENDTIME) VALUES (?, ?, ?, ?);";
+			String query = "INSERT INTO RESULT (\"studentID\", \"minigameID\", \"startTime\", \"endTime\", \"value\") VALUES (?, ?, ?, ?,0);";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, result.getStudent().getID());
-			pstmt.setInt(2, minigameID);
+			pstmt.setInt(2, result.getMinigame().getId());
 			pstmt.setTimestamp(3, result.getStart());
-			pstmt.setTimestamp(3, result.getEnd());
+			pstmt.setTimestamp(4, result.getEnd());
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {

@@ -5,67 +5,65 @@ let openKaarten;
 var timeStarted;
 var timeDone;
 
+var minigame = JSON.parse(sessionStorage.getItem('minigame'));
+var student = JSON.parse(sessionStorage.getItem('studentID'));
+
 document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
+console.log(document.getElementById("body").clientWidth);
 
+$('.memory-card').height(document.getElementById("body").clientWidth/5);
 
-(function init(){
-	console.log("starting");
-	
-	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
-	
+console.log(document.getElementById("body").clientWidth/5);
+
+(function init(){	
 	fetch("gamechane/minigames/" + minigame)
     .then(response => response.json())
     .then(function(myJson) {
-    	var cardrule=0;
     	console.log(myJson);
-    	for(var i=0;i<myJson.cardset.allCards.length; i++){
-    		for(var cr=0;cr<myJson.cardRules.length; cr++){
-    			for(var ca=0;ca<myJson.cardRules[cr].cardAssignments.length; ca++){
-    				if(myJson.cardRules[cr].cardAssignments[ca].card.id == myJson.cardset.allCards[i].id){
-    					var cardrule = myJson.cardRules[cr].id;
-    				}
-    			}
-    		}	
-    		createCard(myJson.cardset.allCards[i], cardrule);
-    	}
+    	var cardrule=0;
+		for(var cr=0;cr<myJson.cardRules.length; cr++){
+			for(var ca=0;ca<myJson.cardRules[cr].cardAssignments.length; ca++){
+	    		createCard(myJson.cardRules[cr].cardAssignments[ca],myJson.cardRules[cr].group);
+			}
+		}	
     	const cards = document.querySelectorAll('.memory-card');
     	openKaarten = cards.length;
     	shuffle(cards);
     	
     	timeStarted = new Date;
-    	console.log("test " +timeStarted);
+
+
     	
     	cards.forEach(card => card.addEventListener('click', flipCard));
     })	
 })();
 
-function createCard(card, cardruleID){
+function createCard(cardAssignment, cardruleID){
 	var div = document.createElement("div");
 	div.setAttribute("class","memory-card");
 	
-	console.log(cardruleID);
 	div.setAttribute("data-framework", cardruleID);
 	
-	if(card.frontside.tekst == null){
+	if(cardAssignment.card.frontside.tekst == null){
 		var frontside = document.createElement("img");
 		frontside.setAttribute("class","front-face");
-		frontside.setAttribute("src", card.frontside.picture.url);
+		frontside.setAttribute("src", cardAssignment.card.frontside.picture.url);
 	}
 	else{
 		var frontside = document.createElement("div");
 		frontside.setAttribute("class","front-face");
-		frontside.innerHTML = card.frontside.tekst;
+		frontside.innerHTML = cardAssignment.card.frontside.tekst;
 	}
 	
-	if(card.backside.tekst == null){
+	if(cardAssignment.card.backside.tekst == null){
 		var backside = document.createElement("img");
 		backside.setAttribute("class","back-face");
-		backside.setAttribute("src", card.backside.picture.url);
+		backside.setAttribute("src", cardAssignment.card.backside.picture.url);
 	}
 	else{
 		var backside = document.createElement("div");
 		backside.setAttribute("class","back-face");
-		backside.innerHTML = card.backside.tekst;
+		backside.innerHTML = cardAssignment.card.backside.tekst;
 	}
 	
 	div.appendChild(frontside);
@@ -136,14 +134,27 @@ function checkWon(){
 	openKaarten = openKaarten -2;
 	
 	if(openKaarten == 0){
-		console.log("WIN");
 		document.getElementById('winDIV').style.display='block';
 		
 		timeDone = new Date;
+		
 		
 	}
 }
 
 function nextMinigame(){
-	window.location.href="startminigame.html";
+	var obj = { timeStarted: timeStarted, timeDone: timeDone, minigame: minigame, student: student };
+    jsonString = JSON.stringify(obj);
+    
+    var fetchoptionsPost = {
+            method: 'POST',
+            body: jsonString
+        };
+    
+	fetch("gamechane/result", fetchoptionsPost)
+	.then(function(response){
+			window.location.href="startminigame.html";
+		})
+	.catch(error => console.log(error));
+	
 }

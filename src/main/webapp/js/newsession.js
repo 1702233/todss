@@ -13,7 +13,9 @@ function saveSession() {
 
     var fetchoptionsPost = {
         method: 'POST',
-        body: encData
+        body: encData,
+        headers : { 
+            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
     };
 
     fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
@@ -27,7 +29,7 @@ function saveSession() {
 }
 
 function getArrangements() {
-    var fetchoptionsGet = { method: 'GET' }
+    var fetchoptionsGet = { method: 'GET', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} }
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
     fetch("gamechane/arrangement/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle arrangementen op

@@ -11,7 +11,6 @@ div {
     margin: auto;
     /* width: 50%; */
     text-align: center;
-
 }
 
 .inputRuimte{
@@ -138,4 +137,27 @@ footer{
 a{
 	color: darkblue;
 	padding: 10px;
+}
+
+#tableContent{
+	width: 60%;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+#tableContent td, #tableContent th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tableContent th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #5B9BD5;
+  color: white;
+}
+
+#tableContent td{
+	background-color: #41d3f4;
 }

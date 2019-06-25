@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 public interface MenuDao {
 
-	public Menu getMenu(Teacher teacher);
+	public Menu getMenu(String role);
 	
 }

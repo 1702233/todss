@@ -83,9 +83,14 @@ function initPage(cardTemplate) {
         var url = "gamechane/cardset";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
         xhr.onreadystatechange = function () {
+            console.log(xhr.readyState);
+            console.log(xhr.status === 200);
             if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("testje");
                 var response = JSON.parse(xhr.responseText);
+                console.log(response);
                 if (response) {
                     greenAlert("De nieuwe kaartset is succesvol opgeslagen!");
                 } else {
@@ -100,6 +105,7 @@ function initPage(cardTemplate) {
 }
 
 function greenAlert(message, time) {
+    console.log("greenalert");
     customAlert("greenalert", message, time);
 }
 
@@ -108,6 +114,7 @@ function redAlert(message, time) {
 }
 
 function customAlert(alert, message, time = 5) {
+    console.log("customalert");
     var greenAlert = document.getElementById(alert);
     greenAlert.classList.add("active");
     greenAlert.innerText = message;

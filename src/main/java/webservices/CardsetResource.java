@@ -3,6 +3,7 @@ package webservices;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 
 import model.*;
@@ -19,6 +20,8 @@ import persistance.TeacherPostgresDaoImpl;
 
 @Path("/cardset")
 public class CardsetResource {
+	
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Produces("application/json")
 	public List<Cardset> findAllCardsets(){
@@ -27,6 +30,7 @@ public class CardsetResource {
 		return service.findAllCardsets();
 	}
 	
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Path("{teacher}")
 	@Produces("application/json")
@@ -36,6 +40,7 @@ public class CardsetResource {
 		return service.findByTeacher(teacher);
 	}
 
+	@RolesAllowed({"admin", "docent"})
 	@POST
 	@Produces("application/json")
 	public boolean saveCardset(String json) {
@@ -82,6 +87,7 @@ public class CardsetResource {
 		return false;
 	}
 
+	@RolesAllowed({"admin", "docent"})
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteArrangementById(@PathParam("id") int id) {

@@ -2,6 +2,7 @@ package webservices;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,6 +18,7 @@ public class CardResource {
 	@GET
 	@Path("{ID}")
 	@Produces("application/json")
+	@RolesAllowed({"admin","docent"})
 	public Card getCardByID(@PathParam("ID") int ID) {
 		CardService service = CardServiceProvider.getCardService();
 		return service.getCardByID(ID);
@@ -24,6 +26,7 @@ public class CardResource {
 	
 	@GET
 	@Produces("application/json")
+	@RolesAllowed({"admin","docent"})
 	public List<Card> getAllCards(){
 		CardService service = CardServiceProvider.getCardService();
 		return service.getAllCards();

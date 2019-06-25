@@ -16,7 +16,6 @@ body {
   display: flex;
   background: #5B9BD5;
 }
-img{width:50px;height:50px;}
 
 .wrapper{
 	width: 100%;
@@ -36,15 +35,15 @@ img{width:50px;height:50px;}
   width: 80%;
   height: 80%;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 5%;
   display: flex;
   flex-wrap: wrap;
   perspective: 1000px;
 }
 
 .memory-card {
-  width: calc(20% - 10px);
-  height: calc(25% - 10px);
+  width: calc(12.5% - 10px);
+  height: calc(20% - 10px);
   margin: 5px;
   position: relative;
   transform: scale(1);

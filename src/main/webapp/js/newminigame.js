@@ -16,7 +16,7 @@ var alertBox = document.getElementById("redalert");
 	document.getElementById("minigamespecifics").style.display = "none";
 	document.getElementById("summaryform").style.display = "none";
 	// haalt alle cardsets op voor de ingelogde docent en zet het in cardsetfetch
-	fetch("gamechane/cardset/"+sessionStorage.getItem('docent'))
+	fetch("gamechane/cardset/"+sessionStorage.getItem('docent'), {headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}})
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);
@@ -331,7 +331,13 @@ function maakminigameaan() {
 	
 	console.log(formtitel + formspeltype + formcardsopened + formomschrijving + formteachernaam + formcardsetid);
 	//validatie op alle userinputs.
-	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formteachernaam.length > 1 && formcardsetid.value > 0) {
+	console.log("formtitel: " + formtitel);
+	console.log("formspeltype: " + formspeltype);
+	console.log("formcardsopened: " + formcardsopened);
+	console.log("formomschrijving: " + formomschrijving);
+	console.log("formcardsetid: " + formcardsetid);
+	
+	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formomschrijving.length > 1 && formcardsetid> 0) {
 		var formData = new FormData(document.querySelector("#minigamedata"));
 		var encData = new URLSearchParams(formData.entries());
 		  // aanmaken van de minigame.
@@ -385,7 +391,7 @@ function maakminigameaan() {
 function checkIfMinigameNameExistsForTeacher() {
 	console.log("checkIfMinigameNameExistsForTeacher() functie ");
 	// haalt alle minigames op voor de ingelogde docent.
-	fetch("gamechane/minigames/teacher/"+sessionStorage.getItem('docent'))
+	fetch("gamechane/minigames/teacher/"+sessionStorage.getItem('docent'), {headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}})
     .then(response => response.json())
     .then(function(myJson) {
     	console.log(myJson);

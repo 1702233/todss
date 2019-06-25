@@ -12,7 +12,7 @@
 }
 
 .alert.active {
-    display: block;
+    display: block!important;
     height: auto;
 }
 
