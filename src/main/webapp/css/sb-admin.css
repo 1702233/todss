@@ -172,6 +172,10 @@ svg {
 table {
   border-collapse: collapse; }
 
+table#allCardsetsTable img {
+  max-height: 150px;
+}
+
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
