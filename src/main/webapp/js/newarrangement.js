@@ -11,7 +11,7 @@ function initPage() {
 function getMinigames() {
 
     clearDropdown();
-    var fetchoptionsGet = { method: 'GET' }
+    var fetchoptionsGet = { method: 'GET', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} }
 
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
@@ -137,7 +137,8 @@ function saveArrangement() {
 
             var fetchoptionsPost = {
                 method: 'POST',
-                body: jsonString
+                body: jsonString,
+                headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
             };
 
             fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database

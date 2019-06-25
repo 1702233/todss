@@ -9,7 +9,9 @@ function createAccount(){
 
         var fetchoptionsPost = {
             method: 'POST',
-            body: encData
+            body: encData,
+            headers : { 
+	            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
         };
 
         fetch("gamechane/account/create", fetchoptionsPost) //post de afgeronde taak naar de database

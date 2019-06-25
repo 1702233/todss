@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,6 +30,7 @@ public class ResultResource {
 	
 	ResultService service = ResultServiceProvider.getResultService();
 
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Path("/{code}")
 	@Produces("application/json")
@@ -36,6 +38,7 @@ public class ResultResource {
 		ResultService resultService = ResultServiceProvider.getResultService();
 		return resultService.getResultsForSession(code).toString();
 	}
+	
 	
 	@POST
 	public Response postResult(String json) {
