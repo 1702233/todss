@@ -7520,6 +7520,8 @@ body {
 .o-hidden {
   overflow: hidden !important; }
 
+
+
 .z-0 {
   z-index: 0; }
 
@@ -7690,6 +7692,7 @@ body {
   font-size: 12px;
   color: #777; }
 
+
 footer.sticky-footer {
   display: flex;
   position: absolute;
@@ -7704,5 +7707,11 @@ footer.sticky-footer {
   footer.sticky-footer .copyright {
     line-height: 1;
     font-size: 0.8rem; }
+
+#redalert, #greenalert{
+  display: none;
+}
+
+
 
 /*# sourceMappingURL=sb-admin.css.map */
