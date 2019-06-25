@@ -14,5 +14,9 @@ public class StudentService {
 	public boolean saveStudent(Student s) {
 		return dao.saveStudent(s);
 	}
+	
+	public Student getStudentByID(int id) {
+		return dao.findByID(id);
+	}
 
 }

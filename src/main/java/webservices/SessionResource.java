@@ -81,12 +81,8 @@ public class SessionResource {
 	@Path("/check")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response checkSession(@FormParam("code") String code) {
-		System.out.println(code);
 		SessionService service = SessionServiceProvider.getSessionService();
-		System.out.println(service);
 		Session session = service.getSessionByCode(code);
-		
-		System.out.println(code);
 		
 		try {
 			if (session == null) {

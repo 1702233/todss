@@ -60,11 +60,7 @@ function getResults() {
                 }
 
                 table.appendChild(tr);
-
-
             }
-
-
         });
 }
 

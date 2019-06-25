@@ -1,6 +1,11 @@
 let openKaarten;
+var timeStarted;
+var timeDone;
+
 document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
 
+var minigame = JSON.parse(sessionStorage.getItem('minigame'));
+var student = JSON.parse(sessionStorage.getItem('studentID'));
 
 (function init(){
 	var minigame = JSON.parse(sessionStorage.getItem('minigame'));
@@ -8,14 +13,14 @@ document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
 	fetch("gamechane/minigames/" + minigame)
     .then(response => response.json())
     .then(function(myJson) {
-    	console.log(myJson);
     	for(var cr=0;cr<myJson.cardRules.length; cr++){
     		for(var ca=0;ca<myJson.cardRules[cr].cardAssignments.length; ca++){
     			createCard(myJson.cardRules[cr].cardAssignments[ca],myJson.cardRules[cr].group, myJson.cardRules[cr].cardAssignments.length);
     		}
-    		
     	}
-    	console.log(myJson.name)
+    	
+    	timeStarted = new Date;
+    	
     	document.getElementById('minigameName').innerHTML = myJson.name;
     	shuffle(document.querySelectorAll('.game-card'))
     	openKaarten = document.querySelectorAll('.game-card').length;
@@ -103,8 +108,6 @@ function checkMatch(){
 	cardInSquare3 = document.getElementById("end-square3").childNodes[0];
 	cardInSquare4 = document.getElementById("end-square4").childNodes[0];
 	
-	console.log(cardInSquare1);
-	
 	try{
 		if(cardInSquare1.dataset.rank == 1){
 			var cardsInSet = cardInSquare1.dataset.cardsingroup;
@@ -139,8 +142,6 @@ function removeCards(card1, card2, card3, card4){
 		card.removeAttribute("draggable");
 	});
 	
-	console.log('Match');
-	
 	setTimeout(() => {
 		document.getElementById("end-square1").removeChild(card1);
 		document.getElementById("end-square2").removeChild(card2);
@@ -152,7 +153,7 @@ function removeCards(card1, card2, card3, card4){
 			card.setAttribute("draggable","true");
 		});
 		checkWon(card1);
-	}, 3000);
+	}, 1000);
 	
 	
 	
@@ -160,15 +161,26 @@ function removeCards(card1, card2, card3, card4){
 
 function checkWon(card1){
 	openKaarten = openKaarten -card1.dataset.cardsingroup;
-	console.log(openKaarten)
 	
 	if(openKaarten == 0){
-		console.log("WIN");
 		document.getElementById('winDIV').style.display='block';
+		
+		timeDone = new Date;
 	}
 }
 
 function nextMinigame(){
-	console.log("AAAAAAAAAAAAAAA");
-	window.location.href="startminigame.html";
+	var obj = { timeStarted: timeStarted, timeDone: timeDone, minigame: minigame, student: student };
+    jsonString = JSON.stringify(obj);
+    
+    var fetchoptionsPost = {
+            method: 'POST',
+            body: jsonString
+        };
+    
+	fetch("gamechane/result", fetchoptionsPost)
+	.then(function(response){
+			window.location.href="startminigame.html";
+		})
+	.catch(error => console.log(error));
 }
