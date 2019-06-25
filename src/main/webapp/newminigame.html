@@ -25,6 +25,9 @@
 
     <!-- Custom CSS -->
     <link href="css/backend-styles.css" rel="stylesheet">
+    
+    <!-- to remove favicon.ico error -->
+    <link rel="shortcut icon" href="#">
 
 </head>
 
@@ -48,18 +51,20 @@
     <div id="content-wrapper">
 
         <div class="container-fluid">
+            
+                <h2>Nieuwe Minigame maken</h2>
+                <div style="text-align:center;margin-top:40px;">Voortgang</div>
+                <div style="text-align:center;margin-top:0px;">
+                    <span onclick="step(this)" id="step1" class="step active"></span>
+                    <span onclick="step(this)" id="step2" class="step"></span>
+                    <span onclick="step(this)" id="step3" class="step"></span>
+                    <span onclick="step(this)" id="step4" class="step"></span>
+                </div>
+                <div class="alert alert-danger" role="alert" id="redalert"></div>
+                <div class="alert alert-success" role="alert" id="greenalert"></div>
+                <hr>
+				<div class="minigamebasics" id="minigamebasics">
 
-            <h2>Nieuwe Minigame maken</h2>
-            <div style="text-align:center;margin-top:40px;">
-                <span class="step active"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-            </div>
-            <div class="alert alert-danger" role="alert" id="redalert"></div>
-            <div class="alert alert-success" role="alert" id="greenalert"></div>
-            <hr>
-            <div class="minigamebasics" id="minigamebasics">
 
                 <form>
                     <div class="form-group">
