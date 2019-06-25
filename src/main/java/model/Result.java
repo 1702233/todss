@@ -18,6 +18,14 @@ public class Result {
 
 	}
 
+	public Result(Timestamp start, Timestamp end, Student student, Minigame minigame) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.minigame = minigame;
+		this.student = student;
+	}
+
 	public Timestamp getStart() {
 		return start;
 	}

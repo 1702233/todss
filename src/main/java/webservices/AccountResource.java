@@ -5,6 +5,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -66,6 +67,7 @@ public class AccountResource {
 
     @POST
     @Path("/create")
+    @RolesAllowed("{admin}")
     public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password) {
 
         Teacher teacher = new Teacher(username, password);

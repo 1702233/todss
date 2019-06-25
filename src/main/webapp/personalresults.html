@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Jouw resultaten</title>
+		
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+		<div>
+			<h1>Jouw behaalde resultaten</h1>
+			<table id="tableContent">
+				<thead>
+					<tr>
+						<th>Minigame</th>
+						<th>Besteden tijd</th>
+					</tr>
+				</thead>
+				<tbody id="tableBody">
+				</tbody>
+			</table>
+			<a class="myButtonKlein" id="closeSession">Afsluiten</a>
+		</div>
+	<script>
+		var student = JSON.parse(sessionStorage.getItem('studentID'));
+		var table = document.getElementById("tableContent");
+		
+		document.getElementById("closeSession").onclick = function(){
+			window.location.href="index.html";
+		};
+		
+		(function init(){
+		fetch("gamechane/student/results/"+student)
+		.then(response => response.json())
+		.then(function(myJson){
+			for(const result of myJson){
+				var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                var td2 = document.createElement("td");
+                
+                td.innerHTML = result.minigamename;
+                
+                var starttime = new Date(result.starttime);
+                var endtime = new Date(result.endtime);
+                
+                td2.innerHTML = timeDifference(starttime, endtime);
+                
+                tr.appendChild(td);
+                tr.appendChild(td2);
+
+                table.appendChild(tr);
+			}
+		})
+		})();
+		
+		function timeDifference(starttime, endtime){
+			
+			var delta = Math.abs(endtime - starttime) / 1000;
+            var days = Math.floor(delta / 86400);
+            delta -= days * 86400;
+            var hours = Math.floor(delta / 3600) % 24;
+            delta -= hours * 3600;
+            var minutes = Math.floor(delta / 60) % 60;
+            delta -= minutes * 60;
+            var seconds = delta % 60;  // in theory the modulus is not required
+
+            if(seconds < 10){
+                seconds = "0" + seconds;
+            }
+
+            if(minutes < 10){
+                minutes = "0" + minutes;
+            }
+
+            if(hours < 10){
+                hours = "0" + hours;
+            }
+			
+			return hours + ":" + minutes + ":" + seconds;
+		}
+	</script>
+	</body>
+
+
+
+</html>
