@@ -13,8 +13,8 @@ public class MenuService {
 
 	private MenuDao dao = new MenuPostgresDaoImpl();
 
-	public Menu getMenu(Teacher teacher) {
-	    return dao.getMenu(teacher);
+	public Menu getMenu(String role) {
+	    return dao.getMenu(role);
     }
 
 }

@@ -3,6 +3,7 @@ $(document).ready(function () {
     var url = "gamechane/menu";
     xhr.open("GET", url);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
@@ -10,8 +11,6 @@ $(document).ready(function () {
         }
     };
     xhr.send();
-
-
 });
 
 function createMenu(allPages) {

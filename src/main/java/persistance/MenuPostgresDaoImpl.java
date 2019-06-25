@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MenuPostgresDaoImpl extends PostgresBaseDao implements MenuDao {
 
-    public Menu getMenu(Teacher teacher) {
+    public Menu getMenu(String role) {
         ArrayList<Page> pages = new ArrayList<Page>();
 
         Page dashboard = new Page("Dashboard", "dashboard.html");
@@ -35,8 +35,10 @@ public class MenuPostgresDaoImpl extends PostgresBaseDao implements MenuDao {
         kaartensets.addSubPage(new Page("Nieuwe kaartenset", "newcardset.html"));
         pages.add(kaartensets);
 
-        Page addAccount = new Page("Account maken", "createaccount.html");
-        pages.add(addAccount);
+        if (role.equals("admin")) {
+            Page addAccount = new Page("Account maken", "newaccount.html");
+            pages.add(addAccount);
+        }
 
         return new Menu(pages);
     }
