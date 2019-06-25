@@ -99,12 +99,6 @@
                     <h2>Kaarten toevoegen</h2>
                     <p>Selecteer hieronder een afbeelding of tekst voor elke unieke kaart.</p>
                 </div>
-                <div class="col-xs-12 col-sm-3">
-                    <div class="btn-group-vertical col-xs-12" role="group"
-                         style="border-left: 1px solid rgba(0, 0, 0, 0.1)" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-secondary add-card">Voeg kaart toe</button>
-                    </div>
-                </div>
             </div>
             <hr> <!-- start repeater block -->
 
@@ -141,7 +135,10 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline-secondary" id="saveCardset">Opslaan</button>
+            <div class="row">
+                <button type="button" class="btn btn-outline-secondary add-card col-12" style="margin-bottom:15px;">Voeg kaart toe</button>
+                <button class="btn btn-outline-success col-12" id="saveCardset">Opslaan</button>
+            </div>
 
         </div>
         <!-- /.container-fluid -->
