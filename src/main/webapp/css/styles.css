@@ -129,6 +129,12 @@ footer{
 	
 }
 
+.contactfooter{
+	font-size: 20px;
+	color: white;
+	text-decoration: none;
+}
+
 a{
 	color: darkblue;
 	padding: 10px;
