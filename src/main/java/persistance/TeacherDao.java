@@ -13,4 +13,5 @@ public interface TeacherDao {
 	public boolean deleteTeacher(int ID);
 	public boolean checkTeacher(String username, String password);
 	public String findRoleForUser(String name, String pass);
+	public String findRoleForUserByUsername(String name);
 }
