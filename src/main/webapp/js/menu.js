@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var xhr = new XMLHttpRequest();
-    var url = "/todss/gamechane/menu";
+    var url = "gamechane/menu";
     xhr.open("GET", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
