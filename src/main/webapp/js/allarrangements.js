@@ -11,7 +11,7 @@ $(document).ready(function () {
         .then(function (myJson) {
             var table = document.getElementById("allArrangementsTable");
 
-            for (var arrangement of myJson) {
+            for (const arrangement of myJson) {
 
                 var tr = document.createElement("tr");
                 var tdTitle = document.createElement("td");
@@ -39,6 +39,8 @@ $(document).ready(function () {
                 buttonDelete.setAttribute("data-target", "#myModal");
                 buttonDelete.addEventListener("click", function () {
                     arrangementID = arrangement.id;
+                    console.log(arrangementID);
+                    console.log(arrangement.id);
                 });
 
                 tdDelete.appendChild(buttonDelete);
