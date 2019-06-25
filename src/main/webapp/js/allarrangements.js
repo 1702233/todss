@@ -19,11 +19,7 @@ $(document).ready(function () {
                 var tdDescription = document.createElement("td");
                 var tdDelete = document.createElement("td");
                 var buttonDelete = document.createElement("button");
-
-                console.log(myJson);
-                console.log(arrangement);
-                console.log(arrangement);
-
+                
                 tdTitle.innerHTML = arrangement.name;
 
                 var minigames = arrangement.allMinigames;
@@ -76,7 +72,6 @@ function deleteArrangement(id) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
-            console.log(json.email + ", " + json.password);
         }
     };
     xhr.send();
