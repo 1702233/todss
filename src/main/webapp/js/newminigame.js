@@ -194,9 +194,11 @@ function memorydefined() {
 		};
 		
 		var alertbox =  '<div class="alert alert-danger row" role="alert" id="redalert2"></div>';
-		var submitbutton = '<div class="row"><input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()"></div>'
+		var submitbutton = '<div class="row" style="text-align:center;margin-top:40px;"><input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()"></div>'
 		// de aangemaakte html in de loop wordt nu samen met een alertbox en submit button aan de user getoont.
 		document.getElementById('minigamesets').innerHTML = sethtml + alertbox + submitbutton;
+		//hide redalert2.
+		document.getElementById("redalert2").style.display = "none";
 		// zorg ervoor dat de voorgangbolletjes worden gevult.
 		document.getElementsByClassName("step")[1].className += " finish";
 		document.getElementsByClassName("step")[2].className += " active";
@@ -259,7 +261,7 @@ function ordergamedefined() {
 		};
 		
 		var alertbox =  '<div class="alert alert-danger row" role="alert" id="redalert2"></div>';
-		var submitbutton = '<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()">'
+		var submitbutton = '<div class="row" style="text-align:center;margin-top:40px;"><input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()"></div>'
 		// de aangemaakte html in de loops wordt nu samen met een alertbox en submit button aan de user getoont.
 		document.getElementById('minigamesets').innerHTML = sethtml + alertbox + submitbutton;
 		// zorg ervoor dat de voorgangbolletjes worden gevult.
