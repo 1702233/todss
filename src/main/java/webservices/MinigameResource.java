@@ -71,17 +71,21 @@ public class MinigameResource {
 		ArrayList<CardRule> cr1 = new ArrayList<CardRule>();
 		
 		boolean cardstart;
-		if (cardsopened == "dicht") {
+		System.out.println(cardsopened);
+		if (cardsopened.toString() == "dicht") {
 			cardstart = false;
 		} else{
 			cardstart = true;
 		} 
-
+		// maak een minigame object aan met alle input van de user.
 		Minigame newMinigame = new Minigame(1, titel, type, cardstart, omschrijving, t1, c1, cr1);
+		// sla het object op in de database.
 		service.saveMinigame(newMinigame);
-		List<Minigame> allminigames = service.getAllMinigames();
+		//haal alle minigames voor docent op uit de database.
+		List<Minigame> allminigames = service.getMinigameByTeacher(teachernaam);
+		//zoekt de hoogste ID uit de lijst van minigames.
 		Minigame maxint = allminigames.stream().max(Comparator.comparingInt(Minigame::getId)).get();
-
+		//returnt de hoogste ID uit de lijst van minigames (dat dus de net aangemaakte minigame moet zijn)
 		return Response.ok(maxint).build();
 	}
 
