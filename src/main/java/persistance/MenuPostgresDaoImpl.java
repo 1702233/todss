@@ -35,6 +35,9 @@ public class MenuPostgresDaoImpl extends PostgresBaseDao implements MenuDao {
         kaartensets.addSubPage(new Page("Nieuwe kaartenset", "newcardset.html"));
         pages.add(kaartensets);
 
+        Page addAccount = new Page("Account maken", "createaccount.html");
+        pages.add(addAccount);
+
         return new Menu(pages);
     }
 
