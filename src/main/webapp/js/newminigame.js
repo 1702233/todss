@@ -165,10 +165,10 @@ function memoryselected() {
 			'<option value="dicht" selected value>kaarten dicht</option>' +
 		'</select>' +
 	'</div>' +
-	'<div class="form-group row">' +
+	'<div style="padding-top:20px;" class="form-group row">' +
 	    '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value="" min="1" max="16" step="1" placeholder="Minimaal 1 - Maximaal 16"/>' +
 	    '</div>' +
     '</div>' +
 	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="memorydefined()">';
@@ -181,7 +181,7 @@ function memorydefined() {
 	var aantalsets = document.getElementById("setaantal");
 	aantalSets = document.getElementById("setaantal").value;
 	//validatie op speltype, kaartsidestart, setaantal.
-	if (speltype.value.length > 1 && kaartsidestart.value.length > 1 && setaantal.value > 0) {
+	if (speltype.value.length > 1 && kaartsidestart.value.length > 1 && aantalsets.value > 0 && aantalsets.value < 17) {
 		document.getElementById("minigamebasics").style.display = "none";
 		document.getElementById("minigameselection").style.display = "none";
 		document.getElementById("minigamespecifics").style.display = "block";
@@ -214,16 +214,16 @@ function ordergameselected() {
 	console.log("ordergameselected() functie");
 	// maak de HTML aan voor de extra informatie nodig bij het aanmaken van een ordergame.
 	document.getElementById('minigamedefine').innerHTML = '' +
-	'<div class="form-group row">' +
+	'<div style="padding-top:20px;" class="form-group row">' +
     '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value="" step="1"/>' +
 	    '</div>' +
     '</div>' +
     '<div class="form-group row">' +
     '<label for="setlengte" class="col-sm-2 col-form-label">Set lengte</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setlengte" name="setlengte" value="" max="4" min ="2" placeholder="min2-max4"/>' +
+	      '<input type="number" class="form-control" id="setlengte" name="setlengte" value="" max="4" min ="2" step="1" placeholder="Minimaal 2 - Maximaal 4"/>' +
 	    '</div>' +
     '</div>' +
 	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="ordergamedefined()">';;
@@ -271,7 +271,7 @@ function ordergamedefined() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
-        alertBox.innerHTML = "ongeldige waarde ingevuld.";
+        alertBox.innerHTML = "Ongeldige waarde ingevuld.";
 	}
 	
 		
@@ -315,7 +315,7 @@ function finalformminigame() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox2.style.display = "block";
-        alertBox2.innerHTML = "vul elke set in.";
+        alertBox2.innerHTML = "Vul elke set in.";
 	}
 	
 }
@@ -331,7 +331,7 @@ function maakminigameaan() {
 	
 	console.log(formtitel + formspeltype + formcardsopened + formomschrijving + formteachernaam + formcardsetid);
 	//validatie op alle userinputs.
-	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formteachernaam.length > 1 && formcardsetid.value > 0) {
+	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formteachernaam.length > 1 && formcardsetid > 0) {
 		var formData = new FormData(document.querySelector("#minigamedata"));
 		var encData = new URLSearchParams(formData.entries());
 		  // aanmaken van de minigame.
@@ -372,7 +372,7 @@ function maakminigameaan() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
-        alertBox.innerHTML = "er mist informatie om een minigame aan te maken";
+        alertBox.innerHTML = "Er mist informatie om een minigame aan te maken";
         document.getElementById("minigamebasics").style.display = "block";
 		document.getElementById("minigameselection").style.display = "block";
 		document.getElementById("minigamespecifics").style.display = "block";
