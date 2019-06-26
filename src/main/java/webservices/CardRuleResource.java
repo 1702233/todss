@@ -37,7 +37,7 @@ public class CardRuleResource {
 		CardRuleService cardruleService = CardRuleServiceProvider.getCardRuleService();
 		CardAssignmentService cardassignmentService = CardAssignmentServiceProvider.getCardAssignmentService();
 		CardService cardService = CardServiceProvider.getCardService();
-		System.out.println(json);
+
 		try {
 			JsonArray sets = (JsonArray) new JsonParser().parse(json);
 			JsonObject jsonObjectmi = (JsonObject) sets.get(sets.size()-1);

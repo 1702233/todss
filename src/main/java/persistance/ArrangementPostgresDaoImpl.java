@@ -80,9 +80,7 @@ public class ArrangementPostgresDaoImpl extends PostgresBaseDao implements Arran
 
     private boolean linkMinigameToArrangement(Arrangement arrangement) {
         boolean status = true;
-        System.out.println(getArrangementID(arrangement.getName(), arrangement.getDescription(), arrangement.getTeacher().getUsername()));
         arrangement.setID(getArrangementID(arrangement.getName(), arrangement.getDescription(), arrangement.getTeacher().getUsername()));
-        System.out.println(arrangement.toString());
         for (Minigame minigame : arrangement.getAllMinigames()) {
             try (Connection con = super.getConnection()) {
                 String query = "INSERT INTO arrangementMinigame (\"arrangementID\", \"minigameID\") VALUES (?, ?);";

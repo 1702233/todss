@@ -15,7 +15,6 @@ public class CardSetService {
     }
 
     public List<Cardset> findAllCardsets() {
-        System.out.println("findallcardsetsservice");
         return dao.findAllCardsets();
     }
 

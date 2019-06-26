@@ -25,7 +25,6 @@ public class CardsetResource {
 	@GET
 	@Produces("application/json")
 	public List<Cardset> findAllCardsets(){
-		System.out.println("test");
 		CardSetService service = CardSetServiceProvider.getCardSetService();
 		return service.findAllCardsets();
 	}
@@ -35,7 +34,6 @@ public class CardsetResource {
 	@Path("{teacher}")
 	@Produces("application/json")
 	public List<Cardset> findByTeacher(@PathParam("teacher") String teacher){
-		System.out.println("test");
 		CardSetService service = CardSetServiceProvider.getCardSetService();
 		return service.findByTeacher(teacher);
 	}
@@ -46,7 +44,6 @@ public class CardsetResource {
 	public boolean saveCardset(String json) {
 		try {
 			JsonObject obj = new JsonParser().parse(json).getAsJsonObject();
-			System.out.println(obj);
 
 			String cardsetName = obj.get("title").getAsString();
 
@@ -75,13 +72,10 @@ public class CardsetResource {
 				cardset.addCard(card);
 			}
 
-			System.out.println(cardset.toString());
-
 			CardSetService service = CardSetServiceProvider.getCardSetService();
 			return service.saveCardset(cardset);
 
 		} catch (Exception e) {
-			System.out.println("error");
 			e.printStackTrace();
 		}
 		return false;
@@ -91,7 +85,6 @@ public class CardsetResource {
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteArrangementById(@PathParam("id") int id) {
-		System.out.println("hoi");
 		CardSetService service = CardSetServiceProvider.getCardSetService();
 		return service.deleteCardsetById(id);
 	}

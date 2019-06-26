@@ -61,7 +61,6 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				System.out.println("test" +rs);
 				result = rs.getInt("max");
 			}
 		}catch(Exception e) {
@@ -84,7 +83,6 @@ public class StudentPostgresDaoImpl extends PostgresBaseDao implements StudentDa
 
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
-			System.out.println("testing");
 			System.out.println(sqe.getMessage());
 		}
 
