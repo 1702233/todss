@@ -48,10 +48,11 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
     public boolean saveTeacher(Teacher teacher) {
         int queryResult = 0;
         try (Connection con = super.getConnection()) {
-            String query = "INSERT INTO TEACHER (USERNAME, PASSWORD) VALUES (?, ?);";
+            String query = "INSERT INTO TEACHER (USERNAME, PASSWORD, ROLE) VALUES (?, ?, ?);";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, teacher.getUsername());
             pstmt.setString(2, teacher.getPassword());
+            pstmt.setString(3, teacher.getRole());
 
             queryResult = pstmt.executeUpdate();
         } catch (SQLException sqe) {

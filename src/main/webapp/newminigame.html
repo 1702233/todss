@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="omschrijvinginput">Omschrijving</label>
                         <textarea class="form-control" id="omschrijvinginput" name="omschrijvinginput" rows="4"
-                                  cols="50"></textarea>
+                                  cols="50" placeholder="Uitleg die aan de deelnemer van de minigame wordt getoont."></textarea>
                     </div>
                 </form>
                 <div>
@@ -86,12 +86,12 @@
             <div class="minigameselection" id="minigameselection">
                 <h2>Minigame basics</h2>
                 <hr>
-                <p>selecteer hier de basis van je minigame</p>
+                <p>Selecteer hier de basis van je minigame</p>
 
 
                 <label for="soortselection">Type Minigame</label>
                 <select id="soortselection" class="form-control" onchange="soortselectie(this.value);">
-                    <option disabled selected>-- selecteer een gamesoort
+                    <option disabled selected>-- Selecteer een gamesoort
                         --
                     </option>
                     <option value="memory">Memory</option>
@@ -109,14 +109,12 @@
                 <h2>Minigame Specificeren</h2>
                 <hr>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-md-9">
-
+                <div>
                         <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
 
                         <div>
                             <select class="form-control" id="cardsetdropdown" onchange="cardsetselectie(this.value);">
-                                <option disabled selected>-- selecteer een kaartset --
+                                <option disabled selected>-- Selecteer een kaartset --
                                 </option>
                             </select>
                         </div>
@@ -125,7 +123,6 @@
                         <div id="minigamesets" class="grid"></div>
 
 
-                    </div>
 
 
                 </div>
@@ -142,28 +139,28 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="speltype" class="col-sm-2 col-form-label">speltype</label>
+                        <label for="speltype" class="col-sm-2 col-form-label">Speltype</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="speltype" name="speltype" value="" readonly/>
                         </div>
                     </div>
                     <input type="hidden" id="cardopened" name="cardopened" value="open" readonly/>
                     <div class="form-group row">
-                        <label for="omschrijving" class="col-sm-2 col-form-label">omschrijving</label>
+                        <label for="omschrijving" class="col-sm-2 col-form-label">Omschrijving</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="omschrijving" name="omschrijving" value=""
                                    readonly/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="teachernaam" class="col-sm-2 col-form-label">teachernaam</label>
+                        <label for="teachernaam" class="col-sm-2 col-form-label">Teachernaam</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="teachernaam" name="teachernaam" value=""
                                    readonly/>
                         </div>
                     </div>
                     <input type="hidden" class="form-control" id="cardsetid" name="cardsetid" value="" readonly/>
-                    <input type="button" class="btn btn-outline-secondary" id="post" value="maak minigame aan"
+                    <input type="button" class="btn btn-outline-secondary" id="post" value="Maak minigame aan"
                            onclick="checkIfMinigameNameExistsForTeacher()">
 
                 </form>
