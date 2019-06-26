@@ -38,6 +38,7 @@ function minigamebasisinformatie() {
 		document.getElementsByClassName("step")[0].className += " finish";
 		document.getElementsByClassName("step")[1].className += " active";
 		alertBox.style.display = "none";
+		alertBoxGreen.style.display = "none";
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
