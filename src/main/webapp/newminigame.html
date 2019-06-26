@@ -91,7 +91,7 @@
 
                 <label for="soortselection">Type Minigame</label>
                 <select id="soortselection" class="form-control" onchange="soortselectie(this.value);">
-                    <option disabled selected>-- selecteer een gamesoort
+                    <option disabled selected>-- Selecteer een gamesoort
                         --
                     </option>
                     <option value="memory">Memory</option>
@@ -109,14 +109,12 @@
                 <h2>Minigame Specificeren</h2>
                 <hr>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-md-9">
-
+                <div>
                         <p>Selecteer de kaartset die in deze minigame wordt gebruikt.</p>
 
                         <div>
                             <select class="form-control" id="cardsetdropdown" onchange="cardsetselectie(this.value);">
-                                <option disabled selected>-- selecteer een kaartset --
+                                <option disabled selected>-- Selecteer een kaartset --
                                 </option>
                             </select>
                         </div>
@@ -125,7 +123,6 @@
                         <div id="minigamesets" class="grid"></div>
 
 
-                    </div>
 
 
                 </div>

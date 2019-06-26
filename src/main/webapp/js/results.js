@@ -5,7 +5,7 @@ function initPage() {
 
 
 function getResults() {
-    var fetchoptionsGet = { method: 'GET' };
+    var fetchoptionsGet = { method: 'GET', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} };
     var table = document.getElementById("allResultsTable");
     var sessionCode = sessionStorage.getItem('sessionID');
 
@@ -55,16 +55,11 @@ function getResults() {
 
                     minigamelist += "<li><strong>" + subresult.minigamename + "</strong> / " + timeDifferenceString;
                     td2.innerHTML = minigamelist;
-                    console.log(minutes + ":" + seconds);
 
                 }
 
                 table.appendChild(tr);
-
-
             }
-
-
         });
 }
 

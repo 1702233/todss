@@ -1,13 +1,12 @@
 #kaartsetslotdiv, #kaartsetloadinslotdiv {
   padding: 5px;
-  border: 1px solid #aaaaaa;
-  width: 200px;
-  height: 200px;
+  width: 15%px;
+  height: 15%px;
   margin: auto;
 }
 
 .kaartsetslot {
-  width: 200px;
+  width: 20%;
   height: 200px;
   padding: 5px;
   border: 1px solid #aaaaaa;
@@ -21,8 +20,8 @@ body {
 .card{
     text-align: center;
     margin: auto;
-    width:190px;
-    height:190px;
+    width:95%;
+    height:95%;
 }
 
 /* Make circles that indicate the steps of the form: */

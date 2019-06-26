@@ -31,7 +31,8 @@ import persistance.TeacherPostgresDaoImpl;
 public class MinigameResource {
 	
 	MinigameService service = MinigameServiceProvider.getMinigameService();
-	
+
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Produces("application/json")
 	public List<Minigame> getAllMinigames(){	
@@ -53,7 +54,7 @@ public class MinigameResource {
 	}
 	
 	@POST
-	//@RolesAllowed("user")
+	@RolesAllowed({"admin", "docent"})
 	@Produces("application/json")
 	public Response postMinigame(@FormParam("titel") String titel,
 				@FormParam("speltype") String type,
@@ -89,6 +90,7 @@ public class MinigameResource {
 		return Response.ok(maxint).build();
 	}
 
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Path("/teacher/{username}")
 	@Produces("application/json")

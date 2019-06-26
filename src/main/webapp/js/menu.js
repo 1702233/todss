@@ -3,6 +3,7 @@ $(document).ready(function () {
     var url = "gamechane/menu";
     xhr.open("GET", url);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
@@ -10,14 +11,10 @@ $(document).ready(function () {
         }
     };
     xhr.send();
-
-
 });
 
 function createMenu(allPages) {
-    console.log(allPages);
     for (var index in allPages) {
-        console.log(allPages[index]);
         var button = allPages[index];
         createButton(button.title, button.url, button.subPages);
     }
@@ -46,7 +43,6 @@ function createButton(title, url, subPages) {
     li.appendChild(a);
 
     if (hasSubpages) {
-        console.log("Creating subPages for " + title);
         a.setAttribute("role", "button");
         a.setAttribute("data-toggle", "dropdown");
         a.setAttribute("aria-haspopup", "true");
@@ -68,6 +64,5 @@ function createButton(title, url, subPages) {
         li.appendChild(dropdown);
     }
 
-    console.log("HOI");
     document.getElementById("menu").appendChild(li);
 }

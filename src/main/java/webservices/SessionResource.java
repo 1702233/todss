@@ -3,6 +3,7 @@ package webservices;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -29,6 +30,7 @@ public class SessionResource {
 
 	ArrangementDao aDao = new ArrangementPostgresDaoImpl();
 
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Path("/{teacherName}")
 	@Produces("application/json")
@@ -44,6 +46,7 @@ public class SessionResource {
 	}
 
 	@POST
+	@RolesAllowed({"admin", "docent"})
 	public Response addSession(@FormParam("opmerking") String opmerking, @FormParam("dropdown") int dropdown) {
 		SessionService service = SessionServiceProvider.getSessionService();
 		ArrayList<Student> allStudents = new ArrayList<Student>();
@@ -81,12 +84,8 @@ public class SessionResource {
 	@Path("/check")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response checkSession(@FormParam("code") String code) {
-		System.out.println(code);
 		SessionService service = SessionServiceProvider.getSessionService();
-		System.out.println(service);
 		Session session = service.getSessionByCode(code);
-		
-		System.out.println(code);
 		
 		try {
 			if (session == null) {
@@ -101,6 +100,7 @@ public class SessionResource {
 	
 	@DELETE
 	@Path("/{pin}")
+	@RolesAllowed({"admin", "docent"})
 	public Response deleteAfgerondeTaak(@PathParam("pin") String pin) {
 		SessionService service = SessionServiceProvider.getSessionService();
 		if (!service.closeSession(pin)) {

@@ -11,7 +11,7 @@ function initPage() {
 function getMinigames() {
 
     clearDropdown();
-    var fetchoptionsGet = { method: 'GET' }
+    var fetchoptionsGet = { method: 'GET', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} }
 
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
@@ -112,9 +112,6 @@ function saveArrangement() {
         var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };
         jsonString = JSON.stringify(obj);
 
-        console.log("input value =");
-        console.log(document.getElementById("name").value);
-
         if (document.getElementById("name").value == "") {
             alertBoxGreen.style.display = "none";
             alertBox.style.display = "block";
@@ -137,7 +134,8 @@ function saveArrangement() {
 
             var fetchoptionsPost = {
                 method: 'POST',
-                body: jsonString
+                body: jsonString,
+                headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
             };
 
             fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database

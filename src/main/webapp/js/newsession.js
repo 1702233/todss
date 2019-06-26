@@ -13,7 +13,9 @@ function saveSession() {
 
     var fetchoptionsPost = {
         method: 'POST',
-        body: encData
+        body: encData,
+        headers : { 
+            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
     };
 
     fetch("gamechane/session/", fetchoptionsPost) //post de afgeronde taak naar de database
@@ -27,7 +29,7 @@ function saveSession() {
 }
 
 function getArrangements() {
-    var fetchoptionsGet = { method: 'GET' }
+    var fetchoptionsGet = { method: 'GET', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} }
     var ingelogdeDocent = sessionStorage.getItem('docent');
 
     fetch("gamechane/arrangement/teacher/" + ingelogdeDocent, fetchoptionsGet) // haal alle arrangementen op
@@ -36,7 +38,6 @@ function getArrangements() {
 
 
             if (myJson.length == 0) { //als de myJson geen objecten bevat, zet dan een waarschuwing in de dropdown
-                console.log(myJson);
                 var option = document.createElement("option");
                 var dropdownArrangements = document.getElementById("dropdownArrangements");
                 option.innerHTML = "Er zijn nog geen arrangementen gemaakt";
@@ -44,13 +45,11 @@ function getArrangements() {
                 dropdownArrangements.appendChild(option);
 
             } else {
-                console.log(myJson);
                 for (const arrangement of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
 
 
                     var option = document.createElement("option");
                     var dropdownArrangements = document.getElementById("dropdownArrangements");
-                    console.log(arrangement.id);
                     option.value = arrangement.id;
                     option.innerHTML = arrangement.name + " - " + arrangement.description;
                     dropdownArrangements.appendChild(option);

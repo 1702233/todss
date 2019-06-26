@@ -3,7 +3,9 @@ var arrangementID;
 $(document).ready(function () {
 
     var fetchoptionsGet = {
-        method: 'GET'
+        method: 'GET',
+        headers : { 
+	            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
     };
 
     fetch("gamechane/arrangement/teacher/leraar1", fetchoptionsGet)
@@ -11,7 +13,7 @@ $(document).ready(function () {
         .then(function (myJson) {
             var table = document.getElementById("allArrangementsTable");
 
-            for (var arrangement of myJson) {
+            for (const arrangement of myJson) {
 
                 var tr = document.createElement("tr");
                 var tdTitle = document.createElement("td");
@@ -63,6 +65,7 @@ function deleteArrangement(id) {
     var url = "/todss/gamechane/arrangement/delete/" + id;
     xhr.open("DELETE", url);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);

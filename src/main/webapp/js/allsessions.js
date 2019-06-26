@@ -9,9 +9,9 @@ function initPage() {
 
 function getSessions() {
     var ingelogdeDocent = sessionStorage.getItem('docent');
-    var fetchoptionsGet = { method: 'GET' };
+    var fetchoptionsGet = { method: 'GET',headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} };
     var table = document.getElementById("allSessionsTable");
-    var fetchoptionsDel = { method: 'DELETE' };
+    var fetchoptionsDel = { method: 'DELETE', headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")} };
 
     fetch("gamechane/session/" + ingelogdeDocent, fetchoptionsGet) // haal alle sessions op
         .then(response => response.json())
@@ -68,7 +68,6 @@ function getSessions() {
             var jaButton = document.getElementById("jaButton");
             jaButton.addEventListener("click", function () {
 
-                console.log(sessieCode);
                 fetch("gamechane/session/" + sessieCode, fetchoptionsDel)
                     .then(function (response) {
                         if (response.ok) {

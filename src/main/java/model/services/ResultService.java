@@ -8,12 +8,15 @@ import com.google.gson.JsonObject;
 
 import model.Result;
 import model.Student;
+import persistance.ResultDao;
+import persistance.ResultPostgresDaoImpl;
 import persistance.StudentDao;
 import persistance.StudentPostgresDaoImpl;
 
 public class ResultService {
 
 	private StudentDao studentDao = new StudentPostgresDaoImpl();
+	private ResultDao resultDao = new ResultPostgresDaoImpl();
 	
 	public JsonArray getResultsForSession(String code){
 		ArrayList<Student> studentsOfSession = studentDao.findStudentsBySession(code);
@@ -39,5 +42,15 @@ public class ResultService {
 		}
 
 		return results;
+	}
+
+	public boolean saveResult(Result newResult) {
+		return resultDao.saveResult(newResult);
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayList<Result> getResultsForStudent(int studentID) {
+		return resultDao.findByStudent(studentID);
 	}
 }
