@@ -173,3 +173,11 @@ a{
 	display: flex;
 	height: 80%;
 }
+
+#accountrole{
+	width: 200px;
+}
+
+#newAccountForm{
+	margin-bottom: 2%;
+}
