@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
     var fetchoptionsGet = {
-        method: 'GET'
+        method: 'GET',
+        headers : { 
+            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
     };
 
     fetch("gamechane/cardset", fetchoptionsGet)
@@ -59,6 +61,7 @@ function deleteArrangement(id) {
     var url = "/todss/gamechane/cardset/delete/" + id;
     xhr.open("DELETE", url);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);

@@ -5,6 +5,7 @@ import model.services.*;
 import persistance.ArrangementDao;
 import persistance.ArrangementPostgresDaoImpl;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Path("/menu")
 public class MenuResource {
 
+	@RolesAllowed({"admin", "docent"})
 	@GET
 	@Produces("application/json")
 	public Menu getMenu(@Context SecurityContext securityContext) {

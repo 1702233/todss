@@ -29,34 +29,32 @@ public class AccountResource {
     final static public Key key = MacProvider.generateKey();
     private AccountService service = AccountServiceProvider.getAccountService();
 
-
+	@RolesAllowed({"admin", "docent"})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Teacher> getAllTeachers() {
         return service.getAllTeachers();
     }
 
+	
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
-        try {
-            String role = service.findRoleForUser(username, password);
-            
-            System.out.println(role);
-            
-            if (role == null) {
-                throw new IllegalArgumentException("No user found!");
-            }
-
-            String token = createToken(username, role);
-
-            SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
-            return Response.ok(JWT).build();
-        } catch (JwtException | IllegalArgumentException e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-    }
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password){
+		try {
+			String role = service.findRoleForUser(username, password);
+			
+			if(role == null) {throw new IllegalArgumentException("No user found!");}
+			
+			String token = createToken(username, role);
+			
+			SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
+			return Response.ok(JWT).build();
+		}catch (JwtException | IllegalArgumentException e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		}
+	}
 
     private String createToken(String username, String role) throws JwtException {
         Calendar expiration = Calendar.getInstance();
@@ -67,7 +65,7 @@ public class AccountResource {
 
     @POST
     @Path("/create")
-    @RolesAllowed("{admin}")
+    @RolesAllowed({"admin"})
     public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password) {
 
         Teacher teacher = new Teacher(username, password);

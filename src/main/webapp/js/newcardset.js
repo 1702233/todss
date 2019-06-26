@@ -83,6 +83,7 @@ function initPage(cardTemplate) {
         var url = "gamechane/cardset";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
         xhr.onreadystatechange = function () {
             console.log(xhr.readyState);
             console.log(xhr.status === 200);
