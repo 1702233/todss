@@ -17,8 +17,19 @@ body {
   background: #5B9BD5;
 }
 
+.title-field{
+	height: 5%;
+	text-align: center;
+	font-size: 2.5rem;
+}
+
 .wrapper{
 	width: 100%;
+}
+
+.card-wrapper{
+	text-align: center;
+	margin: auto;
 }
 
 .winDIV{
@@ -70,6 +81,7 @@ body {
   border-radius: 5px;
   background: #DEEBF7;
   backface-visibility: hidden;
+  display: flex;
   
 }
 

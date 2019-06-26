@@ -38,6 +38,7 @@ function createCard(cardAssignment,group, cardsInGroup){
 		card.setAttribute("data-rank",cardAssignment.rank);
 		card.setAttribute("data-set",cardAssignment.id);
 		card.setAttribute("data-cardsingroup",cardsInGroup);
+		card.setAttribute("data-type","img");
 		card.setAttribute("draggable","true");
 		card.setAttribute("ondragstart","drag(event)");
 		card.setAttribute("src",cardAssignment.card.frontside.picture.url);
@@ -49,6 +50,7 @@ function createCard(cardAssignment,group, cardsInGroup){
 		card.setAttribute("data-rank",cardAssignment.rank);
 		card.setAttribute("data-set",cardAssignment.id);
 		card.setAttribute("data-cardsingroup",cardsInGroup);
+		card.setAttribute("data-type","text");
 		card.setAttribute("draggable","true");
 		card.setAttribute("ondragstart","drag(event)");
 		
@@ -77,18 +79,19 @@ function drop(ev)
 {
 	ev.preventDefault();
 	var data =ev.dataTransfer.getData("content");
-	ev.target.appendChild(document.getElementById(data));	
-	
-	if (ev.dataTransfer.getData('content') == 'drag1'){ 
-		alert("ok");
-	}
+	ev.target.appendChild(document.getElementById(data));		
 	
 	if(ev.target.className == "end-square"){
-		document.getElementById(data).style.width = "100%";
+		if(document.getElementById(ev.target.id).childNodes[0].dataset.type == "img"){
+			document.getElementById(data).style.width = "90%";	
+		}
+		else{
+			document.getElementById(data).style.width = "100%";
+		}
 		document.getElementById(data).style.height = "90%";
 	}
 	else if(ev.target.className == "cards-field"){
-		document.getElementById(data).style.width = "calc(16.667% - 10px)";
+		document.getElementById(data).style.width = "calc(14.5% - 10px)";
 		document.getElementById(data).style.height = "calc(20% - 10px)";
 	}
 	

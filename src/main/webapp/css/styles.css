@@ -161,3 +161,15 @@ a{
 #tableContent td{
 	background-color: #41d3f4;
 }
+
+#textfield{
+	margin: auto;
+	padding: 3%;
+	border-style: solid;
+	border-width: thin;
+}
+
+#wrapper{
+	display: flex;
+	height: 80%;
+}
