@@ -112,7 +112,9 @@ function saveArrangement() {
         var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };  //maak een JSON object aan
         jsonString = JSON.stringify(obj);  //maak een string van het json object
 
+
         if (document.getElementById("name").value == "") { // validaties
+
             alertBoxGreen.style.display = "none";
             alertBox.style.display = "block";
             alertBox.innerHTML = "U heeft nog geen naam ingevoerd";

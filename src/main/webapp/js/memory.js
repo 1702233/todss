@@ -9,17 +9,11 @@ var minigame = JSON.parse(sessionStorage.getItem('minigame'));
 var student = JSON.parse(sessionStorage.getItem('studentID'));
 
 document.querySelector("#nextMinigame").addEventListener("click", nextMinigame);
-console.log(document.getElementById("body").clientWidth);
-
-$('.memory-card').height(document.getElementById("body").clientWidth/5);
-
-console.log(document.getElementById("body").clientWidth/5);
 
 (function init(){	
 	fetch("gamechane/minigames/" + minigame)
     .then(response => response.json())
     .then(function(myJson) {
-    	console.log(myJson);
     	var cardrule=0;
 		for(var cr=0;cr<myJson.cardRules.length; cr++){
 			for(var ca=0;ca<myJson.cardRules[cr].cardAssignments.length; ca++){
@@ -33,7 +27,7 @@ console.log(document.getElementById("body").clientWidth/5);
     	timeStarted = new Date;
 
 
-    	
+    	document.getElementById('minigameName').innerHTML = myJson.name;
     	cards.forEach(card => card.addEventListener('click', flipCard));
     })	
 })();
@@ -52,7 +46,12 @@ function createCard(cardAssignment, cardruleID){
 	else{
 		var frontside = document.createElement("div");
 		frontside.setAttribute("class","front-face");
-		frontside.innerHTML = cardAssignment.card.frontside.tekst;
+		
+		var wrapper = document.createElement("div");
+		wrapper.setAttribute("class", "card-wrapper");
+		wrapper.innerHTML = cardAssignment.card.frontside.tekst;
+		
+		frontside.appendChild(wrapper);
 	}
 	
 	if(cardAssignment.card.backside.tekst == null){
@@ -63,7 +62,12 @@ function createCard(cardAssignment, cardruleID){
 	else{
 		var backside = document.createElement("div");
 		backside.setAttribute("class","back-face");
-		backside.innerHTML = cardAssignment.card.backside.tekst;
+		
+		var wrapper = document.createElement("div");
+		wrapper.setAttribute("class", "card-wrapper");
+		wrapper.innerHTML = cardAssignment.card.backside.tekst;
+		
+		backside.appendChild(wrapper);
 	}
 	
 	div.appendChild(frontside);

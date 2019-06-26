@@ -68,7 +68,8 @@ function getSessions() {
             var jaButton = document.getElementById("jaButton");
             jaButton.addEventListener("click", function () {
 
-                fetch("gamechane/session/" + sessieCode, fetchoptionsDel) //verwijder de sessie als er op ja geklikt wordt.
+            	fetch("gamechane/session/" + sessieCode, fetchoptionsDel) //verwijder de sessie als er op ja geklikt wordt.
+
                     .then(function (response) {
                         if (response.ok) {
                             location.reload();

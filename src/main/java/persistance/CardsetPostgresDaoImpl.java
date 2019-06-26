@@ -64,24 +64,17 @@ public class CardsetPostgresDaoImpl extends PostgresBaseDao implements CardsetDa
     public boolean saveCardset(Cardset cardset) {
         // Error handling, in case any of the fields are returned empty
         if (cardset.getName().equals("") || cardset.getName() == null) {
-            System.out.println("No cardset name specified");
             return false;
         }
 
         Cardside backside = cardset.getAllCards().get(0).getBackside();
-        System.out.println("Cardset backside: " + backside.toString());
-        System.out.println("Backside text: " + backside.getTekst());
-        System.out.println("Backside image:");
         if ((backside.getTekst() == null || backside.getTekst().equals("null") || backside.getTekst().equals("")) && (backside.getPicture().getUrl() == null || backside.getPicture().getUrl().equals("null") || backside.getPicture().getUrl().equals(""))) {
-            System.out.println("No card backside specified");
             return false;
         }
 
         for (Card card : cardset.getAllCards()) {
             Cardside frontside = card.getFrontside();
-            System.out.println("Card frontside: " + frontside.toString());
             if ((frontside.getTekst() == null || frontside.getTekst().equals("null") || frontside.getTekst().equals("")) && (frontside.getPicture().getUrl() == null || frontside.getPicture().getUrl().equals("null") || frontside.getPicture().getUrl().equals(""))) {
-                System.out.println("No card frontside specified");
                 return false;
             }
         }
