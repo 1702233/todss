@@ -1,4 +1,5 @@
 var arrangementID;
+var ingelogdeDocent = sessionStorage.getItem('docent'); //username van ingelogde docent in sessionstorage
 
 $(document).ready(function () {
 
@@ -8,7 +9,7 @@ $(document).ready(function () {
 	            'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
     };
 
-    fetch("gamechane/arrangement/teacher/leraar1", fetchoptionsGet)
+    fetch("gamechane/arrangement/teacher/" + ingelogdeDocent, fetchoptionsGet)
         .then(response => response.json())
         .then(function (myJson) {
             var table = document.getElementById("allArrangementsTable");
