@@ -7,62 +7,69 @@
 </head>
 
 <body>
-    <div>
-        <div class="center">
-            <img src="img/pic-gamechane.png">
+<div>
+    <div class="center">
+        <img src="img/pic-gamechane.png">
+    </div>
+
+    <div class="container">
+        <form id="loginForm">
+            <h3>Kies een gebruikersnaam en wachtwoord: </h3>
+            <input type="text" placeholder="Gebruikersnaam" id="username" name="username" class="inputRuimte"
+                   required><br>
+            <input type="password" placeholder="Wachtwoord" name="password" required><br><br>
+        </form>
+
+        <div class="buttonBox">
+            <a class="myButtonKlein" id="login">Log in</a> &nbsp;
+            <a href="index.html" class="myButtonKlein">Cancel</a>
         </div>
 
-        <div class="container">
-            <form id="loginForm">
-                <h3>Kies een gebruikersnaam en wachtwoord: </h3>
-                <input type="text" placeholder="Gebruikersnaam" id="username" name="username" class="inputRuimte" required><br>
-                <input type="password" placeholder="Wachtwoord" name="password" required><br><br>
-            </form>
-
-            <div class="buttonBox">
-                <a class="myButtonKlein" id="login">Log in</a> &nbsp;
-                <a href="index.html" class="myButtonKlein">Cancel</a>
-            </div>
-
-        </div>
 <script>
-function login(event) {
-	//zet de gegevens die verstuurd gaan worden klaar
-    var ingelogdeDocent = document.getElementById("username").value;
-    
-    var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
-
-    var encData = new URLSearchParams(formData.entries()); // zet de formdata om 
-
-    var fetchoptionsPost = {
-        method: 'POST',
-        body: encData
-    };
-    
-    //kijkt of de ingevoerde docent gegevens voorkomen in de database
-    fetch("gamechane/account", { method: 'POST', body: encData })
-        .then(function(response) {
-        if (response.ok) 
-            {
-            sessionStorage.setItem('docent', ingelogdeDocent);
-            window.location.href = "dashboard.html";
-            return response.json();
+        document.getElementsByName("username")[0].addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                login(event)            }
+        });
+        document.getElementsByName("password")[0].addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                login(event)
             }
+        });
 
-        else {
-            alert("Wrong username/password");
-            throw "Wrong username/password";
+            function login(event) {
+            var ingelogdeDocent = document.getElementById("username").value;
+
+            var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
+
+            var encData = new URLSearchParams(formData.entries()); // zet de formdata om
+
+            var fetchoptionsPost = {
+                method: 'POST',
+                body: encData
+            };
+          //kijkt of de ingevoerde docent gegevens voorkomen in de database
+            fetch("gamechane/account", {method: 'POST', body: encData})
+                .then(function (response) {
+                    if (response.ok) {
+                        sessionStorage.setItem('docent', ingelogdeDocent); //zet de ingelogde docent username in sessionstorage zodat deze later gebruikt kan worden
+                        window.location.href = "dashboard.html";
+                        return response.json();
+                    } else {
+                        alert("Wrong username/password");
+                        throw "Wrong username/password";
+                    }
+                })
+                .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
+                .catch(error => console.log(error));
         }
-        })
-        .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
-        .catch(error => console.log(error));
-    }
-    document.querySelector("#login").addEventListener("click", login);
-    
-</script>
-<footer>
-    <a href="https://www.gamedidactiek.nl" class="contactfooter">Voor contact: www.gamedidactiek.nl</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</footer>
+
+        document.querySelector("#login").addEventListener("click", login);
+
+    </script>
+    <footer>
+        <a href="https://www.gamedidactiek.nl" class="contactfooter">Voor contact: www.gamedidactiek.nl</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </footer>
+</div>
 </body>
 
 </html>

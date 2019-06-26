@@ -38,6 +38,7 @@ function minigamebasisinformatie() {
 		document.getElementsByClassName("step")[0].className += " finish";
 		document.getElementsByClassName("step")[1].className += " active";
 		alertBox.style.display = "none";
+		alertBoxGreen.style.display = "none";
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
@@ -122,9 +123,9 @@ function cardsetselectie(cardset) {
 	// kijkt van elke kaart van de geselecteerde set of het tekst heeft dan maakt het een dragable div aan met de tekst erin, anders een dragable img met het plaatje.
 	for(var i = 0;  i < cardsetfetch[cardset].allCards.length;  i++) {
 		if (cardsetfetch[cardset].allCards[i].frontside.tekst != null) {
-			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" draggable="true" ondragstart="drag(event)" width="150" height="150">' + cardsetfetch[cardset].allCards[i].frontside.tekst + '</div></div>'
+			cardsetimages.innerHTML += '<div id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><div class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" draggable="true" ondragstart="drag(event)" width="150" height="150">' + cardsetfetch[cardset].allCards[i].frontside.tekst + '</div></div>'
 		} else {
-			cardsetimages.innerHTML += '<div class="col" id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
+			cardsetimages.innerHTML += '<div id="kaartsetloadinslotdiv" ondrop="drop(event)" ondragover="allowDrop(event)"><img class="card" id="drag_' + cardsetfetch[cardset].allCards[i].id + '" src="' + cardsetfetch[cardset].allCards[i].frontside.picture.url + '" draggable="true" ondragstart="drag(event)" width="150" height="150"></div>'
 		}
 	}
 }
@@ -149,10 +150,10 @@ function memoryselected() {
 			'<option value="dicht" selected value>kaarten dicht</option>' +
 		'</select>' +
 	'</div>' +
-	'<div class="form-group row">' +
+	'<div style="padding-top:20px;" class="form-group row">' +
 	    '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value="" min="1" max="16" step="1" placeholder="Minimaal 1 - Maximaal 16"/>' +
 	    '</div>' +
     '</div>' +
 	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="memorydefined()">';
@@ -164,7 +165,7 @@ function memorydefined() {
 	var aantalsets = document.getElementById("setaantal");
 	aantalSets = document.getElementById("setaantal").value;
 	//validatie op speltype, kaartsidestart, setaantal.
-	if (speltype.value.length > 1 && kaartsidestart.value.length > 1 && setaantal.value > 0) {
+	if (speltype.value.length > 1 && kaartsidestart.value.length > 1 && aantalsets.value > 0 && aantalsets.value < 17) {
 		document.getElementById("minigamebasics").style.display = "none";
 		document.getElementById("minigameselection").style.display = "none";
 		document.getElementById("minigamespecifics").style.display = "block";
@@ -196,16 +197,16 @@ function memorydefined() {
 function ordergameselected() {
 	// maak de HTML aan voor de extra informatie nodig bij het aanmaken van een ordergame.
 	document.getElementById('minigamedefine').innerHTML = '' +
-	'<div class="form-group row">' +
+	'<div style="padding-top:20px;" class="form-group row">' +
     '<label for="setaantal" class="col-sm-2 col-form-label">Aantal sets</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value=""/>' +
+	      '<input type="number" class="form-control" id="setaantal" name="setaantal" value="" step="1" min="1" max="12" placeholder="Minimaal 1 - Maximaal 12"/>' +
 	    '</div>' +
     '</div>' +
     '<div class="form-group row">' +
     '<label for="setlengte" class="col-sm-2 col-form-label">Set lengte</label>' +
 	    '<div class="col-sm-10">' +
-	      '<input type="number" class="form-control" id="setlengte" name="setlengte" value="" max="4" min ="2" placeholder="min2-max4"/>' +
+	      '<input type="number" class="form-control" id="setlengte" name="setlengte" value="" max="4" min ="2" step="1" placeholder="Minimaal 2 - Maximaal 4"/>' +
 	    '</div>' +
     '</div>' +
 	'<input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="ordergamedefined()">';;
@@ -221,7 +222,7 @@ function ordergamedefined() {
 	//globale variale wordt geset zodat die in een andere functie kan worden gebruikt.
 	aantalSets = document.getElementById("setaantal").value;
 	// validatie van speltype(langer dan 1 character), setlengte tussen 2 en 4, setaantal meer dan 1.
-	if (speltype.value.length > 1 && setlengte.value > 1 && setlengte.value< 5 && setaantal.value > 0) {
+	if (speltype.value.length > 1 && setlengte.value > 1 && setlengte.value< 5 && aantalsets.value > 0 && aantalsets.value < 13) {
 		// volgende stap in de wizard.
 		document.getElementById("minigamebasics").style.display = "none";
 		document.getElementById("minigameselection").style.display = "none";
@@ -245,6 +246,8 @@ function ordergamedefined() {
 		var submitbutton = '<div class="row" style="text-align:center;margin-top:40px;"><input type="submit" class="btn btn-outline-secondary" value="Submit" onclick="finalformminigame()"></div>'
 		// de aangemaakte html in de loops wordt nu samen met een alertbox en submit button aan de user getoont.
 		document.getElementById('minigamesets').innerHTML = sethtml + alertbox + submitbutton;
+		//hide redalert2.
+		document.getElementById("redalert2").style.display = "none";
 		// zorg ervoor dat de voorgangbolletjes worden gevult.
 		document.getElementsByClassName("step")[1].className += " finish";
 		document.getElementsByClassName("step")[2].className += " active";
@@ -252,7 +255,7 @@ function ordergamedefined() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
-        alertBox.innerHTML = "ongeldige waarde ingevuld.";
+        alertBox.innerHTML = "Ongeldige waarde ingevuld.";
 	}
 	
 		
@@ -289,7 +292,7 @@ function finalformminigame() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox2.style.display = "block";
-        alertBox2.innerHTML = "vul elke set in.";
+        alertBox2.innerHTML = "Vul elke set in.";
 	}
 	
 }
@@ -302,7 +305,8 @@ function maakminigameaan() {
 	var formteachernaam = document.getElementById("teachernaam").value;
 	var formcardsetid = document.getElementById("cardsetid").value;
 
-	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formomschrijving.length > 1 && formcardsetid> 0) {
+	//validatie op alle userinputs.
+	if (formtitel.length > 1 && formspeltype.length > 1 && formcardsopened.length > 1 && formomschrijving.length > 1 && formteachernaam.length > 1 && formcardsetid > 0) {
 		var formData = new FormData(document.querySelector("#minigamedata"));
 		var encData = new URLSearchParams(formData.entries());
 		  // aanmaken van de minigame.
@@ -341,7 +345,7 @@ function maakminigameaan() {
 	} else {
 		alertBoxGreen.style.display = "none";
         alertBox.style.display = "block";
-        alertBox.innerHTML = "er mist informatie om een minigame aan te maken";
+        alertBox.innerHTML = "Er mist informatie om een minigame aan te maken";
         document.getElementById("minigamebasics").style.display = "block";
 		document.getElementById("minigameselection").style.display = "block";
 		document.getElementById("minigamespecifics").style.display = "block";
@@ -418,6 +422,9 @@ function step(element) {
 
 //deze functie is voor het drag en drop van plaatjes.
 function allowDrop(ev) {
+	if (ev.target.className == "card") {
+		return
+	}
   ev.preventDefault();
 }
 //deze functie is voor het drag en drop van plaatjes.

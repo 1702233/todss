@@ -1,17 +1,23 @@
 #kaartsetslotdiv, #kaartsetloadinslotdiv {
   padding: 5px;
-  border: 1px solid #aaaaaa;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin: auto;
+  border: 1px solid #aaaaaa;
+}
+
+#minigamesets {
+	text-align: center;
+	width: 650px;
 }
 
 .kaartsetslot {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   padding: 5px;
   border: 1px solid #aaaaaa;
 }
+
 
 body {
     padding: 0;
@@ -21,8 +27,9 @@ body {
 .card{
     text-align: center;
     margin: auto;
-    width:190px;
-    height:190px;
+    width:140px;
+    height:140px;
+    padding:5px;
 }
 
 /* Make circles that indicate the steps of the form: */
@@ -44,4 +51,8 @@ body {
 /* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: #4CAF50;
+}
+
+.dynamischdefine {
+	padding: 20px 20px 20px 20px;
 }
