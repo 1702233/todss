@@ -13,7 +13,7 @@ $(document).ready(function () {
         .then(function (myJson) {
             var table = document.getElementById("allArrangementsTable");
 
-            for (var arrangement of myJson) {
+            for (const arrangement of myJson) {
 
                 var tr = document.createElement("tr");
                 var tdTitle = document.createElement("td");

@@ -92,7 +92,6 @@ public class ArrangementResource {
 	@DELETE
 	@Path("/delete/{id}")
 	public boolean deleteArrangementById(@PathParam("id") int id) {
-		System.out.println("hoi");
 		ArrangementService service = ArrangementServiceProvider.getArrangementService();
 		return service.deleteArrangementById(id);
 	}

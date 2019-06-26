@@ -72,7 +72,6 @@ public class MinigameResource {
 		ArrayList<CardRule> cr1 = new ArrayList<CardRule>();
 		
 		boolean cardstart;
-		System.out.println(cardsopened);
 		if (cardsopened.toString() == "dicht") {
 			cardstart = false;
 		} else{
@@ -95,7 +94,6 @@ public class MinigameResource {
 	@Path("/teacher/{username}")
 	@Produces("application/json")
 	public List<Minigame> getMinigameByTeacher(@PathParam("username") String username) {
-		System.out.println(service.getMinigameByTeacher(username));
 		return service.getMinigameByTeacher(username);
 
 	}

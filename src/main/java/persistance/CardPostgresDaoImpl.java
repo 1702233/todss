@@ -65,12 +65,10 @@ public class CardPostgresDaoImpl extends PostgresBaseDao implements CardDao {
 		cardsidePostgresDao.saveCardside(card.getBackside());
 		ArrayList<Cardside> cardsides = cardsidePostgresDao.findAllCardsides();
 		int backsideId = cardsides.get(cardsides.size() - 1).getID();
-		System.out.println(backsideId);
 
 		cardsidePostgresDao.saveCardside(card.getFrontside());
 		cardsides = cardsidePostgresDao.findAllCardsides();
 		int frontsideId = cardsides.get(cardsides.size() - 1).getID();
-		System.out.println(frontsideId);
 
 		int queryResult = 0;
 		try (Connection con = super.getConnection()) {

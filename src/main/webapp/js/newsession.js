@@ -38,7 +38,6 @@ function getArrangements() {
 
 
             if (myJson.length == 0) { //als de myJson geen objecten bevat, zet dan een waarschuwing in de dropdown
-                console.log(myJson);
                 var option = document.createElement("option");
                 var dropdownArrangements = document.getElementById("dropdownArrangements");
                 option.innerHTML = "Er zijn nog geen arrangementen gemaakt";
@@ -46,13 +45,11 @@ function getArrangements() {
                 dropdownArrangements.appendChild(option);
 
             } else {
-                console.log(myJson);
                 for (const arrangement of myJson) { //maak een dropdown option voor elk object wat er in de myJson staat
 
 
                     var option = document.createElement("option");
                     var dropdownArrangements = document.getElementById("dropdownArrangements");
-                    console.log(arrangement.id);
                     option.value = arrangement.id;
                     option.innerHTML = arrangement.name + " - " + arrangement.description;
                     dropdownArrangements.appendChild(option);

@@ -135,7 +135,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
                 return antwoord;
             }
 
-            System.out.println(antwoord);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,8 +154,6 @@ public class TeacherPostgresDaoImpl extends PostgresBaseDao implements TeacherDa
                 antwoord = rs.getString("role");
                 return antwoord;
             }
-
-            System.out.println(antwoord);
 
         } catch (Exception e) {
             e.printStackTrace();

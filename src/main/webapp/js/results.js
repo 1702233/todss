@@ -55,7 +55,6 @@ function getResults() {
 
                     minigamelist += "<li><strong>" + subresult.minigamename + "</strong> / " + timeDifferenceString;
                     td2.innerHTML = minigamelist;
-                    console.log(minutes + ":" + seconds);
 
                 }
 

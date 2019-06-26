@@ -68,7 +68,6 @@ function getSessions() {
             var jaButton = document.getElementById("jaButton");
             jaButton.addEventListener("click", function () {
 
-                console.log(sessieCode);
                 fetch("gamechane/session/" + sessieCode, fetchoptionsDel)
                     .then(function (response) {
                         if (response.ok) {

@@ -11,7 +11,7 @@ $(document).ready(function () {
         .then(function (myJson) {
             var table = document.getElementById("allCardsetsTable");
 
-            for (var cardset of myJson) {
+            for (const cardset of myJson) {
 
                 var tr = document.createElement("tr");
                 var tdTitle = document.createElement("td");
@@ -19,22 +19,15 @@ $(document).ready(function () {
                 var tdDelete = document.createElement("td");
                 var buttonDelete = document.createElement("button");
 
-                console.log(myJson);
-                console.log(cardset);
-                console.log(cardset);
-
                 tdTitle.innerHTML = cardset.name;
                 if (cardset.allCards[0].backside.tekst !== null) {
                     // card backside has text
-                    console.log("backside = text");
                     tdBackside.innerHTML = cardset.allCards[0].backside.tekst;
                 } else if (cardset.allCards[0].backside.tekst === null && (cardset.allCards[0].backside.picture !== null || cardset.allCards[0].backside.picture !== "")) {
                     // card backside has image but no text
-                    console.log("backside = image");
                     tdBackside.innerHTML = "<img src='" + cardset.allCards[0].backside.picture.url + "'>";
                 } else {
                     // card backside has no text and no image
-                    console.log("backside = null");
                     tdBackside.innerHTML = "Geen achterkant gevonden";
                 }
                 buttonDelete.innerHTML = "Verwijderen";
@@ -65,7 +58,7 @@ function deleteArrangement(id) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
-            console.log(json.email + ", " + json.password);
+            console.log(json);
         }
     };
     xhr.send();
