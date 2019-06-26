@@ -113,7 +113,8 @@ function redAlert(message, time) {
 }
 
 function customAlert(alert, message, time = 5) {
-    console.log("customalert");
+    var top = document.getElementById("page-top").offsetTop; //Getting Y of target element
+    window.scrollTo(0, top);
     var greenAlert = document.getElementById(alert);
     greenAlert.classList.add("active");
     greenAlert.innerText = message;
