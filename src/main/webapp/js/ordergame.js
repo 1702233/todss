@@ -167,6 +167,8 @@ function checkWon(card1){
 	
 	if(openKaarten == 0){
 		document.getElementById('winDIV').style.display='block';
+		document.getElementById('cards-field').style.display='none';
+		document.getElementById('game-squares').style.display='none';
 		
 		timeDone = new Date;
 	}

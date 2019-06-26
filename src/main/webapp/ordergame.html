@@ -9,13 +9,17 @@
 </head>
 <body>
 <div class="wrapper" id="wrapper">
+	<!-- De minigame titel -->
+	<section class="title-field" id="title-field"><div id="minigameName"></div></section>
+	<!-- De win melding -->
 	<div class="winDIV" id="winDIV">
 	  	<p>Je hebt de minigame succesvol afgerond. Klik op de knop om verder te gaan.</p>
 	  	<a class="myButtonKlein" id="nextMinigame">Doorgaan</a>
 	</div>
-	<section class="title-field" id="title-field"><div id="minigameName"></div></section>
+	<!-- Het speelveld -->	
 	<section class="cards-field" id="cards-field" ondrop="drop(event)" ondragover="allowDrop(event)">
 	</section>
+	<!-- Veld waar de eind squares zitten -->
 	<section class="game-squares" id="game-squares">
 		<div class="end-square" id="end-square1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
   		<div class="end-square" id="end-square2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
