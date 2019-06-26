@@ -72,7 +72,6 @@ public class CardRulePostgresDaoImpl extends PostgresBaseDao implements CardRule
 			pstmt.setInt(3, cardRule.getGroup());
 			pstmt.setInt(4, minigameID);
 
-			System.out.println(pstmt);
 			queryResult = pstmt.executeUpdate();
 		} catch (SQLException sqe) {
 			System.out.println(sqe.getMessage());

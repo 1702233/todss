@@ -58,7 +58,7 @@ public class AccountResource {
 
     private String createToken(String username, String role) throws JwtException {
         Calendar expiration = Calendar.getInstance();
-        expiration.add(Calendar.MINUTE, 30);
+        expiration.add(Calendar.HOUR, 3);
 
         return Jwts.builder().setSubject(username).setExpiration(expiration.getTime()).claim("role", role).signWith(SignatureAlgorithm.HS512, key).compact();
     }
@@ -66,15 +66,15 @@ public class AccountResource {
     @POST
     @Path("/create")
     @RolesAllowed({"admin"})
-    public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password) {
+    public Response addTeacher(@FormParam("username") String username, @FormParam("password") String password, @FormParam("role") String role) {
 
-        Teacher teacher = new Teacher(username, password);
+        Teacher teacher = new Teacher(username, password, role);
 
         if (service.saveAccount(teacher)) {
 
             return Response.ok().build();
         } else {
-            return Response.status(404).build();
+            return Response.status(403).build();
         }
     }
 }

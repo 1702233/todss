@@ -70,8 +70,6 @@ public class CardAssignmentPostgresDaoImpl extends PostgresBaseDao implements Ca
             pstmt.setInt(2, cardruleID);
             pstmt.setInt(3, cardAssignment.getRank());
 
-            
-            System.out.println(pstmt);
             queryResult = pstmt.executeUpdate();
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
