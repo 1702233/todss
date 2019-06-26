@@ -42,7 +42,7 @@ function login(event) {
         .then(function(response) {
         if (response.ok) 
             {
-            sessionStorage.setItem('docent', ingelogdeDocent);
+            sessionStorage.setItem('docent', ingelogdeDocent); //zet de ingelogde docent username in sessionstorage zodat deze later gebruikt kan worden
             window.location.href = "dashboard.html";
             return response.json();
             }

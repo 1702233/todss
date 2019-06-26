@@ -95,27 +95,24 @@ function saveArrangement() {
 
 
 
-    var saveButton = document.getElementById("saveButton");
+    var saveButton = document.getElementById("saveButton"); 
     saveButton.addEventListener("click", function () {
 
-        var minigameList = [];
+        var minigameList = [];  //lege lijst waar minigameID's in komen voor eht opslaan van een arrangement
         var table = document.getElementById("arrangementTable");
         var rows = table.getElementsByTagName('tr').length;
 
-        for (var i = 1; i < rows; i++) {
+        for (var i = 1; i < rows; i++) {                                    //zet de minigameID's die in de tabel staan in de lijst zodat deze mee gestuurd kunnen worden met het aanmaken van een arrangement
             minigameList.push(table.rows[i].cells[0].innerHTML);
         }
 
         var name = document.getElementById("name").value;
         var omschrijving = document.getElementById("omschrijving").value;
         var ingelogdeDocent = sessionStorage.getItem('docent');
-        var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };
-        jsonString = JSON.stringify(obj);
+        var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };  //maak een JSON object aan
+        jsonString = JSON.stringify(obj);  //maak een string van het json object
 
-        console.log("input value =");
-        console.log(document.getElementById("name").value);
-
-        if (document.getElementById("name").value == "") {
+        if (document.getElementById("name").value == "") { // validaties
             alertBoxGreen.style.display = "none";
             alertBox.style.display = "block";
             alertBox.innerHTML = "U heeft nog geen naam ingevoerd";
@@ -141,7 +138,7 @@ function saveArrangement() {
                 headers : { 'Authorization': 'Bearer ' +  window.sessionStorage.getItem("myJWT")}
             };
 
-            fetch("gamechane/arrangement", fetchoptionsPost) //post de afgeronde taak naar de database
+            fetch("gamechane/arrangement", fetchoptionsPost) //post het arrangement naar de database
                 .then(function (response) {
                     if (response.ok) {
                         alertBox.style.display = "none";
@@ -167,7 +164,7 @@ function saveArrangement() {
 
 }
 
-function clearDropdown() {
+function clearDropdown() { //maak de dropm leeg
     var dropdownMinigames = document.getElementById("dropdownMinigames");
     var length = dropdownMinigames.options.length;
     for (i = 0; i < length; i++) {
@@ -175,7 +172,7 @@ function clearDropdown() {
     }
 }
 
-function clearPage() {
+function clearPage() { // maak de pagina leeg
 
     document.getElementById("name").value = "";
     document.getElementById("omschrijving").value = "";
