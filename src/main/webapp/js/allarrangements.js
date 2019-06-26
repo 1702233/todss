@@ -41,8 +41,6 @@ $(document).ready(function () {
                 buttonDelete.setAttribute("data-target", "#myModal");
                 buttonDelete.addEventListener("click", function () {
                     arrangementID = arrangement.id;
-                    console.log(arrangementID);
-                    console.log(arrangement.id);
                 });
 
                 tdDelete.appendChild(buttonDelete);

@@ -45,9 +45,7 @@ function initPage(cardTemplate) {
         disableInput($(this))
     });
 
-    console.log("test");
     $("#saveCardset").on("click", function () {
-        console.log("Save cardset");
 
         var obj = {};
 
@@ -62,7 +60,6 @@ function initPage(cardTemplate) {
         obj.frontside = [];
 
         var frontsides = document.getElementsByClassName("front-side");
-        console.log(frontsides.length);
 
         var frontsidetext = "";
         var frontsideimage = "";
@@ -77,20 +74,14 @@ function initPage(cardTemplate) {
             });
         }
 
-        console.log(obj);
-
         var xhr = new XMLHttpRequest();
         var url = "gamechane/cardset";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
         xhr.onreadystatechange = function () {
-            console.log(xhr.readyState);
-            console.log(xhr.status === 200);
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("testje");
                 var response = JSON.parse(xhr.responseText);
-                console.log(response);
                 if (response) {
                     greenAlert("De nieuwe kaartset is succesvol opgeslagen!");
                 } else {
@@ -105,7 +96,6 @@ function initPage(cardTemplate) {
 }
 
 function greenAlert(message, time) {
-    console.log("greenalert");
     customAlert("greenalert", message, time);
 }
 
@@ -128,15 +118,12 @@ function customAlert(alert, message, time = 5) {
 }
 
 function addCard(cardTemplate) {
-    console.log("voeg kaart toe");
-
     var newCard = $(".card-master").append(cardTemplate);
 
     // var newCard = $(this).parents(".card-wrapper").last().after(cardTemplate);
 
     newCard.find(".delete-card").on("click", function () {
         if ($(this).parents(".card-wrapper").parent().find(".card-wrapper").length > 1) {
-            console.log("verwijder kaart");
             $(this).parents(".card-wrapper").remove();
         }
     });
@@ -147,13 +134,10 @@ function addCard(cardTemplate) {
 }
 
 function disableInput(input) {
-    console.log(input.parent().parent().find(".cardside-input"));
-
     var currentElement = input[0];
 
     input.parent().parent().find(".cardside-input").each(function (key, element) {
         if (element !== currentElement) {
-            console.log(input.val());
             if (input.val() === "") {
                 element.disabled = false;
             } else {

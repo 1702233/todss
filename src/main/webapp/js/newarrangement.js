@@ -112,9 +112,6 @@ function saveArrangement() {
         var obj = { name: name, description: omschrijving, teacher: ingelogdeDocent, minigames: minigameList };
         jsonString = JSON.stringify(obj);
 
-        console.log("input value =");
-        console.log(document.getElementById("name").value);
-
         if (document.getElementById("name").value == "") {
             alertBoxGreen.style.display = "none";
             alertBox.style.display = "block";
