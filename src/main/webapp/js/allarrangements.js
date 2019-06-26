@@ -63,7 +63,7 @@ $(document).ready(function () {
 
 function deleteArrangement(id) {
     var xhr = new XMLHttpRequest();
-    var url = "/todss/gamechane/arrangement/delete/" + id;
+    var url = "gamechane/arrangement/delete/" + id;
     xhr.open("DELETE", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem("myJWT"));
