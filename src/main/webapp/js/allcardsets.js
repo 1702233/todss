@@ -62,5 +62,5 @@ function deleteArrangement(id) {
         }
     };
     xhr.send();
-    // window.location.reload();
+    window.location.reload();
 }
