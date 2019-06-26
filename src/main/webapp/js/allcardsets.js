@@ -11,7 +11,7 @@ $(document).ready(function () {
         .then(function (myJson) {
             var table = document.getElementById("allCardsetsTable");
 
-            for (var cardset of myJson) {
+            for (const cardset of myJson) {
 
                 var tr = document.createElement("tr");
                 var tdTitle = document.createElement("td");
@@ -58,6 +58,7 @@ function deleteArrangement(id) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
+            console.log(json);
         }
     };
     xhr.send();
