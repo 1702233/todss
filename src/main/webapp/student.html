@@ -36,7 +36,7 @@
 	var code;
 	var arrangement;
 	
-	
+	//kijkt of de ingevoerde session code aan een draaiende sessie gelinkt is
 	function checkSession(){
 		var code = document.getElementById("code").value;
 		var formData = new FormData(document.getElementById("gegevensForm")); //pak de data uit de div en maak daar formdata van
@@ -51,6 +51,7 @@
 	    
 	    console.log('test');
 	    
+	    //haalt de sessie op en vraagt om een naam als de sessie bestaat. anders toont hij een melding dat het niet kan
 	    fetch("gamechane/session/check", { method: 'POST', body: encData })
         .then(function(response) {
         	console.log(response);
@@ -70,7 +71,9 @@
         .catch(error => console.log(error));
 	}
 	
+	//joint de sessie
 	function joinSession(){
+		//gegevens die opgeslagen die moeten gaan worden klaarzetten
 		var name = document.getElementById("naam").value;
 		
 		var formData = new FormData(document.getElementById("gegevensForm")); //pak de data uit de div en maak daar formdata van
@@ -85,18 +88,20 @@
 		    };
 	    var minigames = [];
 	    
+	    //kijkt of de ingevoerde naam langer is dan 3 characters
 	    console.log(arrangement);
 	    if(name.length < 3){
 	    	alert("kies een langere naam");
 	    }
 	    else{
+	    	//slaat de student op in de database
 	    	fetch("gamechane/student", fetchoptionsPost)
-	    	//.then(function(response){
 	    	.then(response =>response.text())
 	    	.then((body) =>{
 	    		try{
 	    			var studentID = body;
 		    		console.log("yay");
+		    		//haalt het arrangement op
 		    		fetch("gamechane/minigames/arrangement/" + arrangement, {method: 'GET'})
 				    .then(response => response.json())
 				    .then(function(myJson){
@@ -104,6 +109,7 @@
 				    	for(minigame of myJson){
 				    		minigames.push(minigame.id);
 				    	}
+				    	//slaat de gegevens die nodig zijn om de sessie te spelen op in de session storage
 				    	console.log(minigames);
 				    	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
 				    	sessionStorage.setItem('studentID',studentID)

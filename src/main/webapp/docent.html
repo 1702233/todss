@@ -27,6 +27,7 @@
         </div>
 <script>
 function login(event) {
+	//zet de gegevens die verstuurd gaan worden klaar
     var ingelogdeDocent = document.getElementById("username").value;
     
     var formData = new FormData(document.getElementById("loginForm")); //pak de data uit de div en maak daar formdata van
@@ -38,6 +39,7 @@ function login(event) {
         body: encData
     };
     
+    //kijkt of de ingevoerde docent gegevens voorkomen in de database
     fetch("gamechane/account", { method: 'POST', body: encData })
         .then(function(response) {
         if (response.ok) 

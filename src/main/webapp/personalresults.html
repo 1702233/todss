@@ -9,6 +9,7 @@
 	<body>
 		<div>
 			<h1>Jouw behaalde resultaten</h1>
+			<!-- Tabel om de resultaten te tonen -->
 			<table id="tableContent">
 				<thead>
 					<tr>
@@ -29,11 +30,14 @@
 			window.location.href="index.html";
 		};
 		
+		//functie die wordt uitgevoerd bij het laden van de pagina
 		(function init(){
+		//haalt de resultaten op van de persoon die de session heeft gehaald
 		fetch("gamechane/student/results/"+student)
 		.then(response => response.json())
 		.then(function(myJson){
 			for(const result of myJson){
+				//vult de tabel met de opgehaalde gegevens
 				var tr = document.createElement("tr");
                 var td = document.createElement("td");
                 var td2 = document.createElement("td");
@@ -53,6 +57,7 @@
 		})
 		})();
 		
+		//calculeert de tijd om naar uur/minuten/tijd te gaan
 		function timeDifference(starttime, endtime){
 			
 			var delta = Math.abs(endtime - starttime) / 1000;

@@ -29,11 +29,14 @@ body {
 
 .winDIV{
 	margin: auto;
-	margin-top:5%;
+	margin-top:20%;
   	display: none;
 	width: 80%;
-	height: 6%;
+	height: 8%;
 	color: black;
+	padding: 1%;
+	border-style: solid;
+	border-width: thin;
 	background: #DEEBF7;
 }
 

@@ -15,6 +15,7 @@
 	<script>
 	document.querySelector("#startMinigame").addEventListener("click", startMinigame);
 	
+	//kijkt hoeveel minigames er nog gespeeld gaan worden en haalt de volgende op
 	var minigames = JSON.parse(sessionStorage.getItem('Minigames'));
 	console.log(minigames.length)
 	
@@ -32,7 +33,7 @@
 	sessionStorage.setItem('Minigames', JSON.stringify(minigames));
 	
 	if(minigameID !==  "undefined"){
-		
+		//haalt de minigame op die gespeeld gaat worden om de gegevens te tonen
 		fetch("gamechane/minigames/" + minigameID)
 		.then(response => response.json())
 		.then(function(myJson) {
@@ -48,6 +49,7 @@
 		document.getElementById("minigametext").innerHTML = "Klik op doorgaan om je besteden tijd te zien.";
 	}
     
+	//kijkt of er nog een minigame te spelen is in de sessie en gaat naar die pagina om het te spelen of naar de resultaten pagina
     function startMinigame(){
     	if(minigameID !== 'undefined'){
 			window.location.href=minigame.type+".html";
